@@ -386,6 +386,7 @@ async def seed_listings():
 @app.on_event("startup")
 async def startup():
     await db.users.create_index("email", unique=True)
+    await db.listings.create_index("id")
     await seed_admin()
     await seed_listings()
 
