@@ -139,7 +139,7 @@ export default function Apply() {
 
         {/* Order summary */}
         <div>
-          <div className="lg:sticky lg:top-24 bg-white border border-slate-200 rounded-3xl overflow-hidden">
+          <div className="lg:sticky lg:top-24 bg-white border border-slate-200 rounded-3xl overflow-hidden" data-testid="order-summary">
             <img src={v.photos[0]} alt="" className="w-full h-40 object-cover" />
             <div className="p-6">
               <h3 className="font-heading font-bold text-[#1A2E25]">{v.make} {v.model} {v.year}</h3>

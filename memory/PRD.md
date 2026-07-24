@@ -13,6 +13,17 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 2 — professional redesign pass)
+- Fixed transparent dropdowns (restored shadcn CSS tokens); homepage min–max budget range slider.
+- Homepage: Spotlight featured car + Browse-by-collection tiles + immersive layout.
+- Header: Turo-style account dropdown (sign up/login as driver, login/register as operator, Why Caro, Calculator, Help, Legal).
+- Immersive scroll-storytelling DriverGuide & OperatorGuide (replaced accordions) with imagery + motion.
+- Vehicle detail: Airbnb-style photo mosaic, real OpenStreetMap map per borough, 360°/tour badges, feature chips.
+- Apply flow restyled with live order-summary sidebar.
+- Driver + Operator dashboards upgraded with recharts charts.
+- New pages: Why Caro, Help/FAQ, Legal, Cost Calculator, Saved cars.
+- Tested: 100% backend (28/28, no regression) + 100% frontend flows.
+
 ## Implemented (2026-06 / iteration 1)
 - Marketplace homepage: hero + search (borough/type/fuel/budget), filter chips, sort, 12 seeded listings, stats, how-it-works, operator CTA.
 - Vehicle detail: photo gallery, full spec, anonymised operator (code only), live cost breakdown panel (rent + mock Quotezone insurance + breakdown = total), sticky mobile panel, reviews.
