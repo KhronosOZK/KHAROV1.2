@@ -16,6 +16,11 @@ import OperatorInterest from "@/pages/OperatorInterest";
 import DriverGuide from "@/pages/DriverGuide";
 import OperatorGuide from "@/pages/OperatorGuide";
 import Admin from "@/pages/Admin";
+import WhyCaro from "@/pages/WhyCaro";
+import Help from "@/pages/Help";
+import Legal from "@/pages/Legal";
+import Calculator from "@/pages/Calculator";
+import Saved from "@/pages/Saved";
 import { api } from "@/lib/api";
 
 function App() {
@@ -36,6 +41,11 @@ function App() {
             <Route path="/list-your-fleet" element={<OperatorInterest />} />
             <Route path="/driver-guide" element={<DriverGuide />} />
             <Route path="/operator-guide" element={<OperatorGuide />} />
+            <Route path="/why-caro" element={<WhyCaro />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/calculator" element={<Calculator />} />
+            <Route path="/saved" element={<Saved />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />
