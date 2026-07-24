@@ -4,7 +4,7 @@ export const IMG = {
   londonStreet: "https://images.unsplash.com/photo-1680027026280-7217b71d3eef?crop=entropy&cs=srgb&fm=jpg&q=85&w=1800",
   londonBus: "https://images.unsplash.com/photo-1534800891164-a1d96b5114e7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1800",
 
-  // storytelling — driver
+  // storytelling, driver
   phoneInCar: "https://images.unsplash.com/photo-1520046045453-547e1175391e?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
   signingCouple: "https://images.unsplash.com/photo-1564846824194-346b7871b855?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
   signingLaptop: "https://images.unsplash.com/photo-1664463760781-f159dfe3af30?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
@@ -13,7 +13,7 @@ export const IMG = {
   happyDriver: "https://images.unsplash.com/photo-1593680351534-b1ec1fecdcc4?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
   driverSuit: "https://images.pexels.com/photos/22669772/pexels-photo-22669772.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
 
-  // storytelling — operator
+  // storytelling, operator
   fleetAerial: "https://images.unsplash.com/photo-1682413009607-835684ad2fff?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
   fleetLot: "https://images.unsplash.com/photo-1593280405106-e438ebe93f5b?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
   handshake: "https://images.pexels.com/photos/7792808/pexels-photo-7792808.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",

@@ -6,14 +6,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 
 const faqs = [
-  { q: "How much does it cost to use Caro?", a: "It's free for drivers to browse and apply. You pay the weekly rent, insurance and any add-ons shown on the listing. Caro takes a 10% handling fee from the rental company's side — never from you." },
+  { q: "How much does it cost to use Caro?", a: "It's free for drivers to browse and apply. You pay the weekly rent, insurance and any add-ons shown on the listing. Caro takes a 10% handling fee from the rental company's side, never from you." },
   { q: "Why are the rental company names hidden?", a: "Operator names and contact details are only revealed once your application is approved. This keeps early enquiries within Caro and protects both sides during the matching process." },
   { q: "Is the insurance proper hire-and-reward cover?", a: "Yes. Standard personal policies exclude private hire work. Every quote we show via Quotezone is proper hire-and-reward cover, so you're never unknowingly uninsured." },
-  { q: "When do I pay, and how?", a: "Nothing is charged until you've been approved and signed your digital rental agreement. All payments go through Caro — you never pay an operator directly by bank transfer." },
+  { q: "When do I pay, and how?", a: "Nothing is charged until you've been approved and signed your digital rental agreement. All payments go through Caro, you never pay an operator directly by bank transfer." },
   { q: "What happens if the car breaks down?", a: "If the listing includes breakdown cover, 24/7 roadside assistance is included. If not, you can add cover for £8/week at checkout, or you're responsible for getting the car to the designated garage." },
-  { q: "What is the deposit and when do I get it back?", a: "The deposit is held securely and released after return, once both sets of timestamped handover photos are compared and agreed — typically within a few working days, minus any agreed deductions." },
+  { q: "What is the deposit and when do I get it back?", a: "The deposit is held securely and released after return, once both sets of timestamped handover photos are compared and agreed, typically within a few working days, minus any agreed deductions." },
   { q: "How quickly will I hear back after applying?", a: "Most drivers get a first response within 24 hours. You'll be notified in-app and by email the moment the operator reviews your application." },
-  { q: "I'm a rental company — how do I list my fleet?", a: "Caro is onboarding its first operators now. Register your interest and we'll reach out before we go live in your area to get you verified and listed." },
+  { q: "I'm a rental company, how do I list my fleet?", a: "Caro is onboarding its first operators now. Register your interest and we'll reach out before we go live in your area to get you verified and listed." },
 ];
 
 export default function Help() {

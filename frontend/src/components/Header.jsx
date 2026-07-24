@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Menu, Heart, LogOut, LayoutDashboard, User, Building2, HelpCircle, Sparkles, Calculator, Scale, ChevronDown } from "lucide-react";
+import { Menu, Heart, LogOut, LayoutDashboard, User, Building2, ArrowRight } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel,
@@ -12,7 +11,7 @@ const navLinks = [
   { to: "/", label: "Search cars" },
   { to: "/why-caro", label: "Why Caro" },
   { to: "/driver-guide", label: "How it works" },
-  { to: "/list-your-fleet", label: "List your fleet" },
+  { to: "/list-your-fleet", label: "For operators" },
 ];
 
 export default function Header() {
@@ -24,79 +23,75 @@ export default function Header() {
     : user && user.role === "admin" ? "/admin" : "/portal";
 
   return (
-    <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/70">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="caro-wordmark text-3xl text-[#1A2E25]" data-testid="logo-link">
-          caro<span className="text-[#047857]">.</span>
+    <header className="sticky top-0 z-50 bg-[#FBFAF8]/85 backdrop-blur-xl border-b border-slate-200/60">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between">
+        <Link to="/" className="caro-wordmark text-[30px] text-[#1A2E25]" data-testid="logo-link">
+          caro<span className="text-[#0B6B4F]">.</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-9">
           {navLinks.map((l) => (
             <Link key={l.to} to={l.to} data-testid={`nav-${l.label.split(" ")[0].toLowerCase()}`}
-              className="text-sm font-medium text-[#475569] hover:text-[#047857] transition-colors">
+              className="text-[14px] font-medium text-[#4A564F] hover:text-[#0B6B4F] transition-colors">
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <button onClick={() => navigate("/saved")} className="hidden sm:inline-flex items-center gap-1.5 text-sm text-[#475569] hover:text-[#047857] transition-colors" data-testid="saved-count">
-            <Heart className="w-4 h-4" /> {saved.length}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <button onClick={() => navigate("/saved")} className="hidden sm:inline-flex items-center gap-1.5 text-[14px] text-[#4A564F] hover:text-[#0B6B4F] transition-colors" data-testid="saved-count">
+            <Heart className="w-[18px] h-[18px]" /> {saved.length > 0 && saved.length}
           </button>
 
-          {/* Account / Menu dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button data-testid="account-menu-btn"
-                className="hidden md:inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white pl-3 pr-2 py-1.5 hover:shadow-md transition-shadow">
-                <Menu className="w-4 h-4 text-[#475569]" />
-                <span className="w-7 h-7 rounded-full bg-[#047857] text-white flex items-center justify-center text-xs font-semibold">
+                className="hidden md:inline-flex items-center gap-2.5 rounded-full border border-slate-300 bg-white pl-3.5 pr-2 py-1.5 hover:shadow-md transition-shadow">
+                <Menu className="w-4 h-4 text-[#4A564F]" />
+                <span className="w-7 h-7 rounded-full bg-[#0B6B4F] text-white flex items-center justify-center text-xs font-semibold">
                   {user ? (user.name ? user.name[0].toUpperCase() : "U") : <User className="w-4 h-4" />}
                 </span>
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-64 bg-white shadow-xl border-slate-200">
+            <DropdownMenuContent align="end" className="w-72 bg-white shadow-xl border-slate-200 p-1.5">
               {user ? (
                 <>
-                  <DropdownMenuLabel className="text-xs text-[#64748B] font-normal">Signed in as {user.email}</DropdownMenuLabel>
-                  <DropdownMenuItem onClick={() => navigate(portalLink)} data-testid="menu-dashboard" className="cursor-pointer py-2.5"><LayoutDashboard className="w-4 h-4 mr-2 text-[#047857]" /> My dashboard</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/saved")} className="cursor-pointer py-2.5"><Heart className="w-4 h-4 mr-2 text-[#047857]" /> Saved cars</DropdownMenuItem>
+                  <DropdownMenuLabel className="text-xs text-[#7A857F] font-normal px-2">Signed in as {user.email}</DropdownMenuLabel>
+                  <DropdownMenuItem onClick={() => navigate(portalLink)} data-testid="menu-dashboard" className="cursor-pointer py-2.5 rounded-lg"><LayoutDashboard className="w-4 h-4 mr-2.5 text-[#0B6B4F]" /> My dashboard</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/saved")} className="cursor-pointer py-2.5 rounded-lg"><Heart className="w-4 h-4 mr-2.5 text-[#0B6B4F]" /> Saved cars</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={logout} data-testid="menu-logout" className="cursor-pointer py-2.5"><LogOut className="w-4 h-4 mr-2" /> Sign out</DropdownMenuItem>
+                  <DropdownMenuItem onClick={logout} data-testid="menu-logout" className="cursor-pointer py-2.5 rounded-lg"><LogOut className="w-4 h-4 mr-2.5" /> Sign out</DropdownMenuItem>
                 </>
               ) : (
                 <>
-                  <DropdownMenuItem onClick={() => navigate("/register")} data-testid="menu-signup-driver" className="cursor-pointer py-2.5 font-semibold"><User className="w-4 h-4 mr-2 text-[#047857]" /> Sign up as a driver</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/login")} data-testid="menu-login" className="cursor-pointer py-2.5"><LayoutDashboard className="w-4 h-4 mr-2 text-[#047857]" /> Log in as a customer</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/list-your-fleet")} data-testid="menu-operator" className="cursor-pointer py-2.5"><Building2 className="w-4 h-4 mr-2 text-[#047857]" /> Log in / register as operator</DropdownMenuItem>
+                  <button onClick={() => navigate("/login")} data-testid="menu-driver"
+                    className="w-full text-left rounded-xl px-3 py-3 hover:bg-[#F1EFE9] transition-colors flex items-start gap-3">
+                    <User className="w-5 h-5 text-[#0B6B4F] mt-0.5" />
+                    <span><span className="block font-semibold text-[#1A2E25] text-[14px]">Drivers</span><span className="block text-[12.5px] text-[#7A857F]">Log in or create your account</span></span>
+                  </button>
+                  <button onClick={() => navigate("/list-your-fleet")} data-testid="menu-operator"
+                    className="w-full text-left rounded-xl px-3 py-3 hover:bg-[#F1EFE9] transition-colors flex items-start gap-3">
+                    <Building2 className="w-5 h-5 text-[#0B6B4F] mt-0.5" />
+                    <span><span className="block font-semibold text-[#1A2E25] text-[14px]">Rental operators</span><span className="block text-[12.5px] text-[#7A857F]">List your fleet or sign in</span></span>
+                  </button>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/why-caro")} className="cursor-pointer py-2.5"><Sparkles className="w-4 h-4 mr-2 text-[#64748B]" /> Why choose Caro</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/calculator")} className="cursor-pointer py-2.5"><Calculator className="w-4 h-4 mr-2 text-[#64748B]" /> Cost calculator</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/help")} className="cursor-pointer py-2.5"><HelpCircle className="w-4 h-4 mr-2 text-[#64748B]" /> Get help</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/legal")} className="cursor-pointer py-2.5"><Scale className="w-4 h-4 mr-2 text-[#64748B]" /> Legal & privacy</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/why-caro")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Why choose Caro</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/calculator")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Cost calculator</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/help")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Get help</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/legal")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Legal and privacy</DropdownMenuItem>
                 </>
               )}
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {!user && (
-            <Button onClick={() => navigate("/register")} data-testid="header-signup-btn"
-              className="hidden md:inline-flex rounded-full bg-[#047857] hover:bg-[#065F46] text-white">
-              Get started
-            </Button>
-          )}
-
-          {/* Mobile */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <button className="md:hidden p-2" data-testid="mobile-menu-btn"><Menu className="w-6 h-6" /></button>
             </SheetTrigger>
             <SheetContent side="right" className="w-80 bg-white overflow-y-auto">
-              <div className="caro-wordmark text-3xl text-[#1A2E25] mt-2 mb-6">caro<span className="text-[#047857]">.</span></div>
+              <div className="caro-wordmark text-3xl text-[#1A2E25] mt-2 mb-6">caro<span className="text-[#0B6B4F]">.</span></div>
               <div className="flex flex-col gap-1">
-                {navLinks.map((l) => (
-                  <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="py-3 px-2 text-base font-medium text-[#1A2E25] hover:bg-[#F3F1EC] rounded-lg">{l.label}</Link>
-                ))}
+                {navLinks.map((l) => (<Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="py-3 px-2 text-base font-medium text-[#1A2E25] hover:bg-[#F1EFE9] rounded-lg">{l.label}</Link>))}
                 <div className="border-t border-slate-200 my-3" />
                 {user ? (
                   <>
@@ -106,14 +101,13 @@ export default function Header() {
                   </>
                 ) : (
                   <>
-                    <Link to="/register" onClick={() => setOpen(false)} className="py-3 px-2 font-semibold text-[#047857]">Sign up as a driver</Link>
-                    <Link to="/login" onClick={() => setOpen(false)} className="py-3 px-2 font-medium">Log in as a customer</Link>
-                    <Link to="/list-your-fleet" onClick={() => setOpen(false)} className="py-3 px-2 font-medium">Register as operator</Link>
+                    <Link to="/login" onClick={() => setOpen(false)} className="py-3 px-2 font-semibold text-[#0B6B4F] flex items-center gap-2">Drivers: log in or sign up <ArrowRight className="w-4 h-4" /></Link>
+                    <Link to="/list-your-fleet" onClick={() => setOpen(false)} className="py-3 px-2 font-semibold text-[#0B6B4F] flex items-center gap-2">Operators: list your fleet <ArrowRight className="w-4 h-4" /></Link>
                     <div className="border-t border-slate-200 my-3" />
-                    <Link to="/why-caro" onClick={() => setOpen(false)} className="py-3 px-2 text-[#475569]">Why choose Caro</Link>
-                    <Link to="/calculator" onClick={() => setOpen(false)} className="py-3 px-2 text-[#475569]">Cost calculator</Link>
-                    <Link to="/help" onClick={() => setOpen(false)} className="py-3 px-2 text-[#475569]">Get help</Link>
-                    <Link to="/legal" onClick={() => setOpen(false)} className="py-3 px-2 text-[#475569]">Legal & privacy</Link>
+                    <Link to="/why-caro" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Why choose Caro</Link>
+                    <Link to="/calculator" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Cost calculator</Link>
+                    <Link to="/help" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Get help</Link>
+                    <Link to="/legal" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Legal and privacy</Link>
                   </>
                 )}
               </div>

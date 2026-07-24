@@ -34,7 +34,7 @@ export default function Admin() {
     <main className="max-w-md mx-auto px-4 py-16">
       <div className="bg-white border border-slate-200 rounded-2xl p-8">
         <Lock className="w-6 h-6 text-[#047857]" />
-        <h1 className="text-2xl font-heading font-bold text-[#1A2E25] mt-3">Caro Ops — admin</h1>
+        <h1 className="text-2xl font-heading font-bold text-[#1A2E25] mt-3">Caro Ops, admin</h1>
         <p className="text-sm text-[#64748B] mt-1 mb-6">Sign in with your operations account to view captured leads.</p>
         <form onSubmit={doLogin} className="space-y-4">
           <div><Label className="mb-1.5 block text-sm">Email</Label><Input type="email" value={creds.email} onChange={(e) => setCreds((p) => ({ ...p, email: e.target.value }))} data-testid="admin-email" /></div>
@@ -56,7 +56,7 @@ export default function Admin() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25]">Interest & leads tracker</h1>
-      <p className="text-[#64748B] mt-1">Every captured email, phone number and enquiry — export any table as CSV for outreach.</p>
+      <p className="text-[#64748B] mt-1">Every captured email, phone number and enquiry, export any table as CSV for outreach.</p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-6">
         {cards.map((c) => (
@@ -88,7 +88,7 @@ export default function Admin() {
                   <tbody>
                     {rows.map((r, i) => (
                       <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-[#F9F8F6]">
-                        {columns.map((c) => <td key={c} className="py-2.5 px-4 text-[#475569] whitespace-nowrap max-w-xs truncate">{String(r[c] ?? "—")}</td>)}
+                        {columns.map((c) => <td key={c} className="py-2.5 px-4 text-[#475569] whitespace-nowrap max-w-xs truncate">{String(r[c] ?? "-")}</td>)}
                       </tr>
                     ))}
                   </tbody>

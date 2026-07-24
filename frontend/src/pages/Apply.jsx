@@ -93,7 +93,7 @@ export default function Apply() {
             </div>)}
             {step === 1 && (<div>
               <h1 className="text-2xl font-heading font-bold text-[#1A2E25]">Licence & driving info</h1>
-              <p className="text-sm text-[#64748B] mt-1 mb-6">The same information insurers ask for — captured once so you're never asked twice.</p>
+              <p className="text-sm text-[#64748B] mt-1 mb-6">The same information insurers ask for, captured once so you're never asked twice.</p>
               <div className="space-y-4">
                 <Field label="DVLA licence number" testid="apply-dvla"><Input value={f.dvla_licence} onChange={set("dvla_licence")} placeholder="SMITH901284JS9AB" className="h-11" /></Field>
                 <Field label="PCO / TfL licence number (6 digits)" testid="apply-pco"><Input value={f.pco_licence} onChange={set("pco_licence")} placeholder="123456" className="h-11" /></Field>
@@ -120,10 +120,10 @@ export default function Apply() {
                 <Rev l="Vehicle" v={`${v.make} ${v.model} ${v.year}`} />
                 <Rev l="Applicant" v={f.full_name} />
                 <Rev l="Weekly rent" v={`£${v.weekly_rent.toFixed(2)}`} />
-                <Rev l="Insurance" v={`${quote?.quotes?.[0]?.insurer || "Quote"} — £${insurance.toFixed(2)}/wk`} />
+                <Rev l="Insurance" v={`${quote?.quotes?.[0]?.insurer || "Quote"}, £${insurance.toFixed(2)}/wk`} />
                 <div className="border-t border-slate-200 pt-3 flex justify-between font-semibold text-base"><span>Total estimated weekly cost</span><span className="text-[#047857]">£{total}</span></div>
               </div>
-              <div className="mt-4 flex items-start gap-2 text-xs text-[#64748B]"><ShieldCheck className="w-4 h-4 text-[#047857] shrink-0 mt-0.5" /> Your details are used only to vet you for this rental — never sold on. You won't be charged until you've signed a digital agreement.</div>
+              <div className="mt-4 flex items-start gap-2 text-xs text-[#64748B]"><ShieldCheck className="w-4 h-4 text-[#047857] shrink-0 mt-0.5" /> Your details are used only to vet you for this rental, never sold on. You won't be charged until you've signed a digital agreement.</div>
             </div>)}
 
             <div className="flex gap-3 mt-8">

@@ -57,7 +57,7 @@ export default function DriverPortal() {
             <div className="space-y-3" data-testid="my-applications">
               {apps.map((a, i) => { const s = statusMap[a.status] || statusMap.under_review; return (
                 <div key={i} className="flex items-center justify-between border border-slate-100 rounded-2xl p-3">
-                  <div><div className="font-medium text-[#1A2E25] text-sm">{a.vehicle || "Vehicle"}</div><div className="text-xs text-[#64748B]">Operator · {a.operator_code || "—"}</div></div>
+                  <div><div className="font-medium text-[#1A2E25] text-sm">{a.vehicle || "Vehicle"}</div><div className="text-xs text-[#64748B]">Operator · {a.operator_code || "-"}</div></div>
                   <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full ${s.c}`}><s.i className="w-3 h-3" /> {s.t}</span>
                 </div>); })}
             </div>
@@ -83,7 +83,7 @@ export default function DriverPortal() {
           <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0" /><span className="text-sm text-amber-900 flex-1">Upload your PCO/TfL badge photo to finish verification.</span><Button size="sm" className="rounded-full bg-[#047857] hover:bg-[#065F46] text-white text-xs">Upload</Button>
         </div>
         <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
-          <CalendarClock className="w-5 h-5 text-[#047857] shrink-0" /><span className="text-sm text-[#475569]">MOT due 18 Aug 2026 — already booked by your operator at Stratford Motors.</span>
+          <CalendarClock className="w-5 h-5 text-[#047857] shrink-0" /><span className="text-sm text-[#475569]">MOT due 18 Aug 2026, already booked by your operator at Stratford Motors.</span>
         </div>
       </div>
     </main>

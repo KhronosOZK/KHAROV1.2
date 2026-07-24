@@ -16,10 +16,10 @@ const revChart = [
 ];
 const fleet = [
   ["Toyota Prius 2022", "LK22 CAR · Jordan S.", "Rented", "£265"],
-  ["Toyota Camry 2022", "LK22 CMY · —", "Available", "£280"],
-  ["Ford Galaxy 2021", "LG21 GXY · —", "Maintenance", "£245"],
+  ["Toyota Camry 2022", "LK22 CMY · unassigned", "Available", "£280"],
+  ["Ford Galaxy 2021", "LG21 GXY · unassigned", "Maintenance", "£245"],
   ["Skoda Octavia 2020", "SK20 OCT · Amara P.", "Rented", "£210"],
-  ["Tesla Model 3 2023", "TM23 EVX · —", "Available", "£340"],
+  ["Tesla Model 3 2023", "TM23 EVX · unassigned", "Available", "£340"],
 ];
 const apps = [
   ["Priya N.", "4 yrs experience · 4.9★ history · Toyota Camry", "Check passed", true],
@@ -27,7 +27,7 @@ const apps = [
   ["Elif K.", "6 yrs experience · 4.7★ history · Toyota Camry", "Check passed", true],
 ];
 const revenue = [["Toyota Prius", "4", "£1,060.00", "£954.00"], ["Skoda Octavia", "4", "£840.00", "£756.00"], ["Toyota Camry", "2", "£560.00", "£504.00"]];
-const compliance = ["MOT due in 12 days — Toyota Prius (LK22 CAR)", "Insurance renewal in 30 days — fleet-wide", "PHV licence renewal in 41 days — Ford Galaxy (LG21 GXY)", "Road tax renewal in 58 days — Skoda Octavia (SK20 OCT)"];
+const compliance = ["MOT due in 12 days, Toyota Prius (LK22 CAR)", "Insurance renewal in 30 days, fleet-wide", "PHV licence renewal in 41 days, Ford Galaxy (LG21 GXY)", "Road tax renewal in 58 days, Skoda Octavia (SK20 OCT)"];
 const statusColor = (s) => s === "Rented" ? "text-emerald-800 bg-emerald-50" : s === "Available" ? "text-blue-800 bg-blue-50" : "text-amber-800 bg-amber-50";
 
 export default function OperatorDashboard() {
@@ -106,7 +106,7 @@ export default function OperatorDashboard() {
             <Stat l="Caro fee this month" v="£1,285.00" hint="10% flat" />
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-5">
-            <div className="flex items-center justify-between mb-3"><h3 className="font-heading font-bold text-[#1A2E25]">Revenue by vehicle — this month</h3><Button size="sm" variant="outline" className="rounded-full">Export CSV</Button></div>
+            <div className="flex items-center justify-between mb-3"><h3 className="font-heading font-bold text-[#1A2E25]">Revenue by vehicle, this month</h3><Button size="sm" variant="outline" className="rounded-full">Export CSV</Button></div>
             <table className="w-full text-sm">
               <thead><tr className="text-left text-[#64748B] text-xs border-b border-slate-100"><th className="py-2">Vehicle</th><th>Weeks</th><th>Gross</th><th className="text-right">Net (after 10%)</th></tr></thead>
               <tbody>{revenue.map((r) => (<tr key={r[0]} className="border-b border-slate-100 last:border-0"><td className="py-2.5 text-[#1A2E25] font-medium">{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td><td className="text-right text-emerald-700 font-semibold">{r[3]}</td></tr>))}</tbody>
