@@ -75,32 +75,6 @@ export default function Admin() {
     { l: "Listing views", v: summary.listing_views }, { l: "Applications", v: summary.applications },
   ] : [];
 
-  const columns = rows.length ? Object.keys(rows[0]).filter((k) => k !== "data" && k !== "password_hash").slice(0, 6) : [];
-
-  const filtered = useMemo(() => rows.filter((r) => {
-    const cdate = typeof r.created_at === "string" ? r.created_at.slice(0, 10) : "";
-    if (from && cdate && cdate < from) return false;
-    if (to && cdate && cdate > to) return false;
-    if (q) {
-      const hay = columns.map((c) => String(r[c] ?? "")).join(" ").toLowerCase();
-      if (!hay.includes(q.toLowerCase())) return false;
-    }
-    return true;
-  }), [rows, q, from, to, columns]);
-
-  const columns = rows.length ? Object.keys(rows[0]).filter((k) => k !== "data" && k !== "password_hash").slice(0, 6) : [];
-
-  const filtered = useMemo(() => rows.filter((r) => {
-    const cdate = typeof r.created_at === "string" ? r.created_at.slice(0, 10) : "";
-    if (from && cdate && cdate < from) return false;
-    if (to && cdate && cdate > to) return false;
-    if (q) {
-      const hay = columns.map((c) => String(r[c] ?? "")).join(" ").toLowerCase();
-      if (!hay.includes(q.toLowerCase())) return false;
-    }
-    return true;
-  }), [rows, q, from, to, columns]);
-
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       {/* Investor headline banner */}
