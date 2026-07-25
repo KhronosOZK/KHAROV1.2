@@ -56,7 +56,7 @@ export default function DriverPortal() {
           ) : (
             <div className="space-y-3" data-testid="my-applications">
               {apps.map((a, i) => { const s = statusMap[a.status] || statusMap.under_review; return (
-                <div key={i} className="flex items-center justify-between border border-slate-100 rounded-2xl p-3">
+                <div key={a.id || a.listing_id || `app-${i}`} className="flex items-center justify-between border border-slate-100 rounded-2xl p-3">
                   <div><div className="font-medium text-[#1A2E25] text-sm">{a.vehicle || "Vehicle"}</div><div className="text-xs text-[#64748B]">Operator · {a.operator_code || "-"}</div></div>
                   <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full ${s.c}`}><s.i className="w-3 h-3" /> {s.t}</span>
                 </div>); })}

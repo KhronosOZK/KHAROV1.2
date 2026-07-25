@@ -20,8 +20,24 @@ if not BASE_URL:
                 break
 
 API = f"{BASE_URL}/api"
-ADMIN_EMAIL = "admin@caro.co.uk"
-ADMIN_PASSWORD = "CaroAdmin2026!"
+
+
+def _backend_env(key, path="/app/backend/.env"):
+    val = os.environ.get(key)
+    if val:
+        return val
+    try:
+        with open(path) as fh:
+            for line in fh:
+                if line.startswith(f"{key}="):
+                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+    except FileNotFoundError:
+        pass
+    return None
+
+
+ADMIN_EMAIL = _backend_env("ADMIN_EMAIL")
+ADMIN_PASSWORD = _backend_env("ADMIN_PASSWORD")
 
 
 @pytest.fixture(scope="session")
@@ -96,7 +112,7 @@ class TestListings:
         r = s.get(f"{API}/listings", params={"breakdown": "true"})
         assert r.status_code == 200
         for d in r.json():
-            assert d.get("breakdown_included") is True
+            assert d.get("breakdown_included") == True
 
     def test_sort_price_asc(self, s):
         r = s.get(f"{API}/listings", params={"sort": "price_asc"})
@@ -270,7 +286,7 @@ class TestInterestStats:
         }
         r = s.post(f"{API}/interest", json=payload)
         assert r.status_code == 200
-        assert r.json()["ok"] is True
+        assert r.json()["ok"] == True
 
     def test_stats(self, s):
         r = s.get(f"{API}/stats")

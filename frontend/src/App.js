@@ -27,12 +27,12 @@ import { api, trackEvent } from "@/lib/api";
 
 function RouteTracker() {
   const loc = useLocation();
-  useEffect(() => { trackEvent("page_view", { path: loc.pathname }); }, [loc.pathname]);
+  useEffect(() => { trackEvent("page_view", { path: loc.pathname }); }, [loc.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
 }
 
 function App() {
-  useEffect(() => { api.get("/").catch(() => {}); }, []);
+  useEffect(() => { api.get("/").catch(() => {}); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="App">
       <AuthProvider>

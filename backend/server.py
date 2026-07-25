@@ -371,6 +371,28 @@ async def admin_analytics(_: dict = Depends(require_admin)):
         rows = await db[coll].aggregate([{"$group": {"_id": f"${field}", "n": {"$sum": 1}}}, {"$sort": {"n": -1}}, {"$limit": 12}]).to_list(12)
         return [{"label": r["_id"], "count": r["n"]} for r in rows if r["_id"]]
     lead_sources = await db.leads.aggregate([{"$group": {"_id": "$source", "n": {"$sum": 1}}}, {"$sort": {"n": -1}}]).to_list(20)
+
+    async def daily(coll, match=None):
+        rows = await db[coll].aggregate([
+            {"$match": match or {}},
+            {"$group": {"_id": {"$substr": ["$created_at", 0, 10]}, "n": {"$sum": 1}}},
+        ]).to_list(2000)
+        return {r["_id"]: r["n"] for r in rows if r["_id"]}
+
+    leads_daily = await daily("leads")
+    views_daily = await daily("events", {"type": "page_view"})
+    signups_daily = await daily("users", {"role": "driver"})
+    interests_daily = await daily("interests")
+    today = datetime.now(timezone.utc).date()
+    trend = []
+    for i in range(13, -1, -1):
+        d = (today - timedelta(days=i)).isoformat()
+        trend.append({
+            "date": d, "label": d[5:],
+            "leads": leads_daily.get(d, 0), "views": views_daily.get(d, 0),
+            "signups": signups_daily.get(d, 0), "interests": interests_daily.get(d, 0),
+        })
+
     funnel = {
         "page_views": await db.events.count_documents({"type": "page_view"}),
         "searches": await db.events.count_documents({"type": "search"}),
@@ -381,6 +403,7 @@ async def admin_analytics(_: dict = Depends(require_admin)):
     }
     return {
         "funnel": funnel,
+        "trend": trend,
         "lead_sources": [{"label": r["_id"], "count": r["n"]} for r in lead_sources if r["_id"]],
         "city_demand": await agg_city("city_requests", "city"),
         "total_leads": await db.leads.count_documents({}),

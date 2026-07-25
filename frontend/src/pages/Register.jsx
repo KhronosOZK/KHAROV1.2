@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Check } from "lucide-react";
+import { Check, Sparkles, ArrowRight } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { AnimatedNumber } from "@/components/AnimatedNumber";
 import { IMG } from "@/lib/images";
 
 const steps = ["You", "Login", "Licence"];
+const typeChips = [
+  { key: "any", label: "Any car" },
+  { key: "hybrid", label: "Hybrid" },
+  { key: "electric", label: "Electric" },
+  { key: "executive", label: "Executive" },
+  { key: "wav", label: "Accessible" },
+];
 
 export default function Register() {
   const { register } = useAuth();
@@ -17,6 +27,19 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [f, setF] = useState({ name: "", email: "", phone: "", password: "", dob: "", dvla_licence: "", pco_licence: "" });
   const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
+
+  // Interactive match explorer
+  const [listings, setListings] = useState([]);
+  const [pick, setPick] = useState("any");
+  const [budget, setBudget] = useState(350);
+  useEffect(() => { api.get("/listings").then((r) => setListings(r.data || [])).catch(() => {}); }, []);
+
+  const matches = useMemo(() => listings.filter((v) => {
+    const okType = pick === "any" || v.fuel === pick || v.vehicle_type === pick;
+    return okType && v.weekly_rent <= budget;
+  }), [listings, pick, budget]);
+  const cheapest = matches.length ? Math.min(...matches.map((v) => v.weekly_rent)) : null;
+  const hero = matches[0];
 
   const canNext = () => {
     if (step === 0) return f.name && f.email && f.phone;
@@ -33,34 +56,53 @@ export default function Register() {
   const next = () => { if (!canNext()) { toast.error("Please fill in the fields on this step."); return; } if (step < 2) setStep(step + 1); else finish(); };
 
   return (
-    <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       <div className="grid lg:grid-cols-5 gap-8">
+        {/* INTERACTIVE MATCH EXPLORER */}
         <div className="lg:col-span-2">
-          <div className="relative rounded-[22px] overflow-hidden min-h-[300px] lg:h-full">
-            <img src={IMG.driverNight} alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0A130F]/68 via-[#0A130F]/82 to-[#0A130F]/96" />
-            <div className="relative p-7 sm:p-8 text-white h-full flex flex-col justify-between gap-7">
+          <div className="relative rounded-[24px] overflow-hidden bg-[#0A130F] text-white h-full min-h-[440px]" data-testid="match-explorer">
+            <img key={hero ? hero.id : "fallback"} src={hero ? hero.photos[0] : IMG.driverNight} alt=""
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0A130F]/35 via-[#0A130F]/72 to-[#0A130F]/97" />
+            <div className="relative p-6 sm:p-7 h-full flex flex-col justify-between gap-6">
               <div>
-                <p className="text-[12px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">Join 1,240+ London drivers</p>
-                <h2 className="text-[26px] sm:text-[30px] font-heading font-extrabold mt-3 leading-[1.08]">Your next car is minutes away.</h2>
-                <p className="text-white/75 mt-3 text-[14.5px] leading-relaxed">Set your details up once. After that, every car you like is one tap from an application, with insurance and cover already priced in.</p>
+                <p className="text-[12px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">See what is waiting for you</p>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <AnimatedNumber value={matches.length} className="text-5xl font-heading font-extrabold text-white leading-none" data-testid="match-count" />
+                  <span className="text-white/70 text-[15px]">cars match right now</span>
+                </div>
+                <p className="text-white/70 text-[14px] mt-2">
+                  {cheapest != null ? <>From <span className="font-semibold text-white">£{cheapest}/wk</span>, insurance and cover already included.</> : "Widen your budget to see more cars."}
+                </p>
               </div>
 
-              <div className="rounded-2xl bg-white/[0.07] ring-1 ring-white/10 p-5 backdrop-blur-sm">
-                <div className="text-[#F4B740] text-sm tracking-wide">★★★★★</div>
-                <p className="text-[14px] text-white/90 mt-2 leading-relaxed">"Took me ten minutes to find a hybrid and get approved. No deposit games, no chasing a stranger on WhatsApp."</p>
-                <p className="text-[12.5px] text-white/55 mt-2.5">Marcus O., PCO driver in Croydon</p>
+              <div className="rounded-2xl bg-white/[0.08] ring-1 ring-white/10 p-4 backdrop-blur-md">
+                <div className="flex flex-wrap gap-1.5">
+                  {typeChips.map((c) => (
+                    <button key={c.key} onClick={() => setPick(c.key)} data-testid={`explore-type-${c.key}`}
+                      className={`text-[12.5px] px-3 py-1.5 rounded-full transition-all ${pick === c.key ? "bg-[#5FD3A6] text-[#0A130F] font-semibold" : "bg-white/10 text-white/80 hover:bg-white/20"}`}>
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-4">
+                  <div className="flex items-center justify-between text-[12.5px] text-white/75 mb-1.5">
+                    <span>Weekly budget</span><span className="font-semibold text-white">up to £{budget}{budget >= 400 ? "+" : ""}</span>
+                  </div>
+                  <Slider min={180} max={400} step={5} value={[budget]} onValueChange={(v) => setBudget(v[0])} data-testid="explore-budget" />
+                </div>
               </div>
 
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {["We never sell your details on", "Most drivers hear back within a day", "Nothing charged until you are behind the wheel"].map((t) => (
-                  <div key={t} className="flex items-center gap-2.5 text-[13.5px] text-white/85"><Check className="w-4 h-4 text-[#5FD3A6] shrink-0" /> {t}</div>
+                  <div key={t} className="flex items-center gap-2.5 text-[13px] text-white/85"><Check className="w-4 h-4 text-[#5FD3A6] shrink-0" /> {t}</div>
                 ))}
               </div>
             </div>
           </div>
         </div>
 
+        {/* SIGN UP FORM */}
         <div className="lg:col-span-3">
           <div className="flex items-center gap-2 mb-7">
             {steps.map((s, i) => (
@@ -75,6 +117,11 @@ export default function Register() {
           </div>
 
           <div className="bg-white rounded-[22px] p-7 ring-1 ring-slate-200/70">
+            {matches.length > 0 && (
+              <div className="mb-6 flex items-center gap-2 rounded-full bg-emerald-50 text-[#0B6B4F] text-[13px] font-medium px-4 py-2 w-fit">
+                <Sparkles className="w-3.5 h-3.5" /> {matches.length} cars are ready for you the moment you finish
+              </div>
+            )}
             {step === 0 && (<div>
               <h1 className="text-2xl font-heading font-bold text-[#1A2E25]">Let us get to know you</h1>
               <p className="text-[15px] text-[#4A564F] mt-2 mb-7">Just the basics for now. Licence details can wait.</p>
@@ -104,7 +151,7 @@ export default function Register() {
             <div className="flex gap-3 mt-8">
               {step > 0 && <Button variant="outline" onClick={() => setStep(step - 1)} className="rounded-full" data-testid="reg-back">Back</Button>}
               <Button onClick={next} disabled={loading} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white flex-1" data-testid={step === 2 ? "reg-submit" : "reg-continue"}>
-                {step < 2 ? "Continue" : (loading ? "Creating your account" : "Create account and browse cars")}
+                {step < 2 ? "Continue" : (loading ? "Creating your account" : "Create account and browse cars")} {step < 2 && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </div>
           </div>

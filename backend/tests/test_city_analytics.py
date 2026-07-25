@@ -16,8 +16,24 @@ if not BASE_URL:
                 BASE_URL = line.split("=", 1)[1].strip().rstrip("/")
                 break
 API = f"{BASE_URL}/api"
-ADMIN_EMAIL = "admin@caro.co.uk"
-ADMIN_PASSWORD = "CaroAdmin2026!"
+
+
+def _backend_env(key, path="/app/backend/.env"):
+    val = os.environ.get(key)
+    if val:
+        return val
+    try:
+        with open(path) as fh:
+            for line in fh:
+                if line.startswith(f"{key}="):
+                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+    except FileNotFoundError:
+        pass
+    return None
+
+
+ADMIN_EMAIL = _backend_env("ADMIN_EMAIL")
+ADMIN_PASSWORD = _backend_env("ADMIN_PASSWORD")
 
 
 @pytest.fixture(scope="module")
@@ -77,7 +93,7 @@ class TestCityInterest:
         }
         r = requests.post(f"{API}/city-interest", json=payload)
         assert r.status_code == 200
-        assert r.json().get("ok") is True
+        assert r.json().get("ok") == True
 
         # Verify present in city_requests via admin
         rows = admin_sess.get(f"{API}/admin/city_requests").json()

@@ -34,3 +34,32 @@ export function estimateOperatorAnnual(fleetSizeLabel) {
   const perCarYear = Math.round(avgWeekly * 52 * utilisation);
   return { perCarYear, fleetYear: perCarYear * midpoint, cars: midpoint };
 }
+
+// Vehicle classes used by the interactive earnings estimator
+export const VEHICLE_CLASSES = [
+  { key: "hybrid", label: "Hybrid saloon", weekly: 255 },
+  { key: "executive", label: "Executive", weekly: 330 },
+  { key: "electric", label: "Electric", weekly: 235 },
+  { key: "wav", label: "Wheelchair access", weekly: 255 },
+];
+
+export function fleetBucket(cars) {
+  if (cars <= 5) return "1-5";
+  if (cars <= 15) return "6-15";
+  if (cars <= 30) return "16-30";
+  return "30+";
+}
+
+// Interactive fleet earnings estimator (Airbnb-style)
+export function estimateFleetEarnings(cars, weekly, utilisation = 0.85, feeRate = 0.10) {
+  const grossWeekly = cars * weekly * utilisation;
+  const grossYear = grossWeekly * 52;
+  const grossMonth = grossYear / 12;
+  return {
+    grossMonth: Math.round(grossMonth),
+    grossYear: Math.round(grossYear),
+    netMonth: Math.round(grossMonth * (1 - feeRate)),
+    netYear: Math.round(grossYear * (1 - feeRate)),
+    perCarMonth: Math.round((weekly * utilisation * 52) / 12),
+  };
+}

@@ -28,7 +28,7 @@ export default function VehicleDetail() {
       setV(r.data);
       api.post("/quote", { listing_id: id }).then((q) => setQuote(q.data)).catch(() => {});
     }).catch(() => navigate("/"));
-  }, [id, navigate]);
+  }, [id, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!v) return <div className="max-w-7xl mx-auto px-4 py-20 text-[#7A857F]">Loading…</div>;
 
@@ -74,14 +74,14 @@ export default function VehicleDetail() {
           <img src={v.photos[0]} alt="" className="w-full h-full object-cover" />
         </div>
         {v.photos.slice(1, 5).map((p, i) => (
-          <div key={i} className="hidden sm:block cursor-pointer overflow-hidden" onClick={() => setPhoto(i + 1)}>
+          <div key={`${p}-${i}`} className="hidden sm:block cursor-pointer overflow-hidden" onClick={() => setPhoto(i + 1)}>
             <img src={p} alt="" className="w-full h-full object-cover hover:brightness-95 transition-all" />
           </div>
         ))}
       </div>
       <div className="flex gap-2 mt-3 overflow-x-auto hide-scrollbar">
         {v.photos.map((p, i) => (
-          <button key={i} onClick={() => setPhoto(i)} className={`w-20 h-16 rounded-lg overflow-hidden ring-2 shrink-0 ${photo === i ? "ring-[#0B6B4F]" : "ring-transparent"}`}><img src={p} alt="" className="w-full h-full object-cover" /></button>
+          <button key={`${p}-${i}`} onClick={() => setPhoto(i)} className={`w-20 h-16 rounded-lg overflow-hidden ring-2 shrink-0 ${photo === i ? "ring-[#0B6B4F]" : "ring-transparent"}`}><img src={p} alt="" className="w-full h-full object-cover" /></button>
         ))}
       </div>
 

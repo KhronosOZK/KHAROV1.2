@@ -65,7 +65,7 @@ export default function OperatorDashboard() {
                 <BarChart data={revChart}>
                   <XAxis dataKey="name" tickLine={false} axisLine={false} fontSize={12} stroke="#64748B" />
                   <Tooltip cursor={{ fill: "#F3F1EC" }} formatter={(x) => [`£${x}`, "Net"]} />
-                  <Bar dataKey="v" radius={[6, 6, 0, 0]}>{revChart.map((_, i) => <Cell key={i} fill={i % 2 ? "#10B981" : "#047857"} />)}</Bar>
+                  <Bar dataKey="v" radius={[6, 6, 0, 0]}>{revChart.map((d, i) => <Cell key={d.name} fill={i % 2 ? "#10B981" : "#047857"} />)}</Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>

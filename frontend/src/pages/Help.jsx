@@ -34,7 +34,7 @@ export default function Help() {
 
       <Accordion type="single" collapsible className="mt-10">
         {filtered.map((f, i) => (
-          <AccordionItem key={i} value={`f-${i}`} className="border border-slate-200 rounded-2xl mb-3 px-5 bg-white">
+          <AccordionItem key={f.q} value={`f-${i}`} className="border border-slate-200 rounded-2xl mb-3 px-5 bg-white">
             <AccordionTrigger className="hover:no-underline font-heading font-bold text-[#1A2E25] text-left" data-testid={`faq-${i}`}>{f.q}</AccordionTrigger>
             <AccordionContent className="text-[#475569] leading-relaxed">{f.a}</AccordionContent>
           </AccordionItem>

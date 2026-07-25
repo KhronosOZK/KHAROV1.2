@@ -29,7 +29,7 @@ export default function Apply() {
     window.scrollTo(0, 0);
     api.get(`/listings/${id}`).then((r) => setV(r.data)).catch(() => navigate("/"));
     api.post("/quote", { listing_id: id }).then((r) => setQuote(r.data)).catch(() => {});
-  }, [id, navigate]);
+  }, [id, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!user) return;
@@ -43,7 +43,7 @@ export default function Apply() {
       }));
       if (u.dvla_licence || u.pco_licence) setPrefilled(true);
     }).catch(() => {});
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
   const insurance = quote ? quote.cheapest_weekly : 0;
