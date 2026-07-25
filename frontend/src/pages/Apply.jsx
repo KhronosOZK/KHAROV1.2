@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { Check, ShieldCheck, Lock, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
@@ -15,13 +15,14 @@ const steps = ["Your plan", "About you", "Licence", "Review"];
 export default function Apply() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [sp] = useSearchParams();
   const { user } = useAuth();
   const [v, setV] = useState(null);
   const [quote, setQuote] = useState(null);
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [prefilled, setPrefilled] = useState(false);
-  const [weeks, setWeeks] = useState(8);
+  const [weeks, setWeeks] = useState(Number(sp.get("weeks")) || 8);
   const [f, setF] = useState({ full_name: "", email: "", phone: "", dob: "", dvla_licence: "", pco_licence: "", years_experience: "", previous_incidents: "none" });
 
   useEffect(() => {

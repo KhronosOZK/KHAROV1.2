@@ -75,7 +75,6 @@ export default function Header() {
                     <span><span className="block font-semibold text-[#1A2E25] text-[14px]">Rental operators</span><span className="block text-[12.5px] text-[#7A857F]">List your fleet or sign in</span></span>
                   </button>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/why-caro")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Why choose Caro</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/calculator")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Cost calculator</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/help")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Get help</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/legal")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Legal and privacy</DropdownMenuItem>

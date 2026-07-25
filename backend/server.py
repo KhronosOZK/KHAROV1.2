@@ -126,6 +126,14 @@ class EventIn(BaseModel):
     type: str
     data: Optional[dict] = None
 
+class CityInterestIn(BaseModel):
+    city: str
+    name: Optional[str] = None
+    email: EmailStr
+    phone: Optional[str] = None
+    vehicle_type: Optional[str] = None
+    note: Optional[str] = None
+
 class LeadIn(BaseModel):
     name: Optional[str] = None
     email: Optional[EmailStr] = None
@@ -183,10 +191,12 @@ async def me(user: dict = Depends(get_current_user)):
 
 # ---------------------------------------------------------------- Listings
 @api.get("/listings")
-async def list_listings(borough: Optional[str] = None, vehicle_type: Optional[str] = None,
+async def list_listings(city: Optional[str] = None, borough: Optional[str] = None, vehicle_type: Optional[str] = None,
                         fuel: Optional[str] = None, max_budget: Optional[int] = None,
                         breakdown: Optional[bool] = None, sort: Optional[str] = None):
     q = {}
+    if city and city != "all":
+        q["city"] = city
     if borough and borough != "all":
         q["borough"] = borough
     if vehicle_type and vehicle_type != "any":
@@ -311,6 +321,25 @@ async def create_event(body: EventIn):
     await db.events.insert_one({"type": body.type, "data": body.data or {}, "created_at": now_iso()})
     return {"ok": True}
 
+@api.post("/city-interest")
+async def city_interest(body: CityInterestIn):
+    doc = body.model_dump()
+    doc["email"] = doc["email"].lower()
+    doc["created_at"] = now_iso()
+    await db.city_requests.insert_one(doc)
+    await db.leads.insert_one({
+        "name": body.name, "email": body.email.lower(), "phone": body.phone,
+        "source": "city_request", "created_at": now_iso(),
+        "data": {"city": body.city, "vehicle_type": body.vehicle_type},
+    })
+    return {"ok": True}
+
+@api.get("/city-demand")
+async def city_demand():
+    pipeline = [{"$group": {"_id": "$city", "count": {"$sum": 1}}}, {"$sort": {"count": -1}}]
+    rows = await db.city_requests.aggregate(pipeline).to_list(100)
+    return [{"city": r["_id"], "requests": r["count"]} for r in rows]
+
 @api.get("/stats")
 async def stats():
     drivers = await db.users.count_documents({"role": "driver"})
@@ -332,11 +361,34 @@ async def admin_summary(_: dict = Depends(require_admin)):
         "events": await db.events.count_documents({}),
         "listing_views": await db.events.count_documents({"type": "listing_view"}),
         "searches": await db.events.count_documents({"type": "search"}),
+        "city_requests": await db.city_requests.count_documents({}),
+        "page_views": await db.events.count_documents({"type": "page_view"}),
+    }
+
+@api.get("/admin/analytics")
+async def admin_analytics(_: dict = Depends(require_admin)):
+    async def agg_city(coll, field):
+        rows = await db[coll].aggregate([{"$group": {"_id": f"${field}", "n": {"$sum": 1}}}, {"$sort": {"n": -1}}, {"$limit": 12}]).to_list(12)
+        return [{"label": r["_id"], "count": r["n"]} for r in rows if r["_id"]]
+    lead_sources = await db.leads.aggregate([{"$group": {"_id": "$source", "n": {"$sum": 1}}}, {"$sort": {"n": -1}}]).to_list(20)
+    funnel = {
+        "page_views": await db.events.count_documents({"type": "page_view"}),
+        "searches": await db.events.count_documents({"type": "search"}),
+        "listing_views": await db.events.count_documents({"type": "listing_view"}),
+        "card_clicks": await db.events.count_documents({"type": "card_click"}),
+        "applications": await db.applications.count_documents({}),
+        "driver_signups": await db.users.count_documents({"role": "driver"}),
+    }
+    return {
+        "funnel": funnel,
+        "lead_sources": [{"label": r["_id"], "count": r["n"]} for r in lead_sources if r["_id"]],
+        "city_demand": await agg_city("city_requests", "city"),
+        "total_leads": await db.leads.count_documents({}),
     }
 
 @api.get("/admin/{collection}")
 async def admin_list(collection: str, _: dict = Depends(require_admin)):
-    allowed = {"leads", "applications", "interests", "events", "users"}
+    allowed = {"leads", "applications", "interests", "events", "users", "city_requests"}
     if collection not in allowed:
         raise HTTPException(status_code=404, detail="Unknown collection")
     proj = {"_id": 0, "password_hash": 0} if collection == "users" else {"_id": 0}
@@ -345,7 +397,7 @@ async def admin_list(collection: str, _: dict = Depends(require_admin)):
 
 @api.get("/admin/export/{collection}")
 async def admin_export(collection: str, _: dict = Depends(require_admin)):
-    allowed = {"leads", "applications", "interests", "events", "users"}
+    allowed = {"leads", "applications", "interests", "events", "users", "city_requests"}
     if collection not in allowed:
         raise HTTPException(status_code=404, detail="Unknown collection")
     proj = {"_id": 0, "password_hash": 0} if collection == "users" else {"_id": 0}
@@ -397,6 +449,7 @@ async def startup():
     await db.listings.create_index("id")
     await seed_admin()
     await seed_listings()
+    await db.listings.update_many({"city": {"$exists": False}}, {"$set": {"city": "London"}})
 
 @app.on_event("shutdown")
 async def shutdown():

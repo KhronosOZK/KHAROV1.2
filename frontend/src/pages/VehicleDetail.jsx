@@ -20,6 +20,7 @@ export default function VehicleDetail() {
   const [v, setV] = useState(null);
   const [quote, setQuote] = useState(null);
   const [photo, setPhoto] = useState(0);
+  const [weeks, setWeeks] = useState(12);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,7 +34,8 @@ export default function VehicleDetail() {
 
   const insurance = quote ? quote.cheapest_weekly : null;
   const breakdownCost = v.breakdown_included ? 0 : 8;
-  const total = (v.weekly_rent + (insurance || 0) + breakdownCost).toFixed(2);
+  const rentWeekly = weeklyForWeeks(v.weekly_rent, weeks);
+  const total = (rentWeekly + (insurance || 0) + breakdownCost).toFixed(2);
   const monthly = (Number(total) * 4.33).toFixed(0);
   const isSaved = saved.includes(v.id);
   const [lat, lon] = COORDS[v.borough] || [51.509, -0.118];
@@ -108,19 +110,22 @@ export default function VehicleDetail() {
             <div className="grid sm:grid-cols-3 gap-3">
               {PRICING_TIERS.map((t, i) => {
                 const wk = weeklyForWeeks(v.weekly_rent, t.weeks);
+                const active = weeks === t.weeks;
                 return (
-                  <div key={t.label} className={`rounded-2xl p-5 ring-1 ${i === 1 ? "ring-[#0B6B4F] bg-emerald-50/40" : "ring-slate-200 bg-white"}`}>
+                  <button key={t.label} onClick={() => setWeeks(t.weeks)} data-testid={`tier-${i}`}
+                    className={`text-left rounded-2xl p-5 ring-1 transition-all ${active ? "ring-2 ring-[#0B6B4F] bg-emerald-50/60 shadow-sm" : "ring-slate-200 bg-white hover:ring-slate-300"}`}>
                     <div className="flex items-center justify-between">
                       <span className="font-heading font-bold text-[#1A2E25]">{t.label}</span>
                       {i > 0 && <span className="text-[11px] font-semibold text-[#0B6B4F] bg-emerald-100 px-2 py-0.5 rounded-full">save {i === 1 ? "3" : "6"}%</span>}
                     </div>
                     <div className="text-[12px] text-[#7A857F] mt-0.5">{t.sub}</div>
                     <div className="text-2xl font-heading font-extrabold text-[#1A2E25] mt-3">£{wk.toFixed(0)}<span className="text-[13px] font-normal text-[#7A857F]"> a week</span></div>
-                  </div>
+                    <div className={`text-[12px] mt-2 font-medium ${active ? "text-[#0B6B4F]" : "text-[#9AA39D]"}`}>{active ? "Selected" : "Choose this term"}</div>
+                  </button>
                 );
               })}
             </div>
-            <p className="text-[13px] text-[#7A857F] mt-3">Commit to 26 weeks or more and it drops further. You choose your term when you apply.</p>
+            <p className="text-[13px] text-[#7A857F] mt-3">Commit to 26 weeks or more and it drops further. You confirm your term when you apply.</p>
           </Section>
 
           <Section title="A bit about this car">
@@ -162,7 +167,7 @@ export default function VehicleDetail() {
 
         <div className="hidden lg:block">
           <div className="sticky top-24 bg-white rounded-[22px] p-6 ring-1 ring-slate-200/70 shadow-sm">
-            <CostPanel v={v} insurance={insurance} breakdownCost={breakdownCost} total={total} monthly={monthly} navigate={navigate} />
+            <CostPanel v={v} insurance={insurance} breakdownCost={breakdownCost} rentWeekly={rentWeekly} weeks={weeks} total={total} monthly={monthly} navigate={navigate} />
           </div>
         </div>
       </div>
@@ -170,7 +175,7 @@ export default function VehicleDetail() {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200 p-4">
         <div className="flex items-center justify-between gap-3">
           <div><div className="text-[12px] text-[#7A857F]">All in from</div><div className="text-xl font-heading font-extrabold text-[#1A2E25]">£{total}<span className="text-sm font-medium text-[#7A857F]"> pw</span></div></div>
-          <Button onClick={() => navigate(`/apply/${v.id}`)} data-testid="apply-mobile-btn" className="flex-1 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
+          <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-mobile-btn" className="flex-1 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
         </div>
       </div>
     </main>
@@ -207,19 +212,19 @@ function Spin360({ photos }) {
   );
 }
 
-function CostPanel({ v, insurance, breakdownCost, total, monthly, navigate }) {
+function CostPanel({ v, insurance, breakdownCost, rentWeekly, weeks, total, monthly, navigate }) {
   return (
     <>
-      <div className="flex items-baseline gap-1"><span className="text-3xl font-heading font-extrabold text-[#1A2E25]">£{v.weekly_rent}</span><span className="text-[#7A857F]">a week</span></div>
-      <p className="text-[12px] text-[#7A857F] mt-1">plus £{v.deposit} deposit, returned when you hand the car back</p>
+      <div className="flex items-baseline gap-1"><span className="text-3xl font-heading font-extrabold text-[#1A2E25]">£{rentWeekly.toFixed(0)}</span><span className="text-[#7A857F]">a week</span></div>
+      <p className="text-[12px] text-[#7A857F] mt-1">over {weeks} weeks, plus £{v.deposit} deposit returned at the end</p>
       <div className="mt-5 space-y-3 text-[14px]">
-        <div className="flex justify-between"><span className="text-[#4A564F]">Weekly rent</span><span className="font-semibold">£{v.weekly_rent.toFixed(2)}</span></div>
+        <div className="flex justify-between"><span className="text-[#4A564F]">Weekly rent</span><span className="font-semibold">£{rentWeekly.toFixed(2)}</span></div>
         <div className="flex justify-between"><span className="text-[#4A564F]">Insurance quote</span><span className="font-semibold">{insurance != null ? `£${insurance.toFixed(2)}` : "…"}</span></div>
         <div className="flex justify-between"><span className="text-[#4A564F]">Breakdown cover</span><span className="font-semibold">{v.breakdown_included ? "Included" : `£${breakdownCost.toFixed(2)}`}</span></div>
         <div className="border-t border-slate-200 pt-3 flex justify-between text-base"><span className="font-semibold text-[#1A2E25]">Every week</span><span className="font-heading font-extrabold text-[#0B6B4F]">£{total}</span></div>
         <div className="text-[12px] text-[#7A857F] text-right">around £{monthly} a month</div>
       </div>
-      <Button onClick={() => navigate(`/apply/${v.id}`)} data-testid="apply-to-rent-btn" className="w-full mt-5 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
+      <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-to-rent-btn" className="w-full mt-5 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
       <div className="mt-5"><div className="text-[12px] font-semibold text-[#4A564F] mb-2">What happens after you apply</div>
         <ol className="space-y-2 text-[12.5px] text-[#7A857F]">{["The company reviews your application", "A quick background check runs", "You sign the agreement digitally", "You pay and arrange to collect"].map((s, i) => (<li key={s} className="flex gap-2"><span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 text-[10px] flex items-center justify-center shrink-0 font-bold">{i + 1}</span>{s}</li>))}</ol>
       </div>

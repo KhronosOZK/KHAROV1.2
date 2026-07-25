@@ -43,12 +43,16 @@ export default function DriverGuide() {
       </div>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
-        <div className="bg-[#12211B] rounded-[26px] p-8 sm:p-14 text-center">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white text-balance">Ready when you are.</h2>
-          <p className="text-white/70 mt-3 max-w-xl mx-auto text-[16px]">Set up your account in about a minute, then browse and apply with your details already in place.</p>
-          <div className="flex gap-3 justify-center mt-7 flex-wrap">
-            <Button onClick={() => navigate("/")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Browse cars</Button>
-            <Button onClick={() => navigate("/register")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">Create account</Button>
+        <div className="relative rounded-[26px] overflow-hidden p-8 sm:p-16 text-center">
+          <img src={IMG.londonNight} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0A130F]/85" />
+          <div className="relative">
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white text-balance">Ready when you are.</h2>
+            <p className="text-white/70 mt-3 max-w-xl mx-auto text-[16px]">Set up your account in about a minute, then browse and apply with your details already in place.</p>
+            <div className="flex gap-3 justify-center mt-7 flex-wrap">
+              <Button onClick={() => navigate("/")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Browse cars</Button>
+              <Button onClick={() => navigate("/register")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">Create account</Button>
+            </div>
           </div>
         </div>
       </section>

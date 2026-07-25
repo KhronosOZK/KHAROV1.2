@@ -2,18 +2,18 @@ import { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { SlidersHorizontal, Search } from "lucide-react";
 import { api, trackEvent } from "@/lib/api";
+import { POPULAR_CITIES, MORE_CITIES, LIVE_CITIES } from "@/lib/cities";
 import VehicleCard from "@/components/VehicleCard";
+import CityInterestForm from "@/components/CityInterestForm";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-
-const boroughs = ["all", "Newham", "Croydon", "Redbridge", "Harrow", "Barking & Dagenham", "Westminster", "Camden", "Hounslow", "Lewisham", "Ealing", "Bromley"];
 
 export default function SearchResults() {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const [listings, setListings] = useState(null);
-  const [borough, setBorough] = useState(params.get("borough") || "all");
+  const [city, setCity] = useState(params.get("city") || "London");
   const [vtype, setVtype] = useState(params.get("type") || "any");
   const [fuel, setFuel] = useState(params.get("fuel") || "any");
   const [range, setRange] = useState([Number(params.get("min")) || 180, Number(params.get("max")) || 400]);
@@ -21,42 +21,45 @@ export default function SearchResults() {
 
   const run = useCallback(async () => {
     setListings(null);
-    const q = {};
-    if (borough !== "all") q.borough = borough;
+    const q = { city };
     if (vtype !== "any") q.vehicle_type = vtype;
     if (fuel !== "any") q.fuel = fuel;
     if (sort !== "default") q.sort = sort;
     const { data } = await api.get("/listings", { params: q });
-    const filtered = data.filter((v) => v.weekly_rent >= range[0] && v.weekly_rent <= (range[1] >= 400 ? 9999 : range[1]));
-    setListings(filtered);
-  }, [borough, vtype, fuel, sort, range]);
+    setListings(data.filter((v) => v.weekly_rent >= range[0] && v.weekly_rent <= (range[1] >= 400 ? 9999 : range[1])));
+  }, [city, vtype, fuel, sort, range]);
 
   useEffect(() => { run(); /* eslint-disable-next-line */ }, [sort]);
-  useEffect(() => { run(); /* eslint-disable-next-line */ }, []);
+  useEffect(() => { trackEvent("page_view", { path: "/search", city }); run(); /* eslint-disable-next-line */ }, []);
 
   const apply = () => {
     const p = new URLSearchParams();
-    if (borough !== "all") p.set("borough", borough);
+    p.set("city", city);
     if (vtype !== "any") p.set("type", vtype);
     if (fuel !== "any") p.set("fuel", fuel);
     p.set("min", range[0]); p.set("max", range[1]);
     setParams(p);
-    trackEvent("search", { borough, vtype, fuel, range });
+    trackEvent("search", { city, vtype, fuel, range });
     run();
   };
+
+  const cityHasNoInventory = listings != null && listings.length === 0 && !LIVE_CITIES.includes(city);
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       <button onClick={() => navigate("/")} className="text-sm text-[#4A564F] hover:text-[#0B6B4F]">Home</button>
-      <h1 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#1A2E25] mt-2">
-        {borough === "all" ? "Cars across London" : `Cars in ${borough}`}
-      </h1>
+      <h1 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#1A2E25] mt-2">Cars in {city}</h1>
 
-      {/* Filter bar */}
       <div className="mt-6 bg-white rounded-2xl p-4 ring-1 ring-slate-200/70">
         <div className="flex items-center gap-2 text-[#0B6B4F] font-semibold text-sm mb-3"><SlidersHorizontal className="w-4 h-4" /> Refine</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Field label="Borough"><Select value={borough} onValueChange={setBorough}><SelectTrigger data-testid="sr-borough" className="h-11 bg-white"><SelectValue /></SelectTrigger><SelectContent>{boroughs.map((b) => <SelectItem key={b} value={b}>{b === "all" ? "All of London" : b}</SelectItem>)}</SelectContent></Select></Field>
+          <Field label="City">
+            <Select value={city} onValueChange={setCity}><SelectTrigger data-testid="sr-city" className="h-11 bg-white"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectGroup><SelectLabel className="text-[11px] uppercase tracking-wide text-[#0B6B4F]">Most popular</SelectLabel>{POPULAR_CITIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectGroup>
+                <SelectGroup><SelectLabel className="text-[11px] uppercase tracking-wide text-[#9AA39D]">More cities</SelectLabel>{MORE_CITIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectGroup>
+              </SelectContent></Select>
+          </Field>
           <Field label="Type"><Select value={vtype} onValueChange={setVtype}><SelectTrigger data-testid="sr-type" className="h-11 bg-white"><SelectValue /></SelectTrigger><SelectContent>{["any", "saloon", "executive", "mpv", "estate", "wav"].map((t) => <SelectItem key={t} value={t} className="capitalize">{t === "any" ? "Any type" : t.toUpperCase()}</SelectItem>)}</SelectContent></Select></Field>
           <Field label="Fuel"><Select value={fuel} onValueChange={setFuel}><SelectTrigger data-testid="sr-fuel" className="h-11 bg-white"><SelectValue /></SelectTrigger><SelectContent>{["any", "hybrid", "electric", "petrol", "diesel"].map((f) => <SelectItem key={f} value={f} className="capitalize">{f === "any" ? "Any fuel" : f}</SelectItem>)}</SelectContent></Select></Field>
           <Field label={`Budget: £${range[0]} to £${range[1] >= 400 ? "400+" : range[1]}`}><div className="h-11 flex items-center px-1"><Slider min={180} max={400} step={5} value={range} onValueChange={setRange} data-testid="sr-budget" minStepsBetweenThumbs={1} /></div></Field>
@@ -78,13 +81,11 @@ export default function SearchResults() {
       </div>
 
       {listings == null ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, i) => <div key={i} className="h-80 rounded-2xl bg-white ring-1 ring-slate-200/70 animate-pulse" />)}
-        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{[...Array(6)].map((_, i) => <div key={i} className="h-80 rounded-2xl bg-white ring-1 ring-slate-200/70 animate-pulse" />)}</div>
+      ) : cityHasNoInventory ? (
+        <div className="bg-[#F1EFE9] rounded-[22px] p-6 sm:p-10" data-testid="sr-city-interest"><CityInterestForm city={city} /></div>
       ) : listings.length === 0 ? (
-        <div className="text-center py-20 text-[#7A857F] bg-white rounded-2xl ring-1 ring-slate-200" data-testid="sr-empty">
-          Nothing matches that combination yet. Try widening your budget or picking another borough.
-        </div>
+        <div className="text-center py-20 text-[#7A857F] bg-white rounded-2xl ring-1 ring-slate-200" data-testid="sr-empty">Nothing matches those filters in {city}. Try widening your budget or fuel type.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {listings.map((v, i) => (<div key={v.id} className="animate-fade-up" style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}><VehicleCard v={v} /></div>))}

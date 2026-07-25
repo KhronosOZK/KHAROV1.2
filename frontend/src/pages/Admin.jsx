@@ -8,18 +8,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-const TABS = ["leads", "applications", "interests", "users", "events"];
+const TABS = ["leads", "applications", "interests", "city_requests", "users", "events"];
 
 export default function Admin() {
   const { user, login } = useAuth();
   const [summary, setSummary] = useState(null);
+  const [analytics, setAnalytics] = useState(null);
   const [tab, setTab] = useState("leads");
   const [rows, setRows] = useState([]);
   const [creds, setCreds] = useState({ email: "", password: "" });
 
   const isAdmin = user && user.role === "admin";
 
-  useEffect(() => { if (isAdmin) api.get("/admin/summary").then((r) => setSummary(r.data)).catch(() => {}); }, [isAdmin]);
+  useEffect(() => { if (isAdmin) { api.get("/admin/summary").then((r) => setSummary(r.data)).catch(() => {}); api.get("/admin/analytics").then((r) => setAnalytics(r.data)).catch(() => {}); } }, [isAdmin]);
   useEffect(() => { if (isAdmin) api.get(`/admin/${tab}`).then((r) => setRows(r.data)).catch(() => setRows([])); }, [isAdmin, tab]);
 
   const doLogin = async (e) => {
@@ -48,6 +49,7 @@ export default function Admin() {
   const cards = summary ? [
     { l: "Total leads", v: summary.leads }, { l: "Driver accounts", v: summary.drivers },
     { l: "Applications", v: summary.applications }, { l: "Operator interest", v: summary.interests },
+    { l: "City requests", v: summary.city_requests }, { l: "Page views", v: summary.page_views },
     { l: "Listing views", v: summary.listing_views }, { l: "Searches", v: summary.searches },
   ] : [];
 
@@ -67,10 +69,38 @@ export default function Admin() {
         ))}
       </div>
 
+      {analytics && (
+        <div className="grid lg:grid-cols-3 gap-4 mt-6">
+          <div className="lg:col-span-2 bg-white rounded-2xl p-5 ring-1 ring-slate-200/70">
+            <h3 className="font-heading font-bold text-[#1A2E25] mb-4">Acquisition funnel</h3>
+            <div className="space-y-2.5">
+              {[["Page views", analytics.funnel.page_views], ["Searches", analytics.funnel.searches], ["Listing views", analytics.funnel.listing_views], ["Card clicks", analytics.funnel.card_clicks], ["Applications", analytics.funnel.applications], ["Driver signups", analytics.funnel.driver_signups]].map(([l, n], i, arr) => {
+                const max = Math.max(...arr.map((x) => x[1]), 1);
+                return (
+                  <div key={l} className="flex items-center gap-3">
+                    <span className="text-[13px] text-[#4A564F] w-28 shrink-0">{l}</span>
+                    <div className="flex-1 h-6 bg-[#F1EFE9] rounded-full overflow-hidden"><div className="h-full bg-[#0B6B4F] rounded-full" style={{ width: `${Math.max((n / max) * 100, 4)}%` }} /></div>
+                    <span className="text-[13px] font-semibold text-[#1A2E25] w-10 text-right">{n}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="bg-white rounded-2xl p-5 ring-1 ring-slate-200/70">
+            <h3 className="font-heading font-bold text-[#1A2E25] mb-4">City demand (waitlist)</h3>
+            {analytics.city_demand.length === 0 ? <p className="text-[13px] text-[#7A857F]">No city requests yet.</p> : (
+              <div className="space-y-2">{analytics.city_demand.map((c) => (<div key={c.label} className="flex justify-between text-[14px]"><span className="text-[#4A564F]">{c.label}</span><span className="font-semibold text-[#1A2E25]">{c.count}</span></div>))}</div>
+            )}
+            <h3 className="font-heading font-bold text-[#1A2E25] mt-5 mb-3">Lead sources</h3>
+            <div className="space-y-2">{analytics.lead_sources.map((c) => (<div key={c.label} className="flex justify-between text-[14px]"><span className="text-[#4A564F] capitalize">{String(c.label).replace(/_/g, " ")}</span><span className="font-semibold text-[#1A2E25]">{c.count}</span></div>))}</div>
+          </div>
+        </div>
+      )}
+
       <Tabs value={tab} onValueChange={setTab} className="mt-8">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <TabsList className="flex-wrap h-auto">
-            {TABS.map((t) => <TabsTrigger key={t} value={t} className="capitalize" data-testid={`admin-tab-${t}`}>{t}</TabsTrigger>)}
+            {TABS.map((t) => <TabsTrigger key={t} value={t} className="capitalize" data-testid={`admin-tab-${t}`}>{t.replace(/_/g, " ")}</TabsTrigger>)}
           </TabsList>
           <Button onClick={exportCsv} variant="outline" className="rounded-full" data-testid="export-csv-btn"><Download className="w-4 h-4 mr-2" /> Export CSV</Button>
         </div>

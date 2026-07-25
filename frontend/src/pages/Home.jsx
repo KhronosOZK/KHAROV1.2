@@ -5,8 +5,9 @@ import { Search, ArrowRight, Zap, Accessibility, Sparkles, Coins } from "lucide-
 import { api, trackEvent } from "@/lib/api";
 import { IMG } from "@/lib/images";
 import { estimateOperatorAnnual } from "@/lib/pricing";
+import { POPULAR_CITIES, MORE_CITIES } from "@/lib/cities";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 
 const boroughs = ["all", "Newham", "Croydon", "Redbridge", "Harrow", "Barking & Dagenham", "Westminster", "Camden", "Hounslow", "Lewisham", "Ealing", "Bromley"];
@@ -20,7 +21,7 @@ const collections = [
 export default function Home() {
   const navigate = useNavigate();
   const [all, setAll] = useState([]);
-  const [borough, setBorough] = useState("all");
+  const [city, setCity] = useState("London");
   const [vtype, setVtype] = useState("any");
   const [fuel, setFuel] = useState("any");
   const [range, setRange] = useState([180, 400]);
@@ -29,11 +30,11 @@ export default function Home() {
 
   const goSearch = () => {
     const p = new URLSearchParams();
-    if (borough !== "all") p.set("borough", borough);
+    p.set("city", city);
     if (vtype !== "any") p.set("type", vtype);
     if (fuel !== "any") p.set("fuel", fuel);
     p.set("min", range[0]); p.set("max", range[1]);
-    trackEvent("search", { borough, vtype, fuel, range });
+    trackEvent("search", { city, vtype, fuel, range });
     navigate(`/search?${p.toString()}`);
   };
 
@@ -74,8 +75,15 @@ export default function Home() {
             className="mt-9 bg-white rounded-[26px] p-4 sm:p-6 shadow-2xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Filter label="Where you drive">
-                <Select value={borough} onValueChange={setBorough}><SelectTrigger data-testid="filter-borough" className="h-11 bg-white"><SelectValue /></SelectTrigger>
-                  <SelectContent>{boroughs.map((b) => <SelectItem key={b} value={b}>{b === "all" ? "All of London" : b}</SelectItem>)}</SelectContent></Select>
+                <Select value={city} onValueChange={setCity}><SelectTrigger data-testid="filter-borough" className="h-11 bg-white"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup><SelectLabel className="text-[11px] uppercase tracking-wide text-[#0B6B4F]">Most popular</SelectLabel>
+                      {POPULAR_CITIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectGroup>
+                    <SelectGroup><SelectLabel className="text-[11px] uppercase tracking-wide text-[#9AA39D]">More cities</SelectLabel>
+                      {MORE_CITIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectGroup>
+                  </SelectContent></Select>
               </Filter>
               <Filter label="Type of car">
                 <Select value={vtype} onValueChange={setVtype}><SelectTrigger data-testid="filter-type" className="h-11 bg-white"><SelectValue /></SelectTrigger>
@@ -215,12 +223,17 @@ export default function Home() {
                 <Button onClick={() => navigate("/operator-guide")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">See how it works</Button>
               </div>
             </div>
-            <div className="bg-white/8 backdrop-blur rounded-3xl p-7 ring-1 ring-white/15">
-              <div className="text-[13px] text-white/60 uppercase tracking-wide">Typical earnings</div>
-              <div className="text-4xl sm:text-5xl font-heading font-extrabold text-[#5FD3A6] mt-2">£{earn.perCarYear.toLocaleString()}</div>
-              <div className="text-white/70 text-[14px] mt-1">per car, per year, before our 10% fee</div>
-              <div className="h-px bg-white/15 my-5" />
-              <div className="text-[14px] text-white/70">Run 10 cars and that is around <span className="text-white font-semibold">£{(earn.perCarYear * 10).toLocaleString()}</span> a year, with the rent guaranteed if a driver defaults.</div>
+            <div className="bg-white rounded-3xl p-7 shadow-xl">
+              <div className="text-[12px] text-[#7A857F] uppercase tracking-wide font-semibold">Typical earnings per car</div>
+              <div className="text-4xl sm:text-5xl font-heading font-extrabold text-[#0B6B4F] mt-2">£{earn.perCarYear.toLocaleString()}<span className="text-lg text-[#7A857F] font-normal"> / year</span></div>
+              <div className="text-[#4A564F] text-[14px] mt-1">before our 10% fee, at typical utilisation</div>
+              <div className="h-px bg-slate-200 my-5" />
+              <div className="space-y-2.5 text-[14px]">
+                <div className="flex justify-between"><span className="text-[#4A564F]">Run 10 cars</span><span className="font-heading font-bold text-[#1A2E25]">£{(earn.perCarYear * 10).toLocaleString()}/yr</span></div>
+                <div className="flex justify-between"><span className="text-[#4A564F]">Paid to you</span><span className="font-heading font-bold text-[#1A2E25]">Every fortnight</span></div>
+                <div className="flex justify-between"><span className="text-[#4A564F]">If a driver defaults</span><span className="font-heading font-bold text-[#0B6B4F]">Rent covered 2 wks</span></div>
+              </div>
+              <Button onClick={() => navigate("/list-your-fleet")} className="w-full mt-6 rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">See your earning potential</Button>
             </div>
           </div>
         </div>

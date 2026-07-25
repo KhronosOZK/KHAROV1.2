@@ -60,13 +60,46 @@ export default function OperatorGuide() {
         ))}
       </div>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
-        <div className="bg-[#12211B] rounded-[26px] p-8 sm:p-14 text-center">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white text-balance">Get your fleet ready for launch.</h2>
-          <p className="text-white/70 mt-3 max-w-xl mx-auto text-[16px]">Register your interest and take a look at the dashboard you will run everything from.</p>
-          <div className="flex gap-3 justify-center mt-7 flex-wrap">
-            <Button onClick={() => navigate("/list-your-fleet")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Register interest</Button>
-            <Button onClick={() => navigate("/operator-dashboard")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">Preview the dashboard</Button>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <div className="bg-[#0E1A14] rounded-[26px] p-8 sm:p-12 text-white">
+          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Your earning potential</p>
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold mt-2 text-balance">See what your fleet could bring in.</h2>
+          <p className="text-white/70 mt-3 max-w-2xl text-[16px]">Real figures based on typical London weekly rates and 85% utilisation, before our flat 10% fee. Register to get a full breakdown for your exact fleet.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            {[["Hybrid saloon", 255], ["Executive", 330], ["Electric", 235], ["Wheelchair accessible", 255]].map(([label, wk]) => {
+              const perYear = Math.round(wk * 52 * 0.85);
+              return (
+                <div key={label} className="bg-white/5 rounded-2xl p-5 ring-1 ring-white/10">
+                  <div className="text-[13px] text-white/60">{label}</div>
+                  <div className="text-2xl font-heading font-extrabold text-[#5FD3A6] mt-2">£{perYear.toLocaleString()}</div>
+                  <div className="text-[12px] text-white/50 mt-1">per car, per year · £{wk}/wk</div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4 mt-4">
+            {[5, 15, 30].map((n) => (
+              <div key={n} className="flex items-center justify-between bg-white/5 rounded-2xl p-5 ring-1 ring-white/10">
+                <span className="text-white/70">{n} car fleet</span>
+                <span className="text-xl font-heading font-extrabold text-white">£{(255 * 52 * 0.85 * n).toLocaleString()}<span className="text-[12px] text-white/50 font-normal">/yr</span></span>
+              </div>
+            ))}
+          </div>
+          <Button onClick={() => navigate("/list-your-fleet")} className="mt-8 rounded-full bg-[#5FD3A6] hover:bg-white text-[#0E1A14] font-semibold">Register to see your full breakdown <ArrowRight className="w-4 h-4 ml-2" /></Button>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16 pt-6">
+        <div className="relative rounded-[26px] overflow-hidden p-8 sm:p-16 text-center">
+          <img src={IMG.handshakeDesk} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0A130F]/85" />
+          <div className="relative">
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white text-balance">Get your fleet ready for launch.</h2>
+            <p className="text-white/70 mt-3 max-w-xl mx-auto text-[16px]">Register your interest and take a look at the dashboard you will run everything from.</p>
+            <div className="flex gap-3 justify-center mt-7 flex-wrap">
+              <Button onClick={() => navigate("/list-your-fleet")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Register interest</Button>
+              <Button onClick={() => navigate("/operator-dashboard")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">Preview the dashboard</Button>
+            </div>
           </div>
         </div>
       </section>

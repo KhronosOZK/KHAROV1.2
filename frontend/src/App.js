@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/Header";
@@ -23,7 +23,13 @@ import Help from "@/pages/Help";
 import Legal from "@/pages/Legal";
 import Calculator from "@/pages/Calculator";
 import Saved from "@/pages/Saved";
-import { api } from "@/lib/api";
+import { api, trackEvent } from "@/lib/api";
+
+function RouteTracker() {
+  const loc = useLocation();
+  useEffect(() => { trackEvent("page_view", { path: loc.pathname }); }, [loc.pathname]);
+  return null;
+}
 
 function App() {
   useEffect(() => { api.get("/").catch(() => {}); }, []);
@@ -31,6 +37,7 @@ function App() {
     <div className="App">
       <AuthProvider>
         <BrowserRouter>
+          <RouteTracker />
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
