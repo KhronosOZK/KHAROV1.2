@@ -1,123 +1,127 @@
 {
-  "brand_identity": {
-    "name": "Caro",
-    "tone": "Direct, confident, premium, UK industry voice",
-    "theme": "light",
-    "core_aesthetic": "Warm premium UK automotive/fintech feel. Rich layering, spotlight/featured sections, depth, editorial layouts, refined data-dense but beautiful dashboards, and immersive scroll sections."
-  },
+  "project_name": "Caro - Premium UK PHV Rental Marketplace",
+  "theme": "Light mode primary (Warm Trust & Premium Editorial) with Dark mode elements for Dashboard metrics and Maps.",
   "typography": {
     "headings": {
-      "family": "Cabinet Grotesk, sans-serif",
-      "weights": ["500", "700", "800"],
-      "tracking": "tracking-tight",
-      "usage": "Use for all H1-H4 headings. Make H1 highly expressive (text-5xl to text-6xl+)."
+      "font_family": "Cabinet Grotesk, sans-serif",
+      "strategy": "Swiss Brutalist / Editorial Future. High impact, tight tracking (`tracking-tight`), large fluid scales.",
+      "weights": "Extrabold or Black for Hero H1s, Medium for subtle section headers."
     },
     "body": {
-      "family": "Satoshi, sans-serif",
-      "weights": ["400", "500", "700"],
-      "usage": "Use for all UI text, paragraphs, buttons, and form inputs. Clean and legible."
-    }
+      "font_family": "Satoshi, sans-serif",
+      "strategy": "Clean, highly readable geometric sans. Loose line-height for body (`leading-relaxed`), tight for labels (`leading-none`).",
+      "weights": "Regular (400) for body, Medium (500) for buttons and key metrics."
+    },
+    "hierarchy_rules": "Never exceed text-6xl for headings. H1: text-5xl md:text-6xl tracking-tight. H2: text-3xl md:text-4xl. Labels: uppercase, text-xs, tracking-[0.2em]."
   },
   "colors": {
+    "background": {
+      "primary": "#F9F8F6",
+      "surface": "#FFFFFF",
+      "dark_surface": "#1A2E25"
+    },
     "brand": {
-      "background": "#F9F8F6",
-      "foreground": "#1C1C1C",
-      "primary_emerald": "#047857",
-      "surface_white": "#FFFFFF",
-      "border_soft": "#E5E5E5"
+      "primary": "#0B6B4F",
+      "primary_hover": "#047857",
+      "accent": "#5FD3A6",
+      "ink": "#1A2E25"
     },
-    "shadcn_css_variables": {
-      "light": {
-        "--background": "40 14% 97%",
-        "--foreground": "0 0% 11%",
-        "--card": "0 0% 100%",
-        "--card-foreground": "0 0% 11%",
-        "--popover": "0 0% 100%",
-        "--popover-foreground": "0 0% 11%",
-        "--primary": "163 94% 24%",
-        "--primary-foreground": "0 0% 100%",
-        "--secondary": "43 14% 90%",
-        "--secondary-foreground": "0 0% 11%",
-        "--muted": "43 14% 90%",
-        "--muted-foreground": "0 0% 45%",
-        "--accent": "163 94% 24%",
-        "--accent-foreground": "0 0% 100%",
-        "--destructive": "0 84.2% 60.2%",
-        "--destructive-foreground": "0 0% 98%",
-        "--border": "0 0% 90%",
-        "--input": "0 0% 90%",
-        "--ring": "163 94% 24%",
-        "--radius": "0.5rem"
-      }
+    "text": {
+      "primary": "#1A2E25",
+      "secondary": "#4A5D54",
+      "inverse": "#F9F8F6"
+    },
+    "status": {
+      "success": "#0B6B4F",
+      "warning": "#F59E0B",
+      "danger": "#EF4444"
+    },
+    "rules": "Do NOT use generic SaaS blue. Use Off-white (#F9F8F6) as the core background to feel warm and human, NOT sterile white. Use near-black ink (#1A2E25) for high-contrast text. Accent mint (#5FD3A6) for active states, highlights, and slider tracks."
+  },
+  "visual_enhancers": {
+    "text_over_image_legibility": "CRITICAL: Never use naked white text over imagery. Apply a two-layer strategy: 1) A background gradient scrim on the image container (e.g., `bg-gradient-to-t from-[#1A2E25]/90 via-[#1A2E25]/40 to-transparent`). 2) For cards or floating elements, place text inside a 'Crystal Glass' panel: `backdrop-blur-xl bg-[#1A2E25]/60 border border-white/10` with `text-[#F9F8F6]`.",
+    "borders_and_surfaces": "Use 1px subtle borders (`border-[#1A2E25]/10`) to define structure on the off-white background. Avoid heavy drop shadows. Use slight inner-shadows or 1px outer borders for definition. Corner radius: `rounded-2xl` for large panels, `rounded-xl` for cards, `rounded-full` for buttons (pill-shaped).",
+    "motion_and_interaction": "All buttons MUST have hover states (`hover:-translate-y-[2px] transition-transform`). Use Framer Motion for entrance staggers on dashboard grids. For numbers (e.g., earnings calculators), use animated count-ups.",
+    "empty_states": "Must be high-craft. Don't just show a grey icon. Use a subtle patterned background, an encouraging headline, and a prominent primary CTA (e.g., 'Browse available cars in London')."
+  },
+  "layouts_and_grids": {
+    "registration_pages": "Split-screen 'Editorial Layout'. Left side (sticky on desktop): Immersive imagery with gradient overlay and value-add interactive widget. Right side (scrollable): The multi-step form. Maximize screen real estate.",
+    "driver_dashboard": "Bento Grid (High Density). Base: `grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-6`. Hero widget (Current Rental) spans 8 cols. Action widgets span 4 cols. Strict alignment. Use white cards on the off-white background.",
+    "operator_dashboard": "Sidebar Navigation + Main Content. Main area uses a modular dashboard layout. Top row: Key Metrics (4 cols each). Middle row: Wide Live Map tracking (spans full width, height 400px). Bottom row: Applications Queue and Compliance tables."
+  },
+  "core_experiences_blueprints": {
+    "driver_registration": {
+      "concept": "The 'Matchmaker & Cost Calculator'.",
+      "layout": "Split-screen.",
+      "interactive_feature": "A 3-step 'Find Your Match' wizard (NOT a slider). Step 1: 'Full-time or Part-time?'. Step 2: 'EV, Hybrid, or Exec?'. Step 3: Outputs a personalized weekly all-in cost vs estimated earnings card. This acts as the 'hook' before asking for personal details.",
+      "form_fields": ["Name", "Email", "Phone", "Password", "DOB", "DVLA License Upload", "PCO License Upload"],
+      "image": "https://images.pexels.com/photos/3517990/pexels-photo-3517990.jpeg"
+    },
+    "operator_registration": {
+      "concept": "The 'Fleet ROI Estimator'.",
+      "layout": "Split-screen.",
+      "interactive_feature": "Airbnb-style monthly earnings slider. Input: Number of cars. Select: Vehicle Class (Standard, Exec, EV). Output (Animated Count-ups): Gross £/month, Gross £/year, Net (after 10% Caro fee) per car.",
+      "key_messaging": "Include prominent info box: 'After registering, you will receive an email detailing earning potential, onboarding, and next steps.' Highlight feature: 'Live Vehicle Location Tracking from your Dashboard'.",
+      "form_fields": ["Company Name", "Contact Name", "Email", "Phone", "Password", "Fleet Size Interest"],
+      "image": "https://images.unsplash.com/photo-1541376936666-59ec998f1afd"
+    },
+    "driver_dashboard": {
+      "concept": "The 'Driver Portal' - Beautiful Utility.",
+      "layout": "Bento Grid.",
+      "widgets": [
+        "Current Rental Summary: Photo of car, plate number, weekly cost, countdown to next payment.",
+        "Quick Actions: Report Issue, Request Roadside Assistance (High contrast buttons).",
+        "Payment History: Mini-table of past weeks.",
+        "Compliance: Insurance status/expiry, MOT handled by operator (show 'Valid' badge).",
+        "Document Vault: DVLA/PCO status.",
+        "Applications: Status of pending car requests."
+      ],
+      "empty_state": "If no active rental, show 'Start earning this week.' with a primary 'Find a Car' CTA."
+    },
+    "operator_dashboard": {
+      "concept": "The 'Fleet Command Center'.",
+      "layout": "Sidebar + Content Grid.",
+      "widgets": [
+        "Headline Feature: Live Vehicle Location Tracking Map. Use a dark-mode styled map with glowing mint vehicle pins.",
+        "Fleet Overview: Utilization rate (%), Total Revenue (fortnightly countdown).",
+        "Applications Queue: List of vetted drivers requesting cars. Inline 'Approve' / 'Decline' actions.",
+        "Compliance Calendar: Upcoming MOT/Insurance renewals."
+      ]
     }
   },
-  "layouts": {
-    "homepage": {
-      "hero": "Immersive hero section overlaying a premium London street or SUV image. Use a solid search bar at the bottom with proper dropdowns. Dropdowns MUST have a solid white background (bg-card) with elevated z-index (z-50) and shadow (shadow-xl) to fix the transparent bug.",
-      "featured_collections": "Bento-style grids for curated collections (e.g., Top-rated, Electric, Under £250/wk, Wheelchair-accessible). Do not use flat uniform grids. Overlap elements slightly for depth.",
-      "scroll_storytelling": "Full-height (min-h-screen) scrolling sections for 'How renting works' and 'How listing works'. Alternate sides for text and imagery. Use Framer Motion for scroll-triggered fades and parallax. No accordions."
-    },
-    "vehicle_detail": {
-      "gallery": "Hero area split into a main 16:9 image and a 2x2 grid of smaller interior/exterior shots.",
-      "content": "Two-column layout. Left column (70%): full specs, 360/video embed area, anonymized operator info, reviews, and an Airbnb-style full-width map block showing the pickup zone. Right column (30%): Sticky all-in cost panel, calculated breakdown, min-max budget ranges, and primary CTA."
-    },
-    "dashboards": {
-      "general": "Data-dense, professional, calculated breakdown. Use clean, rounded cards (max 8px radius). Even in logged-out/demo states, populate with beautiful mock data (charts, transaction lists)."
-    }
-  },
-  "components": {
-    "header_account_menu": "Turo/Splend style. A solid, pristine popover triggered by 'Menu / Profile' icon. Links: Log in as customer, Log in as operator, Register interest, Get help, Legal. Must have pure white background, border-border, shadow-lg.",
-    "search_filters": "Include a robust price range slider for minimum/maximum budget. Use solid background Select/Dropdown menus.",
-    "buttons": "Pill-shaped (rounded-full) or slightly rounded (rounded-md). Use the primary emerald color for high-intent actions.",
-    "multi_step_form": "For the 'apply' process. Use a clear progress indicator, large accessible inputs, and soft micro-interactions."
-  },
-  "motion": {
-    "scroll": "Use Lenis for smooth scrolling to give the marketing pages a premium 'momentum' feel.",
-    "interactions": "Hover states on vehicle cards should gently scale up the image (scale-105) and translate the card slightly up (-translate-y-1) with a soft shadow."
+  "component_instructions": {
+    "buttons": "Pill-shaped (`rounded-full`). Primary: `bg-[#0B6B4F] text-white hover:bg-[#047857]`. Secondary: `border border-[#1A2E25]/20 bg-transparent text-[#1A2E25] hover:bg-[#1A2E25]/5`.",
+    "inputs": "Shadcn based. Custom styling: `bg-transparent border-b border-[#1A2E25]/20 rounded-none focus:border-[#0B6B4F] focus:ring-0 px-0` for a premium editorial form look, or rounded solid inputs `bg-white border-[#1A2E25]/10 rounded-xl` for dashboards.",
+    "cards": "For dashboards: `bg-white rounded-2xl border border-[#1A2E25]/10 p-6 shadow-sm`.",
+    "tables": "Shadcn tables. Left-aligned, ample padding (`py-4`). Badges for status: `bg-[#E6F5F0] text-[#0B6B4F]` for active/valid."
   },
   "media": {
-    "image_urls": [
-      {
-        "url": "https://images.pexels.com/photos/7903330/pexels-photo-7903330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        "category": "hero_vehicle",
-        "description": "Close-up of a luxury black SUV on a city street"
+    "image_urls": {
+      "driver_reg_hero": {
+        "url": "https://images.pexels.com/photos/3517990/pexels-photo-3517990.jpeg",
+        "description": "London black taxi driving through autumn leaves. Use with a gradient overlay."
       },
-      {
-        "url": "https://images.pexels.com/photos/24376862/pexels-photo-24376862.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        "category": "featured_collection_ev",
-        "description": "White electric car charging on an urban city street"
+      "operator_reg_hero": {
+        "url": "https://images.unsplash.com/photo-1541376936666-59ec998f1afd",
+        "description": "Classic black car making right turn beside glass curtain buildings. Perfect for fleet operators."
       },
-      {
-        "url": "https://images.pexels.com/photos/22669772/pexels-photo-22669772.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        "category": "storytelling_driver",
-        "description": "A man in a suit happily drives a silver car through city streets"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1680027026280-7217b71d3eef?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHw0fHxsb25kb24lMjBzdHJlZXQlMjB2aWV3fGVufDB8fHx8MTc4NDkzNDM2MXww&ixlib=rb-4.1.0&q=85",
-        "category": "storytelling_location",
-        "description": "Red bus driving down a London street next to tall buildings"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1771584282146-4e654a5a563e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHw0fHxibGFjayUyMHN1diUyMGNpdHklMjBzdHJlZXR8ZW58MHx8fHwxNzg0OTM0MzYxfDA&ixlib=rb-4.1.0&q=85",
-        "category": "vehicle_gallery",
-        "description": "A black luxury suv parked on a wet cobblestone street"
+      "dashboard_map_bg": {
+        "url": "https://images.unsplash.com/photo-1660233868899-f800885dca59",
+        "description": "London street at night. Can be heavily darkened and blurred as a fallback for map backgrounds if real map component isn't used."
       }
-    ]
+    }
   },
-  "instructions_to_main_agent": [
-    "CRITICAL FIX: Overwrite the shadcn UI root CSS variables with the provided HSL values to ensure pure white (#FFFFFF) backgrounds for popovers, dropdowns, and cards. Apply `bg-background` or `bg-card` classes explicitly on SelectContent, DropdownMenuContent, etc., with z-[100] to fix the transparency bug.",
-    "Implement Cabinet Grotesk for headings and Satoshi for body text.",
-    "Build the 'How it works' sections as scroll-driven narrative pages instead of accordions.",
-    "On the Vehicle Detail Page, build a sticky sidebar (using sticky top-24) for the booking/cost calculator.",
-    "Ensure all interactive elements have data-testid attributes.",
-    "Use Lucide-react icons for UI elements."
-  ],
-  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
-    "Avoid the 'AI slop' aesthetic. Create depth with layered elements and z-index hierarchy.",
-    "Use 2-3x more spacing than usual. Cramped designs look cheap.",
-    "Never use pure black; use the designated dark slate/foreground color.",
-    "Do not use transparent backgrounds for dropdowns, popovers, or floating headers.",
-    "Ensure hover states and micro-interactions on all buttons and cards.",
-    "Use the exact image URLs provided in the media section; do not use placeholders."
+  "testing_and_accessibility": {
+    "contrast": "Ensure all text meets APCA/WCAG standards. Use ink (#1A2E25) on off-white (#F9F8F6) for body text.",
+    "data_testid": "MANDATORY. Add `data-testid` to all interactive elements (e.g., `data-testid='driver-reg-submit'`, `data-testid='operator-earnings-slider'`)."
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not use generic 'AI slop' styling. Create a distinctive, premium UK brand feel.",
+    "Implement staggered Framer Motion entrance animations for dashboard bento grids.",
+    "Use pill-shaped buttons with hover micro-interactions.",
+    "Ensure generous padding (`p-6` to `p-8`) inside cards.",
+    "Use Lucide-react icons, styled elegantly (stroke-width 1.5).",
+    "Never use naked white text on images. Always use a scrim or glassmorphism panel.",
+    "Mobile-first: Ensure multi-step forms and bento grids collapse gracefully on small screens."
   ]
 }
