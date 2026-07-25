@@ -8,6 +8,7 @@ import io
 import csv
 import jwt
 import bcrypt
+import secrets
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional, Annotated
 
@@ -17,6 +18,8 @@ from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field, BeforeValidator, EmailStr, ConfigDict
 from bson import ObjectId
+
+from emailer import send_welcome, send_reset, send_alert, fire
 
 # ---------------------------------------------------------------- DB
 mongo_url = os.environ['MONGO_URL']
@@ -169,6 +172,8 @@ async def register(body: RegisterIn, response: Response):
         "data": {"dvla_licence": body.dvla_licence, "pco_licence": body.pco_licence, "dob": body.dob},
     })
     token = await _issue(response, uid, email, role)
+    fire(send_welcome(role, email, body.name))
+    fire(send_alert(f"New {role} signup", {"Name": body.name, "Email": email, "Phone": body.phone}))
     return {"id": uid, "name": body.name, "email": email, "phone": body.phone, "role": role, "token": token}
 
 @api.post("/auth/login")
@@ -184,6 +189,45 @@ async def login(body: LoginIn, response: Response):
 @api.post("/auth/logout")
 async def logout(response: Response):
     response.delete_cookie("access_token", path="/")
+    return {"ok": True}
+
+class ForgotIn(BaseModel):
+    email: EmailStr
+
+class ResetIn(BaseModel):
+    token: str
+    password: str
+
+@api.post("/auth/forgot-password")
+async def forgot_password(body: ForgotIn):
+    email = body.email.lower()
+    user = await db.users.find_one({"email": email})
+    if user:
+        token = secrets.token_urlsafe(32)
+        await db.password_reset_tokens.insert_one({
+            "token": token, "user_id": str(user["_id"]), "email": email,
+            "expires_at": datetime.now(timezone.utc) + timedelta(hours=1),
+            "used": False, "created_at": now_iso(),
+        })
+        base = os.environ.get("PUBLIC_BASE_URL", "").rstrip("/")
+        fire(send_reset(email, f"{base}/reset-password?token={token}"))
+    # Never reveal whether the email exists
+    return {"ok": True}
+
+@api.post("/auth/reset-password")
+async def reset_password(body: ResetIn):
+    if len(body.password) < 6:
+        raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+    doc = await db.password_reset_tokens.find_one({"token": body.token})
+    if not doc or doc.get("used"):
+        raise HTTPException(status_code=400, detail="This reset link is invalid or has already been used")
+    expires = doc["expires_at"]
+    if expires.tzinfo is None:
+        expires = expires.replace(tzinfo=timezone.utc)
+    if expires < datetime.now(timezone.utc):
+        raise HTTPException(status_code=400, detail="This reset link has expired")
+    await db.users.update_one({"_id": ObjectId(doc["user_id"])}, {"$set": {"password_hash": hash_password(body.password)}})
+    await db.password_reset_tokens.update_one({"token": body.token}, {"$set": {"used": True}})
     return {"ok": True}
 
 @api.get("/auth/me")
@@ -306,6 +350,8 @@ async def create_interest(body: InterestIn):
         "source": "operator_interest", "created_at": now_iso(),
         "data": {"company_name": body.company_name, "fleet_size": body.fleet_size, "areas": body.areas},
     })
+    fire(send_alert("Operator fleet interest", {"Company": body.company_name, "Contact": body.contact_name,
+                                                "Email": body.email.lower(), "Phone": body.phone, "Fleet size": body.fleet_size, "Areas": body.areas}))
     return {"ok": True}
 
 @api.post("/leads")
@@ -333,6 +379,8 @@ async def city_interest(body: CityInterestIn):
         "source": "city_request", "created_at": now_iso(),
         "data": {"city": body.city, "vehicle_type": body.vehicle_type},
     })
+    fire(send_alert("Car / city request", {"City": body.city, "Wants": body.vehicle_type, "Budget": body.budget,
+                                           "Note": body.note, "Email": body.email.lower(), "Phone": body.phone}))
     return {"ok": True}
 
 @api.get("/city-demand")
@@ -471,6 +519,7 @@ async def seed_listings():
 async def startup():
     await db.users.create_index("email", unique=True)
     await db.listings.create_index("id")
+    await db.password_reset_tokens.create_index("expires_at", expireAfterSeconds=0)
     await seed_admin()
     await seed_listings()
     await db.listings.update_many({"city": {"$exists": False}}, {"$set": {"city": "London"}})

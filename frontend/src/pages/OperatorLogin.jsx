@@ -58,7 +58,13 @@ export default function OperatorLogin() {
           <p className="text-[14.5px] text-[#4A5D54] mt-2 mb-7">Manage your cars, applications and payouts in one place.</p>
           <form onSubmit={submit} className="space-y-4">
             <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Email</Label><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} data-testid="oplogin-email" className={inputCls} required /></div>
-            <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Password</Label><Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-testid="oplogin-password" className={inputCls} required /></div>
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <Label className="text-[13px] font-medium text-[#4A5D54]">Password</Label>
+                <Link to="/forgot-password" className="text-[12.5px] text-[#0B6B4F] font-medium hover:underline" data-testid="oplogin-forgot">Forgot password?</Link>
+              </div>
+              <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-testid="oplogin-password" className={inputCls} required />
+            </div>
             <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white hover:-translate-y-[2px] transition-transform" data-testid="oplogin-submit">{loading ? "Signing in" : "Sign in"}</Button>
           </form>
           <div className="mt-7 rounded-2xl bg-[#E6F5F0] border border-[#0B6B4F]/15 p-5">

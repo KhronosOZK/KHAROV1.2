@@ -23,6 +23,9 @@ import Help from "@/pages/Help";
 import Legal from "@/pages/Legal";
 import Calculator from "@/pages/Calculator";
 import Saved from "@/pages/Saved";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
+import RequestCar from "@/pages/RequestCar";
 import { api, trackEvent } from "@/lib/api";
 
 function RouteTracker() {
@@ -57,6 +60,9 @@ function App() {
             <Route path="/legal" element={<Legal />} />
             <Route path="/calculator" element={<Calculator />} />
             <Route path="/saved" element={<Saved />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/request-a-car" element={<RequestCar />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />

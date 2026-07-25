@@ -93,8 +93,17 @@ export default function SearchResults() {
       )}
 
       {listings != null && listings.length > 0 && (
-        <div className="mt-12 bg-[#F1EFE9] rounded-[22px] p-6 sm:p-10" data-testid="sr-car-request">
-          <CityInterestForm city={city} mode="request" />
+        <div className="mt-12 relative overflow-hidden rounded-[22px] bg-[#0A130F]" data-testid="sr-car-request">
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1200&q=60" alt="" className="absolute inset-0 w-full h-full object-cover opacity-25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F]/96 via-[#0A130F]/85 to-[#0A130F]/60" />
+          <div className="relative p-7 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 text-white">
+            <div className="[text-shadow:0_2px_16px_rgba(0,0,0,0.5)]">
+              <h3 className="text-xl sm:text-2xl font-heading font-bold">Can't find the right car in {city}?</h3>
+              <p className="text-white/70 mt-2 text-[15px] max-w-md">Tell us exactly what you are after and we will match you when it comes up.</p>
+            </div>
+            <Button onClick={() => navigate(`/request-a-car?city=${encodeURIComponent(city)}`)} data-testid="sr-request-car-btn"
+              className="rounded-full bg-[#5FD3A6] hover:bg-white text-[#0A130F] font-semibold shrink-0 hover:-translate-y-[2px] transition-transform">Request a car</Button>
+          </div>
         </div>
       )}
     </main>

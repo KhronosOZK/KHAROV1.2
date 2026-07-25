@@ -31,6 +31,16 @@ export function AuthProvider({ children }) {
 
   const logout = async () => { await api.post("/auth/logout").catch(() => {}); setUser(false); };
 
+  const forgotPassword = async (email) => {
+    try { await api.post("/auth/forgot-password", { email }); return { ok: true }; }
+    catch (e) { return { ok: false, error: formatApiError(e.response?.data?.detail) || e.message }; }
+  };
+
+  const resetPassword = async (token, password) => {
+    try { await api.post("/auth/reset-password", { token, password }); return { ok: true }; }
+    catch (e) { return { ok: false, error: formatApiError(e.response?.data?.detail) || e.message }; }
+  };
+
   const toggleSaved = (id) => {
     setSaved((prev) => {
       const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
@@ -40,7 +50,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, saved, toggleSaved }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, forgotPassword, resetPassword, saved, toggleSaved }}>
       {children}
     </AuthContext.Provider>
   );

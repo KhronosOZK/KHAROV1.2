@@ -57,7 +57,13 @@ export default function Login() {
           <p className="text-[14.5px] text-[#4A5D54] mt-2 mb-7">See your rentals, applications and saved cars.</p>
           <form onSubmit={submit} className="space-y-4">
             <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Email</Label><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} data-testid="login-email" className={inputCls} required /></div>
-            <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Password</Label><Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-testid="login-password" className={inputCls} required /></div>
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <Label className="text-[13px] font-medium text-[#4A5D54]">Password</Label>
+                <Link to="/forgot-password" className="text-[12.5px] text-[#0B6B4F] font-medium hover:underline" data-testid="login-forgot">Forgot password?</Link>
+              </div>
+              <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-testid="login-password" className={inputCls} required />
+            </div>
             <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white hover:-translate-y-[2px] transition-transform" data-testid="login-submit">{loading ? "Signing in" : "Sign in"}</Button>
           </form>
           <div className="mt-5 flex items-center gap-2 text-[12.5px] text-[#7A857F]"><ShieldCheck className="w-4 h-4 text-[#0B6B4F]" strokeWidth={1.5} /> Your details are encrypted and never sold on.</div>
