@@ -29,8 +29,8 @@ export default function SearchResults() {
     setListings(data.filter((v) => v.weekly_rent >= range[0] && v.weekly_rent <= (range[1] >= 400 ? 9999 : range[1])));
   }, [city, vtype, fuel, sort, range]);
 
-  useEffect(() => { run(); /* eslint-disable-next-line */ }, [sort]);
-  useEffect(() => { trackEvent("page_view", { path: "/search", city }); run(); /* eslint-disable-next-line */ }, []);
+  useEffect(() => { run(); }, [sort]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { trackEvent("page_view", { path: "/search", city }); run(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const apply = () => {
     const p = new URLSearchParams();

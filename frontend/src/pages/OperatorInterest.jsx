@@ -22,6 +22,7 @@ export default function OperatorInterest() {
     vehicle_types: "", areas: "", contact_name: "", role: "", email: "", phone: "", heard_from: "Word of mouth",
   });
   const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
+  const teaser = estimateOperatorAnnual("6-15");
 
   useEffect(() => { api.get("/stats").then((r) => setCount(r.data.operators + 37)).catch(() => {}); }, []);
 
@@ -58,16 +59,30 @@ export default function OperatorInterest() {
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
       <div className="grid lg:grid-cols-5 gap-8">
         <div className="lg:col-span-2">
-          <div className="relative rounded-[22px] overflow-hidden min-h-[240px] lg:h-full">
+          <div className="relative rounded-[22px] overflow-hidden min-h-[300px] lg:h-full">
             <img src={IMG.suvLot} alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-[#0E1A14]/80" />
-            <div className="relative p-7 text-white h-full flex flex-col justify-between">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0E1A14]/70 via-[#0E1A14]/84 to-[#0E1A14]/97" />
+            <div className="relative p-7 sm:p-8 text-white h-full flex flex-col justify-between gap-7">
               <div>
-                <p className="text-[12px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Not live yet</p>
-                <h2 className="text-2xl font-heading font-bold mt-2 leading-snug">Get your fleet ready before we open</h2>
-                <p className="text-white/70 mt-3 text-[14px]">This puts you on the launch list. It takes two minutes and there is no obligation.</p>
+                <p className="text-[12px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">Founding operators wanted</p>
+                <h2 className="text-[26px] sm:text-[30px] font-heading font-extrabold mt-3 leading-[1.08]">Turn idle cars into steady, vetted income.</h2>
+                <p className="text-white/75 mt-3 text-[14.5px] leading-relaxed">Get on the launch list before we open in your area. Two minutes now means first pick of drivers and a spot on the map the day we go live.</p>
               </div>
-              <p className="text-white/60 text-[13px] mt-6">{count} operators have registered so far</p>
+
+              <div className="rounded-2xl bg-white/[0.07] ring-1 ring-white/10 p-5 backdrop-blur-sm">
+                <div className="text-[12px] text-white/55 uppercase tracking-wide">A typical car earns</div>
+                <div className="text-3xl font-heading font-extrabold text-[#5FD3A6] mt-1.5">£{teaser.perCarYear.toLocaleString()}<span className="text-sm font-normal text-white/55"> a year</span></div>
+                <div className="text-[12.5px] text-white/60 mt-1">before our flat 10% fee, at typical utilisation</div>
+              </div>
+
+              <div>
+                <div className="space-y-2.5">
+                  {["No listing fees, no setup costs", "Rent covered up to two weeks if a driver defaults", "Every driver background and licence checked"].map((t) => (
+                    <div key={t} className="flex items-center gap-2.5 text-[13.5px] text-white/85"><Check className="w-4 h-4 text-[#5FD3A6] shrink-0" /> {t}</div>
+                  ))}
+                </div>
+                <p className="text-white/50 text-[12.5px] mt-5">{count} operators have registered so far</p>
+              </div>
             </div>
           </div>
         </div>

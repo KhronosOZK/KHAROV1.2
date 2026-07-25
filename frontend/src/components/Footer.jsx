@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ShieldCheck } from "lucide-react";
 
 const cols = [
   { h: "Drivers", links: [["Search vehicles", "/"], ["How renting works", "/driver-guide"], ["Cost calculator", "/calculator"], ["Create an account", "/register"]] },
@@ -15,7 +14,6 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="caro-wordmark text-3xl">caro<span className="text-[#10B981]">.</span></div>
             <p className="text-sm text-white/60 mt-3 max-w-xs">London's marketplace for private hire vehicle rental. Vetted operators, transparent pricing, cover built in.</p>
-            <div className="mt-4 inline-flex items-center gap-2 text-xs text-[#10B981] bg-white/5 px-3 py-1.5 rounded-full"><ShieldCheck className="w-4 h-4" /> Verified against TfL & Companies House</div>
           </div>
           {cols.map((c) => (
             <div key={c.h}>

@@ -61,11 +61,20 @@ export default function OperatorGuide() {
       </div>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <div className="bg-[#0E1A14] rounded-[26px] p-8 sm:p-12 text-white">
+        <div className="bg-[#0E1A14] rounded-[26px] p-7 sm:p-12 text-white">
           <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Your earning potential</p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold mt-2 text-balance">See what your fleet could bring in.</h2>
-          <p className="text-white/70 mt-3 max-w-2xl text-[16px]">Real figures based on typical London weekly rates and 85% utilisation, before our flat 10% fee. Register to get a full breakdown for your exact fleet.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-end mt-2">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-balance">See what your fleet could bring in.</h2>
+              <p className="text-white/70 mt-3 text-[16px] leading-relaxed">Real figures based on typical London weekly rates at 85% utilisation, before our flat 10% fee. Register to get a full breakdown for your exact fleet.</p>
+            </div>
+            <div className="rounded-2xl bg-white/[0.06] ring-1 ring-white/10 p-6">
+              <div className="text-[12px] text-white/55 uppercase tracking-wide">A well run car earns up to</div>
+              <div className="text-[44px] sm:text-6xl font-heading font-extrabold text-[#5FD3A6] leading-none mt-2">£14,586<span className="text-lg font-normal text-white/55"> / year</span></div>
+              <div className="text-[13px] text-white/60 mt-2">Executive vehicles, at £330 a week and typical utilisation.</div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-8">
             {[["Hybrid saloon", 255], ["Executive", 330], ["Electric", 235], ["Wheelchair accessible", 255]].map(([label, wk]) => {
               const perYear = Math.round(wk * 52 * 0.85);
               return (
@@ -77,7 +86,7 @@ export default function OperatorGuide() {
               );
             })}
           </div>
-          <div className="grid sm:grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4">
             {[5, 15, 30].map((n) => (
               <div key={n} className="flex items-center justify-between bg-white/5 rounded-2xl p-5 ring-1 ring-white/10">
                 <span className="text-white/70">{n} car fleet</span>

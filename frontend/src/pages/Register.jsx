@@ -36,18 +36,25 @@ export default function Register() {
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
       <div className="grid lg:grid-cols-5 gap-8">
         <div className="lg:col-span-2">
-          <div className="relative rounded-[22px] overflow-hidden min-h-[240px] lg:h-full">
+          <div className="relative rounded-[22px] overflow-hidden min-h-[300px] lg:h-full">
             <img src={IMG.driverNight} alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-[#0A130F]/78" />
-            <div className="relative p-7 text-white h-full flex flex-col justify-between">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0A130F]/68 via-[#0A130F]/82 to-[#0A130F]/96" />
+            <div className="relative p-7 sm:p-8 text-white h-full flex flex-col justify-between gap-7">
               <div>
-                <p className="text-[12px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Drivers</p>
-                <h2 className="text-2xl font-heading font-bold mt-2 leading-snug">Set up once, apply to any car in seconds</h2>
-                <p className="text-white/70 mt-3 text-[14px]">Save your details a single time. Every application after that fills itself in.</p>
+                <p className="text-[12px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">Join 1,240+ London drivers</p>
+                <h2 className="text-[26px] sm:text-[30px] font-heading font-extrabold mt-3 leading-[1.08]">Your next car is minutes away.</h2>
+                <p className="text-white/75 mt-3 text-[14.5px] leading-relaxed">Set your details up once. After that, every car you like is one tap from an application, with insurance and cover already priced in.</p>
               </div>
-              <div className="space-y-2 mt-6">
-                {["We never sell your details on", "Hear back within a day", "Nothing charged until you sign"].map((t) => (
-                  <div key={t} className="flex items-center gap-2 text-[13px] text-white/80"><Check className="w-4 h-4 text-[#5FD3A6]" /> {t}</div>
+
+              <div className="rounded-2xl bg-white/[0.07] ring-1 ring-white/10 p-5 backdrop-blur-sm">
+                <div className="text-[#F4B740] text-sm tracking-wide">★★★★★</div>
+                <p className="text-[14px] text-white/90 mt-2 leading-relaxed">"Took me ten minutes to find a hybrid and get approved. No deposit games, no chasing a stranger on WhatsApp."</p>
+                <p className="text-[12.5px] text-white/55 mt-2.5">Marcus O., PCO driver in Croydon</p>
+              </div>
+
+              <div className="space-y-2.5">
+                {["We never sell your details on", "Most drivers hear back within a day", "Nothing charged until you are behind the wheel"].map((t) => (
+                  <div key={t} className="flex items-center gap-2.5 text-[13.5px] text-white/85"><Check className="w-4 h-4 text-[#5FD3A6] shrink-0" /> {t}</div>
                 ))}
               </div>
             </div>

@@ -199,11 +199,11 @@ export default function Home() {
             </div>
             <Button onClick={() => navigate("/driver-guide")} className="mt-8 rounded-full bg-[#1A2E25] hover:bg-[#0f1a15] text-white">Read the full walkthrough <ArrowRight className="w-4 h-4 ml-2" /></Button>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <img src={IMG.phoneInCar} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64 mt-8" />
-            <img src={IMG.driverMirror} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64" />
-            <img src={IMG.keysHandover} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64" />
-            <img src={IMG.interior} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64 -mt-8" />
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <img src={IMG.phoneInCar} alt="" className="rounded-2xl object-cover w-full h-40 sm:h-64 sm:mt-8" />
+            <img src={IMG.driverMirror} alt="" className="rounded-2xl object-cover w-full h-40 sm:h-64" />
+            <img src={IMG.keysHandover} alt="" className="rounded-2xl object-cover w-full h-40 sm:h-64" />
+            <img src={IMG.interior} alt="" className="rounded-2xl object-cover w-full h-40 sm:h-64 sm:-mt-8" />
           </div>
         </div>
       </section>

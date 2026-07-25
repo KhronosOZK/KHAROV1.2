@@ -13,6 +13,16 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 4 — conversion polish + go-live pass)
+- Removed the "Verified against TfL & Companies House" footer badge (per user request).
+- Redesigned driver Register and operator Interest left rails: enticing headlines, 5-star testimonial (driver), per-car earnings teaser (operator), trust bullets, social proof counts.
+- Rewrote CTA/hero copy across guides with conversion-led language ("Turn idle cars into steady, vetted income", "Your next car is minutes away").
+- Operator earnings brochure (OperatorGuide) reworked into a two-column brochure with a lead "up to £14,586/yr" figure.
+- DriverGuide "Ready when you are" CTA now uses a thematic driver photo.
+- Mobile fixes: global overflow-x hidden; Home how-it-works image collage stagger only on sm+.
+- Cleared the SearchResults useEffect eslint warning.
+- Verified end-to-end data capture live: driver signup, operator interest, city-interest, analytics (page views/searches) all writing to DB and reflected in /api/admin/summary (leads 47, drivers 21, interests 10, city_requests 4, page_views 86).
+
 ## Implemented (2026-06 / iteration 2 — professional redesign pass)
 - Fixed transparent dropdowns (restored shadcn CSS tokens); homepage min–max budget range slider.
 - Homepage: Spotlight featured car + Browse-by-collection tiles + immersive layout.
