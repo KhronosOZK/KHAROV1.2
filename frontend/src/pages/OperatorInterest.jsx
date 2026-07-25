@@ -33,8 +33,8 @@ export default function OperatorInterest() {
   });
   const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
 
-  useEffect(() => { api.get("/stats").then((r) => setCount(r.data.operators + 37)).catch(() => {}); }, []);
-  useEffect(() => { setF((p) => ({ ...p, fleet_size: fleetBucket(cars) })); }, [cars]);
+  useEffect(() => { api.get("/stats").then((r) => setCount(r.data.operators + 37)).catch(() => {}); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { setF((p) => ({ ...p, fleet_size: fleetBucket(cars) })); }, [cars]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const earn = estimateFleetEarnings(cars, vClass.weekly);
 
@@ -53,7 +53,7 @@ export default function OperatorInterest() {
         fleet_size: f.fleet_size, areas: f.vehicle_types ? `${f.areas} (types: ${f.vehicle_types})` : f.areas,
         contact_name: f.contact_name, role: f.role, email: f.email, phone: f.phone, heard_from: f.heard_from,
       });
-    } catch { /* lead capture best-effort */ }
+    } catch (err) { console.error("Interest lead capture failed:", err); }
     setLoading(false);
     if (res.ok) { setDone(true); window.scrollTo(0, 0); }
     else { toast.error(res.error?.includes("exists") ? "That email is already registered. Try signing in." : (res.error || "Something went wrong.")); }

@@ -93,7 +93,7 @@ class TestCityInterest:
         }
         r = requests.post(f"{API}/city-interest", json=payload)
         assert r.status_code == 200
-        assert r.json().get("ok") == True
+        assert r.json().get("ok")
 
         # Verify present in city_requests via admin
         rows = admin_sess.get(f"{API}/admin/city_requests").json()

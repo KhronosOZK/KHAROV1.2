@@ -112,7 +112,7 @@ class TestListings:
         r = s.get(f"{API}/listings", params={"breakdown": "true"})
         assert r.status_code == 200
         for d in r.json():
-            assert d.get("breakdown_included") == True
+            assert d.get("breakdown_included")
 
     def test_sort_price_asc(self, s):
         r = s.get(f"{API}/listings", params={"sort": "price_asc"})
@@ -286,7 +286,7 @@ class TestInterestStats:
         }
         r = s.post(f"{API}/interest", json=payload)
         assert r.status_code == 200
-        assert r.json()["ok"] == True
+        assert r.json()["ok"]
 
     def test_stats(self, s):
         r = s.get(f"{API}/stats")

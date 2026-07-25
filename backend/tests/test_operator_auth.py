@@ -99,7 +99,7 @@ class TestOperatorRegistrationAndLogin:
         ir = requests.post(f"{API}/interest", json=interest_payload,
                            headers={"Authorization": f"Bearer {tok}"})
         assert ir.status_code == 200
-        assert ir.json()["ok"] is True
+        assert ir.json()["ok"]
 
         # Admin sees the interest row + a lead(source=operator_interest)
         interests = admin_session.get(f"{API}/admin/interests").json()

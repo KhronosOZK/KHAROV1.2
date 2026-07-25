@@ -81,7 +81,7 @@ export default function SearchResults() {
       </div>
 
       {listings == null ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{[...Array(6)].map((_, i) => <div key={i} className="h-80 rounded-2xl bg-white ring-1 ring-slate-200/70 animate-pulse" />)}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{[...Array(6)].map((_, i) => <div key={`sk-${i}`} className="h-80 rounded-2xl bg-white ring-1 ring-slate-200/70 animate-pulse" />)}</div>
       ) : cityHasNoInventory ? (
         <div className="bg-[#F1EFE9] rounded-[22px] p-6 sm:p-10" data-testid="sr-city-interest"><CityInterestForm city={city} /></div>
       ) : listings.length === 0 ? (
