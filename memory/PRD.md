@@ -13,6 +13,15 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 7 — tablet responsiveness + legibility)
+- Fixed tablet layouts: driver/operator LOGIN left panels now visible + centered (were hidden/awkward); driver/operator REGISTRATION interactive widgets (take-home / earnings estimator) centered on tablet.
+- Driver dashboard tablet grid fixed: was cramped 4-column (md:grid-cols-4), now stacks full-width below lg.
+- Text-over-image legibility: added text-shadow to /driver-guide and /portal hero headings; vehicle-card borough labels already glass-pilled.
+- Removed the rental cost calculator page + all links (header, footer, why-caro, driver portal); added catch-all route redirecting unknown URLs to home.
+- Vehicle gallery rebuilt: functional main image + prev/next + thumbnail filmstrip (previously the main image never changed and the mosaic was irregular).
+- "How it works" (/driver-guide) now alternates dark-green (#0E1A14) and light bands.
+- Verified via testing agent (iteration 7): all tablet fixes pass, no issues.
+
 ## Implemented (2026-06 / iteration 6 — go-live plumbing: auth recovery, email scaffold, demand capture)
 - Rebuilt driver & operator LOGIN pages on the cinematic canvas to match registration; added "Forgot password?" links.
 - Password reset flow: POST /auth/forgot-password (no user enumeration) + /auth/reset-password (1h single-use token, TTL-indexed, bcrypt). Frontend /forgot-password + /reset-password pages. Verified e2e + 7 pytest cases.
