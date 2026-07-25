@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { api } from "@/lib/api";
 
 const cols = [
-  { h: "Drivers", links: [["Search vehicles", "/"], ["How renting works", "/driver-guide"], ["Cost calculator", "/calculator"], ["Driver login", "/login"]] },
+  { h: "Drivers", links: [["Search vehicles", "/"], ["How renting works", "/driver-guide"], ["Driver login", "/login"]] },
   { h: "Operators", links: [["List your fleet", "/list-your-fleet"], ["Operator guide", "/operator-guide"], ["Operator login", "/operator-login"]] },
   { h: "Company", links: [["Why choose Caro", "/why-caro"], ["Get help", "/help"], ["Legal & privacy", "/legal"]] },
 ];

@@ -88,10 +88,10 @@ export default function OperatorInterest() {
         {/* LEFT — estimator stage */}
         <div className="text-white">
           <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.16em] uppercase text-[#5FD3A6]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.14em] uppercase text-[#5FD3A6]">
               <Zap className="w-3.5 h-3.5" /> For rental companies
             </div>
-            <h1 className="mt-6 font-heading font-extrabold tracking-tight leading-[0.98] text-[clamp(2.4rem,5.4vw,4.2rem)] text-balance">
+            <h1 className="mt-6 font-heading font-extrabold tracking-tight text-[40px] leading-[1.04] sm:text-5xl lg:text-[64px] text-balance">
               Put your fleet<br /><span className="text-[#5FD3A6]">to work.</span>
             </h1>
             <p className="mt-5 text-[16px] sm:text-[17px] text-white/65 max-w-md leading-relaxed">Drag to your fleet size and see what Caro could bring in, matched with vetted drivers and paid every fortnight.</p>

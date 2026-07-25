@@ -51,10 +51,10 @@ export default function Register() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-16 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center min-h-[calc(100vh-68px)]">
         {/* LEFT — cinematic value stage */}
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-white">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.16em] uppercase text-[#5FD3A6]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.14em] uppercase text-[#5FD3A6]">
             <Zap className="w-3.5 h-3.5" /> Drive with Caro
           </div>
-          <h1 className="mt-6 font-heading font-extrabold tracking-tight leading-[0.98] text-[clamp(2.6rem,6vw,4.6rem)] text-balance">
+          <h1 className="mt-6 font-heading font-extrabold tracking-tight text-[40px] leading-[1.04] sm:text-5xl lg:text-[64px] text-balance">
             The keys to a<br /><span className="text-[#5FD3A6]">better week.</span>
           </h1>
           <p className="mt-5 text-[16px] sm:text-[17px] text-white/65 max-w-md leading-relaxed">

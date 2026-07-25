@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/Header";
@@ -21,7 +21,6 @@ import Admin from "@/pages/Admin";
 import WhyCaro from "@/pages/WhyCaro";
 import Help from "@/pages/Help";
 import Legal from "@/pages/Legal";
-import Calculator from "@/pages/Calculator";
 import Saved from "@/pages/Saved";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
@@ -58,11 +57,11 @@ function App() {
             <Route path="/why-caro" element={<WhyCaro />} />
             <Route path="/help" element={<Help />} />
             <Route path="/legal" element={<Legal />} />
-            <Route path="/calculator" element={<Calculator />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/request-a-car" element={<RequestCar />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />

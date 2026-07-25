@@ -75,8 +75,8 @@ export default function WhyCaro() {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
         <div className="bg-[#F1EFE9] rounded-[26px] p-8 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div><h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#1A2E25] text-balance">Not sure what it would cost you?</h2><p className="text-[#4A564F] mt-2 text-[15px]">Work out your real weekly cost and take home pay in under a minute.</p></div>
-          <Button onClick={() => navigate("/calculator")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold shrink-0">Try the calculator <ArrowRight className="w-4 h-4 ml-2" /></Button>
+          <div><h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#1A2E25] text-balance">Ready to find your car?</h2><p className="text-[#4A564F] mt-2 text-[15px]">Browse vetted vehicles in London with insurance and cover already in the price.</p></div>
+          <Button onClick={() => navigate("/")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold shrink-0">Browse cars <ArrowRight className="w-4 h-4 ml-2" /></Button>
         </div>
       </section>
     </main>

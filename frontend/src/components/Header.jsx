@@ -75,7 +75,6 @@ export default function Header() {
                     <span><span className="block font-semibold text-[#1A2E25] text-[14px]">Rental operators</span><span className="block text-[12.5px] text-[#7A857F]">List your fleet or sign in</span></span>
                   </button>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/calculator")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Cost calculator</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/help")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Get help</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/legal")} className="cursor-pointer py-2.5 rounded-lg text-[#4A564F]">Legal and privacy</DropdownMenuItem>
                 </>
@@ -104,7 +103,6 @@ export default function Header() {
                     <Link to="/list-your-fleet" onClick={() => setOpen(false)} className="py-3 px-2 font-semibold text-[#0B6B4F] flex items-center gap-2">Operators: list your fleet <ArrowRight className="w-4 h-4" /></Link>
                     <div className="border-t border-slate-200 my-3" />
                     <Link to="/why-caro" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Why choose Caro</Link>
-                    <Link to="/calculator" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Cost calculator</Link>
                     <Link to="/help" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Get help</Link>
                     <Link to="/legal" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Legal and privacy</Link>
                   </>

@@ -69,19 +69,15 @@ export default function VehicleDetail() {
       </div>
 
       {/* Gallery */}
-      <div className="grid grid-cols-4 grid-rows-2 gap-2 rounded-[26px] overflow-hidden h-[300px] sm:h-[440px]">
-        <div className="col-span-4 sm:col-span-2 row-span-2 cursor-pointer" onClick={() => setPhoto(0)}>
-          <img src={v.photos[0]} alt="" className="w-full h-full object-cover" />
-        </div>
-        {v.photos.slice(1, 5).map((p, i) => (
-          <div key={`${p}-${i}`} className="hidden sm:block cursor-pointer overflow-hidden" onClick={() => setPhoto(i + 1)}>
-            <img src={p} alt="" className="w-full h-full object-cover hover:brightness-95 transition-all" />
-          </div>
-        ))}
+      <div className="relative rounded-[26px] overflow-hidden h-[300px] sm:h-[460px] bg-[#0E1A14]" data-testid="gallery-main">
+        <img src={v.photos[photo]} alt="" className="w-full h-full object-cover" />
+        <button data-testid="gallery-prev" onClick={() => setPhoto((photo - 1 + v.photos.length) % v.photos.length)} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-md transition-colors"><ChevronLeft className="w-5 h-5 text-[#1A2E25]" /></button>
+        <button data-testid="gallery-next" onClick={() => setPhoto((photo + 1) % v.photos.length)} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-md transition-colors"><CR className="w-5 h-5 text-[#1A2E25]" /></button>
+        <span className="absolute bottom-3 right-3 text-[12px] font-medium text-white bg-black/50 backdrop-blur-sm rounded-full px-2.5 py-1">{photo + 1} / {v.photos.length}</span>
       </div>
       <div className="flex gap-2 mt-3 overflow-x-auto hide-scrollbar">
         {v.photos.map((p, i) => (
-          <button key={`${p}-${i}`} onClick={() => setPhoto(i)} className={`w-20 h-16 rounded-lg overflow-hidden ring-2 shrink-0 ${photo === i ? "ring-[#0B6B4F]" : "ring-transparent"}`}><img src={p} alt="" className="w-full h-full object-cover" /></button>
+          <button key={`${p}-${i}`} onClick={() => setPhoto(i)} className={`w-24 h-16 rounded-lg overflow-hidden ring-2 shrink-0 transition-all ${photo === i ? "ring-[#0B6B4F]" : "ring-transparent opacity-70 hover:opacity-100"}`}><img src={p} alt="" className="w-full h-full object-cover" /></button>
         ))}
       </div>
 

@@ -20,8 +20,8 @@ export default function RequestCar() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-16 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[calc(100vh-68px)]">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} className="text-white">
           <button onClick={() => navigate(-1)} className="inline-flex items-center gap-1.5 text-white/60 hover:text-white text-sm" data-testid="request-back"><ArrowLeft className="w-4 h-4" /> Back to results</button>
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.16em] uppercase text-[#5FD3A6] mt-6"><Search className="w-3.5 h-3.5" /> Tell us what you want</div>
-          <h1 className="mt-5 font-heading font-extrabold tracking-tight leading-[1.0] text-[clamp(2.3rem,5vw,3.8rem)] text-balance">Can't find the right car in {city}?</h1>
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.14em] uppercase text-[#5FD3A6] mt-6"><Search className="w-3.5 h-3.5" /> Tell us what you want</div>
+          <h1 className="mt-5 font-heading font-extrabold tracking-tight text-[36px] leading-[1.04] sm:text-5xl lg:text-[56px] text-balance">Can't find the right car in {city}?</h1>
           <p className="mt-5 text-[16px] text-white/65 max-w-md leading-relaxed">Describe exactly what you are after. We will match you the moment it comes up, and your request tells our rental partners what drivers in {city} actually want.</p>
         </motion.div>
 

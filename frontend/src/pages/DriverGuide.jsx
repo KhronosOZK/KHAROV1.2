@@ -28,21 +28,24 @@ export default function DriverGuide() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
-        {steps.map((s, i) => (
-          <motion.section key={s.n} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.55 }}
-            className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center py-10 sm:py-16 ${i % 2 ? "lg:[direction:rtl]" : ""}`}>
-            <div className="lg:[direction:ltr]">
-              <span className="text-[15px] font-heading font-bold text-[#0B6B4F] tracking-widest">{s.n}</span>
-              <h2 className="text-3xl sm:text-[40px] font-heading font-bold text-[#1A2E25] mt-3 leading-tight text-balance">{s.t}</h2>
-              <p className="text-[#4A564F] mt-4 text-[17px] leading-relaxed">{s.d}</p>
-            </div>
-            <div className="lg:[direction:ltr]"><div className="rounded-[26px] overflow-hidden shadow-lg aspect-[4/3]"><img src={s.img} alt={s.t} className="w-full h-full object-cover" /></div></div>
-          </motion.section>
-        ))}
-      </div>
+      {steps.map((s, i) => {
+        const dark = i % 2 === 1;
+        return (
+          <section key={s.n} className={dark ? "bg-[#0E1A14]" : "bg-[#F9F8F6]"}>
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.55 }}
+              className={`max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center py-12 sm:py-20 ${i % 2 ? "lg:[direction:rtl]" : ""}`}>
+              <div className="lg:[direction:ltr]">
+                <span className={`text-[15px] font-heading font-bold tracking-widest ${dark ? "text-[#5FD3A6]" : "text-[#0B6B4F]"}`}>{s.n}</span>
+                <h2 className={`text-3xl sm:text-[40px] font-heading font-bold mt-3 leading-tight text-balance ${dark ? "text-white" : "text-[#1A2E25]"}`}>{s.t}</h2>
+                <p className={`mt-4 text-[17px] leading-relaxed ${dark ? "text-white/70" : "text-[#4A564F]"}`}>{s.d}</p>
+              </div>
+              <div className="lg:[direction:ltr]"><div className="rounded-[26px] overflow-hidden shadow-lg aspect-[4/3]"><img src={s.img} alt={s.t} className="w-full h-full object-cover" /></div></div>
+            </motion.div>
+          </section>
+        );
+      })}
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
         <div className="relative rounded-[26px] overflow-hidden p-8 sm:p-16 text-center">
           <img src={IMG.happyDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-[#0A130F]/82" />

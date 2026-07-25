@@ -39,10 +39,10 @@ export default function OperatorLogin() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-16 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[calc(100vh-68px)]">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-white hidden lg:block">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.16em] uppercase text-[#5FD3A6]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.14em] uppercase text-[#5FD3A6]">
             <Zap className="w-3.5 h-3.5" /> Rental operators
           </div>
-          <h1 className="mt-6 font-heading font-extrabold tracking-tight leading-[0.98] text-[clamp(2.5rem,5.2vw,4.2rem)] text-balance">
+          <h1 className="mt-6 font-heading font-extrabold tracking-tight text-[40px] leading-[1.04] sm:text-5xl lg:text-[64px] text-balance">
             Your fleet,<br /><span className="text-[#5FD3A6]">in command.</span>
           </h1>
           <div className="mt-9 max-w-md rounded-[24px] bg-[#0A1712]/70 border border-white/10 backdrop-blur-2xl p-6 sm:p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]">

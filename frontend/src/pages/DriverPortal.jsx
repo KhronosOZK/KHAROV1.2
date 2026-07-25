@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Car, ShieldCheck, FileText, AlertTriangle, Wrench, Clock, Check, X, Heart,
-  CalendarClock, ArrowRight, Headphones, Calculator, Sparkles, IdCard,
+  CalendarClock, ArrowRight, Headphones, Sparkles, IdCard,
 } from "lucide-react";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
@@ -59,7 +59,6 @@ export default function DriverPortal() {
             <p className="text-white/70 mt-3 text-[15px] leading-relaxed">Browse vetted cars in London with insurance and cover already in the price. Apply in minutes with your details saved.</p>
             <div className="flex gap-3 mt-6 flex-wrap">
               <Button onClick={() => navigate("/search")} className="rounded-full bg-[#5FD3A6] hover:bg-white text-[#0A130F] font-semibold hover:-translate-y-[2px] transition-transform">Browse cars in London <ArrowRight className="w-4 h-4 ml-2" /></Button>
-              <Button onClick={() => navigate("/calculator")} variant="outline" className="rounded-full border-white/30 text-white bg-transparent hover:bg-white/10 hover:text-white">Cost calculator</Button>
             </div>
           </div>
         </motion.div>
