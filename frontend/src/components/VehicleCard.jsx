@@ -19,13 +19,13 @@ export default function VehicleCard({ v }) {
       <div className="relative aspect-[16/11] overflow-hidden bg-[#EFEDE8]">
         <img src={v.photos[0]} alt={`${v.make} ${v.model}`} loading="lazy"
           className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[600ms]" />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/25 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/55 to-transparent" />
         <button data-testid={`save-btn-${v.id}`}
           onClick={(e) => { e.stopPropagation(); toggleSaved(v.id); }}
           className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/85 backdrop-blur flex items-center justify-center hover:bg-white transition-colors">
           <Heart className={`w-[18px] h-[18px] ${isSaved ? "fill-[#B4472E] text-[#B4472E]" : "text-[#3B4A44]"}`} />
         </button>
-        <span className="absolute bottom-3 left-3 text-[13px] font-medium text-white/95 tracking-wide">
+        <span className="absolute bottom-3 left-3 inline-flex items-center text-[12.5px] font-medium text-white bg-black/45 backdrop-blur-sm rounded-full px-2.5 py-1">
           {v.borough}
         </span>
       </div>

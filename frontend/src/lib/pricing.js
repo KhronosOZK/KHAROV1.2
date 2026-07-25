@@ -63,3 +63,23 @@ export function estimateFleetEarnings(cars, weekly, utilisation = 0.85, feeRate 
     perCarMonth: Math.round((weekly * utilisation * 52) / 12),
   };
 }
+
+// Driver weekly take-home estimator (based on typical London PHV fares)
+export const DRIVER_CARS = [
+  { key: "electric", label: "Electric", sub: "Lowest running cost" },
+  { key: "hybrid", label: "Hybrid", sub: "The London workhorse" },
+  { key: "executive", label: "Executive", sub: "Higher fares" },
+];
+
+export function estimateDriverWeek(carKey, fullTime) {
+  const grossFull = { electric: 980, hybrid: 920, executive: 1160 };
+  const rentByCar = { electric: 235, hybrid: 255, executive: 330 };
+  const gross = Math.round((grossFull[carKey] ?? 920) * (fullTime ? 1 : 0.52));
+  const insurance = 72;
+  const cover = 8;
+  const rent = rentByCar[carKey] ?? 255;
+  const fuel = fullTime ? (carKey === "electric" ? 55 : 135) : (carKey === "electric" ? 30 : 72);
+  const carCost = rent + insurance + cover;
+  const takeHome = Math.max(gross - carCost - fuel, 0);
+  return { gross, rent, insurance, cover, fuel, carCost, takeHome };
+}

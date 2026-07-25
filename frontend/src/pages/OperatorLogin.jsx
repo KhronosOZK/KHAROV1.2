@@ -28,7 +28,7 @@ export default function OperatorLogin() {
     <main className="grid lg:grid-cols-2 min-h-[calc(100vh-68px)]">
       <div className="hidden lg:block relative">
         <img src={IMG.handshakeSmile} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[#0A130F]/62" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A130F]/92 via-[#0A130F]/55 to-[#0A130F]/40" />
         <div className="absolute bottom-10 left-10 right-10 text-white">
           <p className="text-2xl font-heading font-bold leading-snug">"Our cars stopped sitting idle. Applications come in already vetted and the rent turns up on time."</p>
           <p className="text-white/70 mt-3 text-sm">Sam, fleet operator in East London</p>
