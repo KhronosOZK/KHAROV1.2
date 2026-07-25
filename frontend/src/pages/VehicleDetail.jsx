@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ChevronLeft, Heart, Share2, MapPin, Check, RotateCw, ChevronLeft as CL, ChevronRight as CR } from "lucide-react";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { PRICING_TIERS, weeklyForWeeks } from "@/lib/pricing";
 import { Button } from "@/components/ui/button";
 
 const COORDS = {
@@ -101,6 +102,25 @@ export default function VehicleDetail() {
 
           <Section title="What your weekly rent covers">
             <ul className="space-y-3">{included.map((x) => (<li key={x} className="flex items-start gap-2.5 text-[15px] text-[#4A564F]"><Check className="w-4 h-4 text-[#0B6B4F] shrink-0 mt-1" /> {x}</li>))}</ul>
+          </Section>
+
+          <Section title="The longer you rent, the less you pay">
+            <div className="grid sm:grid-cols-3 gap-3">
+              {PRICING_TIERS.map((t, i) => {
+                const wk = weeklyForWeeks(v.weekly_rent, t.weeks);
+                return (
+                  <div key={t.label} className={`rounded-2xl p-5 ring-1 ${i === 1 ? "ring-[#0B6B4F] bg-emerald-50/40" : "ring-slate-200 bg-white"}`}>
+                    <div className="flex items-center justify-between">
+                      <span className="font-heading font-bold text-[#1A2E25]">{t.label}</span>
+                      {i > 0 && <span className="text-[11px] font-semibold text-[#0B6B4F] bg-emerald-100 px-2 py-0.5 rounded-full">save {i === 1 ? "3" : "6"}%</span>}
+                    </div>
+                    <div className="text-[12px] text-[#7A857F] mt-0.5">{t.sub}</div>
+                    <div className="text-2xl font-heading font-extrabold text-[#1A2E25] mt-3">£{wk.toFixed(0)}<span className="text-[13px] font-normal text-[#7A857F]"> a week</span></div>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-[13px] text-[#7A857F] mt-3">Commit to 26 weeks or more and it drops further. You choose your term when you apply.</p>
           </Section>
 
           <Section title="A bit about this car">

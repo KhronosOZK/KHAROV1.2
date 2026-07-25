@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { estimateOperatorAnnual } from "@/lib/pricing";
 import { IMG } from "@/lib/images";
 
 const steps = ["Company", "Fleet", "Contact"];
@@ -58,7 +59,7 @@ export default function OperatorInterest() {
       <div className="grid lg:grid-cols-5 gap-8">
         <div className="lg:col-span-2">
           <div className="relative rounded-[22px] overflow-hidden min-h-[240px] lg:h-full">
-            <img src={IMG.fleetLot} alt="" className="absolute inset-0 w-full h-full object-cover" />
+            <img src={IMG.suvLot} alt="" className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-[#0E1A14]/80" />
             <div className="relative p-7 text-white h-full flex flex-col justify-between">
               <div>
@@ -107,6 +108,13 @@ export default function OperatorInterest() {
                 <div><Label className="mb-1.5 block text-sm">Boroughs or areas you cover</Label><Input value={f.areas} onChange={set("areas")} data-testid="int-areas" className="h-11" placeholder="Croydon, Bromley" /></div>
                 <div><Label className="mb-1.5 block text-sm">Types of car you rent out</Label><Input value={f.vehicle_types} onChange={set("vehicle_types")} data-testid="int-types" className="h-11" placeholder="Hybrids, saloons, one WAV" /></div>
               </div>
+              {(() => { const e = estimateOperatorAnnual(f.fleet_size); return (
+                <div className="mt-5 rounded-2xl bg-[#0E1A14] text-white p-5" data-testid="int-earnings">
+                  <div className="text-[12px] text-white/60 uppercase tracking-wide">What a fleet your size could earn</div>
+                  <div className="text-3xl font-heading font-extrabold text-[#5FD3A6] mt-1.5">£{e.fleetYear.toLocaleString()}<span className="text-sm font-normal text-white/60"> a year</span></div>
+                  <div className="text-[13px] text-white/70 mt-1">Roughly £{e.perCarYear.toLocaleString()} per car across about {e.cars} vehicles, before our 10% fee, at typical utilisation.</div>
+                </div>
+              ); })()}
             </div>)}
             {step === 2 && (<div>
               <div className="flex items-center gap-2 text-[#0B6B4F] font-semibold mb-1"><UserRound className="w-5 h-5" /> How we reach you</div>

@@ -13,9 +13,9 @@ const perks = [
 const steps = [
   { n: "01", t: "Register your interest", d: "Before we go live near you, tell us about your fleet and leave a contact. We will reach out when onboarding opens in your area.", img: IMG.handshake },
   { n: "02", t: "Get verified", d: "We check your Companies House record and TfL operator licence against the public register before anything goes live. It is the same badge of trust your drivers will see.", img: IMG.signingLaptop },
-  { n: "03", t: "List your cars", d: "Add each vehicle with photos, weekly rent, what is included and any conditions. Pause or edit a listing whenever you like from your dashboard.", img: IMG.fleetLot },
-  { n: "04", t: "Pick your drivers", d: "Vetted drivers apply to your listings. You see their experience and rating up front, then approve or decline from one queue.", img: IMG.phoneInCar },
-  { n: "05", t: "Hand over with proof", d: "A quick photo handover at pickup protects you if a car comes back damaged, and the same happens at return, so any deduction is backed by evidence.", img: IMG.keysHandover },
+  { n: "03", t: "List your cars", d: "Add each vehicle with photos, weekly rent, what is included and any conditions. Pause or edit a listing whenever you like from your dashboard.", img: IMG.showroom },
+  { n: "04", t: "Pick your drivers", d: "Vetted drivers apply to your listings. You see their experience and rating up front, then approve or decline from one queue.", img: IMG.driverMirror },
+  { n: "05", t: "Hand over with proof", d: "A quick photo handover at pickup protects you if a car comes back damaged, and the same happens at return, so any deduction is backed by evidence.", img: IMG.keysWoman },
   { n: "06", t: "Get paid on time", d: "Payouts run every fortnight, minus the 10% fee. The rent guarantee has your back if a driver defaults.", img: IMG.executive },
   { n: "07", t: "Stay on top of the paperwork", d: "MOT, tax, insurance and PHV licence dates for the whole fleet in one view, with a heads up before anything lapses.", img: IMG.interior },
 ];
@@ -25,7 +25,7 @@ export default function OperatorGuide() {
   return (
     <main>
       <section className="relative overflow-hidden">
-        <img src={IMG.fleetAerial} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={IMG.rowCars} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/50" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
           <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For rental companies</p>

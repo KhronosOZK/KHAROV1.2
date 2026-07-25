@@ -215,6 +215,49 @@ class TestApplications:
         apps = r2.json()
         assert any(a["listing_id"] == lid for a in apps)
 
+    def test_profile_reuse_and_duration_weeks(self, s):
+        """New driver -> apply with duration_weeks and profile fields -> /auth/me reflects them; app stored duration."""
+        sess = requests.Session()
+        email = f"neo+{uuid.uuid4().hex[:8]}@example.com"
+        r = sess.post(f"{API}/auth/register", json={
+            "name": "Neo", "email": email, "phone": "07000000010",
+            "password": "Test1234!", "role": "driver"
+        })
+        assert r.status_code == 200
+        tok = r.json()["token"]
+        sess.headers.update({"Authorization": f"Bearer {tok}"})
+
+        payload = {
+            "listing_id": "ve-001", "full_name": "Neo",
+            "email": email, "phone": "07999888777",
+            "dob": "1990-01-15", "dvla_licence": "NEO123456AB9CD",
+            "pco_licence": "PCONEO12345", "years_experience": 7,
+            "duration_weeks": 8, "estimated_weekly_cost": 300.0,
+        }
+        r2 = sess.post(f"{API}/applications", json=payload)
+        assert r2.status_code == 200, r2.text
+        assert r2.json()["status"] == "under_review"
+
+        me = sess.get(f"{API}/auth/me").json()
+        assert me["dvla_licence"] == "NEO123456AB9CD"
+        assert me["pco_licence"] == "PCONEO12345"
+        assert me["dob"] == "1990-01-15"
+        assert me["phone"] == "07999888777"
+        assert me["years_experience"] == 7
+
+        apps = sess.get(f"{API}/applications/me").json()
+        assert any(a.get("duration_weeks") == 8 and a["listing_id"] == "ve-001" for a in apps)
+
+    def test_anonymous_application_ok(self, s):
+        payload = {
+            "listing_id": "ve-001", "full_name": "Anon User",
+            "email": f"anon+{uuid.uuid4().hex[:6]}@example.com", "phone": "07000111222",
+            "duration_weeks": 4,
+        }
+        r = requests.post(f"{API}/applications", json=payload)
+        assert r.status_code == 200
+        assert r.json()["status"] == "under_review"
+
 
 # ---------------- Interest & Stats ----------------
 class TestInterestStats:

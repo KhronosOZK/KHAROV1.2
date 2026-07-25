@@ -69,7 +69,7 @@ export default function Header() {
                     <User className="w-5 h-5 text-[#0B6B4F] mt-0.5" />
                     <span><span className="block font-semibold text-[#1A2E25] text-[14px]">Drivers</span><span className="block text-[12.5px] text-[#7A857F]">Log in or create your account</span></span>
                   </button>
-                  <button onClick={() => navigate("/list-your-fleet")} data-testid="menu-operator"
+                  <button onClick={() => navigate("/operator-login")} data-testid="menu-operator"
                     className="w-full text-left rounded-xl px-3 py-3 hover:bg-[#F1EFE9] transition-colors flex items-start gap-3">
                     <Building2 className="w-5 h-5 text-[#0B6B4F] mt-0.5" />
                     <span><span className="block font-semibold text-[#1A2E25] text-[14px]">Rental operators</span><span className="block text-[12.5px] text-[#7A857F]">List your fleet or sign in</span></span>

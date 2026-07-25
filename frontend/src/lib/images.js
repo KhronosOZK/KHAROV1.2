@@ -23,4 +23,17 @@ export const IMG = {
   executive: "https://images.unsplash.com/photo-1764090317825-9b76e437c8d8?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
   interior: "https://images.unsplash.com/photo-1625690180114-5530b1304127?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
   hybrid: "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+
+  // people, distinct per page
+  driverNight: "https://images.unsplash.com/photo-1762087366510-09a87a8e3f8b?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
+  driverMirror: "https://images.unsplash.com/photo-1529809857497-5a48e0ad5cbb?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
+  taxiDriver: "https://images.pexels.com/photos/5835016/pexels-photo-5835016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1000&w=1400",
+  vintageDriver: "https://images.pexels.com/photos/16912017/pexels-photo-16912017.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1000&w=1400",
+  showroom: "https://images.unsplash.com/photo-1585390062628-be8608aa7d83?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+  rowCars: "https://images.unsplash.com/photo-1565043666747-69f6646db940?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
+  suvLot: "https://images.pexels.com/photos/29566906/pexels-photo-29566906.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1000&w=1600",
+  handshakeDesk: "https://images.unsplash.com/photo-1759310610325-2c7cb621e5e3?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
+  handshakeSmile: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
+  londonNight: "https://images.pexels.com/photos/10288942/pexels-photo-10288942.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1100&w=1800",
+  money: "https://images.pexels.com/photos/7654163/pexels-photo-7654163.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1000&w=1400",
 };

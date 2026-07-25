@@ -8,9 +8,9 @@ const steps = [
   { n: "01", t: "Have a proper look", d: "Filter by borough, type of car, fuel and what you can afford each week. The price on every card already includes insurance and breakdown, so you are comparing like for like from the start.", img: IMG.phoneInCar },
   { n: "02", t: "Sort your insurance once", d: "You give us your licence and driving history a single time. We pull quotes for proper private hire cover, put the best value one in front of you, and reuse it on every car you look at after that.", img: IMG.signingCouple },
   { n: "03", t: "Apply and get the nod", d: "The application is short and your details fill themselves in. The rental company reviews it and runs a background check. Most drivers hear back inside a day.", img: IMG.signingLaptop },
-  { n: "04", t: "Check the car over together", d: "You and the operator take photos from every angle before you drive off. Both sides get a timestamped record, so if anything comes up later, there is proof rather than a disagreement.", img: IMG.keysHandover },
-  { n: "05", t: "Get out there and earn", d: "Anything crops up, a warning light, a bump, a parking ticket, you report it straight from your account. Breakdown cover and servicing are already handled.", img: IMG.happyDriver },
-  { n: "06", t: "Hand back or carry on", d: "Book a return slot and do the same quick photo check in reverse. Your deposit comes back once both sets match. Want to keep going? Compare fresh quotes and extend with your details already saved.", img: IMG.driverSuit },
+  { n: "04", t: "Check the car over together", d: "You and the operator take photos from every angle before you drive off. Both sides get a timestamped record, so if anything comes up later, there is proof rather than a disagreement.", img: IMG.keysWoman },
+  { n: "05", t: "Get out there and earn", d: "Anything crops up, a warning light, a bump, a parking ticket, you report it straight from your account. Breakdown cover and servicing are already handled.", img: IMG.driverNight },
+  { n: "06", t: "Hand back or carry on", d: "Book a return slot and do the same quick photo check in reverse. Your deposit comes back once both sets match. Want to keep going? Compare fresh quotes and extend with your details already saved.", img: IMG.vintageDriver },
 ];
 
 export default function DriverGuide() {
@@ -18,7 +18,7 @@ export default function DriverGuide() {
   return (
     <main>
       <section className="relative overflow-hidden">
-        <img src={IMG.happyDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={IMG.taxiDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/50" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
           <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For drivers</p>

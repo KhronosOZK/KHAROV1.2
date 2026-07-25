@@ -26,8 +26,8 @@ export default function Login() {
   return (
     <main className="grid lg:grid-cols-2 min-h-[calc(100vh-68px)]">
       <div className="hidden lg:block relative">
-        <img src={IMG.happyDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[#0E1A14]/55" />
+        <img src={IMG.taxiDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-[#0A130F]/60" />
         <div className="absolute bottom-10 left-10 right-10 text-white">
           <p className="text-2xl font-heading font-bold leading-snug">"I knew exactly what I was paying before I turned up. First time that has happened."</p>
           <p className="text-white/70 mt-3 text-sm">Amara, private hire driver in Croydon</p>

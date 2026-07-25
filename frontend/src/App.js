@@ -6,9 +6,11 @@ import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
+import SearchResults from "@/pages/SearchResults";
 import VehicleDetail from "@/pages/VehicleDetail";
 import Apply from "@/pages/Apply";
 import Login from "@/pages/Login";
+import OperatorLogin from "@/pages/OperatorLogin";
 import Register from "@/pages/Register";
 import DriverPortal from "@/pages/DriverPortal";
 import OperatorDashboard from "@/pages/OperatorDashboard";
@@ -32,9 +34,11 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/search" element={<SearchResults />} />
             <Route path="/vehicle/:id" element={<VehicleDetail />} />
             <Route path="/apply/:id" element={<Apply />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/operator-login" element={<OperatorLogin />} />
             <Route path="/register" element={<Register />} />
             <Route path="/portal" element={<DriverPortal />} />
             <Route path="/operator-dashboard" element={<OperatorDashboard />} />

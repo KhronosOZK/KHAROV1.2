@@ -1,63 +1,50 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, ArrowRight, Zap, Accessibility, Sparkles, Coins } from "lucide-react";
 import { api, trackEvent } from "@/lib/api";
 import { IMG } from "@/lib/images";
-import VehicleCard from "@/components/VehicleCard";
+import { estimateOperatorAnnual } from "@/lib/pricing";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 
 const boroughs = ["all", "Newham", "Croydon", "Redbridge", "Harrow", "Barking & Dagenham", "Westminster", "Camden", "Hounslow", "Lewisham", "Ealing", "Bromley"];
-
 const collections = [
-  { key: "electric", label: "Electric and ULEZ exempt", desc: "The lowest running costs in London", icon: Zap, img: IMG.ev, filter: { fuel: "electric" } },
-  { key: "executive", label: "Executive and premium", desc: "Higher fares, better passengers", icon: Sparkles, img: IMG.executive, filter: { vehicle_type: "executive" } },
-  { key: "value", label: "Under £250 a week", desc: "Easy starting point for new drivers", icon: Coins, img: IMG.hybrid, filter: { max_budget: 250 } },
-  { key: "wav", label: "Wheelchair accessible", desc: "Steady, in demand accessible work", icon: Accessibility, img: IMG.interior, filter: { vehicle_type: "wav" } },
+  { key: "electric", label: "Electric and ULEZ exempt", desc: "The lowest running costs in London", icon: Zap, img: IMG.ev, q: "fuel=electric" },
+  { key: "executive", label: "Executive and premium", desc: "Higher fares, better passengers", icon: Sparkles, img: IMG.executive, q: "type=executive" },
+  { key: "value", label: "Under £250 a week", desc: "An easy place to start out", icon: Coins, img: IMG.hybrid, q: "max=250" },
+  { key: "wav", label: "Wheelchair accessible", desc: "Steady, in demand work", icon: Accessibility, img: IMG.interior, q: "type=wav" },
 ];
 
 export default function Home() {
   const navigate = useNavigate();
   const [all, setAll] = useState([]);
-  const [listings, setListings] = useState([]);
   const [borough, setBorough] = useState("all");
   const [vtype, setVtype] = useState("any");
   const [fuel, setFuel] = useState("any");
   const [range, setRange] = useState([180, 400]);
-  const [sort, setSort] = useState("default");
 
-  const applyBudget = useCallback((arr) => arr.filter((v) => v.weekly_rent >= range[0] && v.weekly_rent <= (range[1] >= 400 ? 9999 : range[1])), [range]);
+  useEffect(() => { api.get("/listings").then((r) => setAll(r.data)); }, []);
 
-  const fetchList = useCallback(async (params = {}) => {
-    const q = { ...params };
-    if (sort !== "default") q.sort = sort;
-    const { data } = await api.get("/listings", { params: q });
-    setListings(data);
-  }, [sort]);
-
-  useEffect(() => { api.get("/listings").then((r) => { setAll(r.data); setListings(r.data); }); }, []);
-
-  const runSearch = () => {
-    const params = {};
-    if (borough !== "all") params.borough = borough;
-    if (vtype !== "any") params.vehicle_type = vtype;
-    if (fuel !== "any") params.fuel = fuel;
-    trackEvent("search", { ...params, range });
-    api.get("/listings", { params: { ...params, ...(sort !== "default" ? { sort } : {}) } }).then((r) => setListings(applyBudget(r.data)));
-    document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
+  const goSearch = () => {
+    const p = new URLSearchParams();
+    if (borough !== "all") p.set("borough", borough);
+    if (vtype !== "any") p.set("type", vtype);
+    if (fuel !== "any") p.set("fuel", fuel);
+    p.set("min", range[0]); p.set("max", range[1]);
+    trackEvent("search", { borough, vtype, fuel, range });
+    navigate(`/search?${p.toString()}`);
   };
-
-  const openCollection = (c) => { trackEvent("collection_click", { key: c.key }); fetchList(c.filter); document.getElementById("results")?.scrollIntoView({ behavior: "smooth" }); };
 
   const featured = [...all].sort((a, b) => b.operator_rating - a.operator_rating)[0];
   const spotlight = [...all].sort((a, b) => b.operator_rating - a.operator_rating).slice(1, 4);
+  const earn = estimateOperatorAnnual("6-15");
 
   const stats = [
     { n: "1,240+", l: "drivers matched to a car" },
     { n: "4.7", l: "average operator rating" },
-    { n: "Under 24h", l: "to hear back on an application" },
+    { n: "Under 24h", l: "to hear back after you apply" },
     { n: "One price", l: "rent, insurance and cover, weekly" },
   ];
 
@@ -66,19 +53,20 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={IMG.londonStreet} alt="London street" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0E1A14]/85 via-[#0E1A14]/78 to-[#0E1A14]/92" />
+          <img src={IMG.londonNight} alt="London at night" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0A130F]/88" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F] via-[#0A130F]/70 to-[#0A130F]/40" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-14 sm:pt-24 sm:pb-20">
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">
             Private hire car rental, done properly
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-            className="mt-4 text-[38px] leading-[1.03] sm:text-6xl lg:text-[76px] font-heading font-extrabold text-white tracking-tight max-w-4xl text-balance">
+            className="mt-4 text-[38px] leading-[1.03] sm:text-6xl lg:text-[76px] font-heading font-extrabold text-white tracking-tight max-w-4xl text-balance drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
             The car that pays for itself, without the games.
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}
-            className="mt-5 text-[17px] sm:text-xl text-white/75 max-w-2xl leading-relaxed">
+            className="mt-5 text-[17px] sm:text-xl text-white/85 max-w-2xl leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
             Every car here comes from a rental company we have checked ourselves. You see the real weekly cost before you commit, and you pay nothing until you are approved and behind the wheel.
           </motion.p>
 
@@ -101,16 +89,16 @@ export default function Home() {
                 <div className="h-11 flex items-center px-1"><Slider min={180} max={400} step={5} value={range} onValueChange={setRange} data-testid="filter-budget" minStepsBetweenThumbs={1} /></div>
               </Filter>
             </div>
-            <Button onClick={runSearch} data-testid="search-btn" className="w-full mt-4 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white text-base font-semibold">
+            <Button onClick={goSearch} data-testid="search-btn" className="w-full mt-4 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white text-base font-semibold">
               <Search className="w-5 h-5 mr-2" /> Show me the cars
             </Button>
           </motion.div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-6 mt-10">
             {stats.map((s) => (
-              <div key={s.l} className="border-l border-white/15 pl-4">
+              <div key={s.l} className="border-l border-white/20 pl-4">
                 <div className="text-2xl sm:text-[28px] font-heading font-extrabold text-white leading-none">{s.n}</div>
-                <div className="text-[12.5px] text-white/55 mt-2 leading-snug">{s.l}</div>
+                <div className="text-[12.5px] text-white/60 mt-2 leading-snug">{s.l}</div>
               </div>
             ))}
           </div>
@@ -127,7 +115,7 @@ export default function Home() {
               onClick={() => navigate(`/vehicle/${featured.id}`)}
               className="group relative rounded-[26px] overflow-hidden cursor-pointer min-h-[400px] flex flex-col justify-end" data-testid="spotlight-featured">
               <img src={featured.photos[0]} alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0E1A14]/92 via-[#0E1A14]/25 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A130F]/92 via-[#0A130F]/25 to-transparent" />
               <div className="relative p-7 sm:p-9 text-white">
                 <span className="text-[13px] text-white/80">Rated {featured.operator_rating} across {featured.operator_rentals} rentals</span>
                 <h3 className="text-2xl sm:text-[32px] font-heading font-bold mt-2">{featured.make} {featured.model} {featured.year}</h3>
@@ -158,6 +146,7 @@ export default function Home() {
               ))}
             </div>
           </div>
+          <div className="mt-8"><Button onClick={() => navigate("/search")} variant="outline" className="rounded-full">See all {all.length} cars <ArrowRight className="w-4 h-4 ml-2" /></Button></div>
         </section>
       )}
 
@@ -166,11 +155,11 @@ export default function Home() {
         <h2 className="text-[26px] sm:text-4xl font-heading font-bold text-[#1A2E25] mb-7">Find the right kind of work</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {collections.map((c, i) => (
-            <motion.button key={c.key} onClick={() => openCollection(c)} data-testid={`collection-${c.key}`}
+            <motion.button key={c.key} onClick={() => navigate(`/search?${c.q}`)} data-testid={`collection-${c.key}`}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
               className="group relative rounded-2xl overflow-hidden aspect-[4/5] text-left">
               <img src={c.img} alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0E1A14]/92 via-[#0E1A14]/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A130F]/92 via-[#0A130F]/30 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-5 text-white">
                 <c.icon className="w-6 h-6 text-[#5FD3A6] mb-2" />
                 <h3 className="font-heading font-bold text-[17px] leading-tight">{c.label}</h3>
@@ -181,33 +170,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RESULTS */}
-      <section id="results" className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
-        <div className="flex items-center justify-between mb-7 flex-wrap gap-3">
-          <h2 className="text-[26px] sm:text-3xl font-heading font-bold text-[#1A2E25]">{listings.length} cars ready to rent</h2>
-          <Select value={sort} onValueChange={(v) => setSort(v)}>
-            <SelectTrigger className="w-52 bg-white" data-testid="sort-select"><SelectValue placeholder="Sort" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="default">Our pick for you</SelectItem>
-              <SelectItem value="price_asc">Cheapest first</SelectItem>
-              <SelectItem value="price_desc">Dearest first</SelectItem>
-              <SelectItem value="rating">Best rated operators</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        {listings.length === 0 ? (
-          <div className="text-center py-20 text-[#7A857F] bg-white rounded-2xl ring-1 ring-slate-200" data-testid="empty-state">
-            Nothing matches that combination yet. Try widening your budget or picking another borough.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {listings.map((v, i) => (<div key={v.id} className="animate-fade-up" style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}><VehicleCard v={v} /></div>))}
-          </div>
-        )}
-      </section>
-
       {/* HOW IT WORKS teaser */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">How it works</p>
@@ -229,25 +193,34 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <img src={IMG.phoneInCar} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64 mt-8" />
-            <img src={IMG.happyDriver} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64" />
+            <img src={IMG.driverMirror} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64" />
             <img src={IMG.keysHandover} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64" />
             <img src={IMG.interior} alt="" className="rounded-2xl object-cover w-full h-48 sm:h-64 -mt-8" />
           </div>
         </div>
       </section>
 
-      {/* OPERATOR CTA */}
+      {/* OPERATOR CTA with earnings */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
         <div className="relative rounded-[26px] overflow-hidden">
-          <img src={IMG.fleetAerial} alt="" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-[#0E1A14]/85" />
-          <div className="relative p-8 sm:p-16 max-w-2xl text-white">
-            <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For rental companies</p>
-            <h2 className="text-[26px] sm:text-4xl font-heading font-bold mt-3 text-balance">Keep your cars earning, not sitting on a forecourt.</h2>
-            <p className="text-white/75 mt-4 leading-relaxed text-[17px]">List your fleet, get matched with drivers we have already vetted, and get paid every fortnight. If a driver stops paying, we cover the rent for up to two weeks while you sort it out.</p>
-            <div className="flex gap-3 mt-7 flex-wrap">
-              <Button onClick={() => navigate("/list-your-fleet")} data-testid="list-fleet-cta" className="rounded-full bg-white text-[#1A2E25] hover:bg-[#F1EFE9] font-semibold">List your fleet <ArrowRight className="w-4 h-4 ml-2" /></Button>
-              <Button onClick={() => navigate("/operator-guide")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">See how it works</Button>
+          <img src={IMG.showroom} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0A130F]/86" />
+          <div className="relative p-8 sm:p-16 grid lg:grid-cols-2 gap-8 items-center">
+            <div className="text-white">
+              <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For rental companies</p>
+              <h2 className="text-[26px] sm:text-4xl font-heading font-bold mt-3 text-balance">Keep your cars earning, not sitting on a forecourt.</h2>
+              <p className="text-white/75 mt-4 leading-relaxed text-[17px]">List your fleet, get matched with vetted drivers, and get paid every fortnight. If a driver stops paying, we cover the rent for up to two weeks while you sort it out.</p>
+              <div className="flex gap-3 mt-7 flex-wrap">
+                <Button onClick={() => navigate("/list-your-fleet")} data-testid="list-fleet-cta" className="rounded-full bg-white text-[#1A2E25] hover:bg-[#F1EFE9] font-semibold">List your fleet <ArrowRight className="w-4 h-4 ml-2" /></Button>
+                <Button onClick={() => navigate("/operator-guide")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">See how it works</Button>
+              </div>
+            </div>
+            <div className="bg-white/8 backdrop-blur rounded-3xl p-7 ring-1 ring-white/15">
+              <div className="text-[13px] text-white/60 uppercase tracking-wide">Typical earnings</div>
+              <div className="text-4xl sm:text-5xl font-heading font-extrabold text-[#5FD3A6] mt-2">£{earn.perCarYear.toLocaleString()}</div>
+              <div className="text-white/70 text-[14px] mt-1">per car, per year, before our 10% fee</div>
+              <div className="h-px bg-white/15 my-5" />
+              <div className="text-[14px] text-white/70">Run 10 cars and that is around <span className="text-white font-semibold">£{(earn.perCarYear * 10).toLocaleString()}</span> a year, with the rent guaranteed if a driver defaults.</div>
             </div>
           </div>
         </div>

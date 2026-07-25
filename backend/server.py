@@ -106,6 +106,7 @@ class ApplicationIn(BaseModel):
     pco_licence: Optional[str] = None
     years_experience: Optional[int] = None
     previous_incidents: Optional[str] = None
+    duration_weeks: Optional[int] = None
     insurance_details: Optional[dict] = None
     estimated_weekly_cost: Optional[float] = None
 
@@ -265,6 +266,13 @@ async def create_application(body: ApplicationIn, request: Request):
         "vehicle": f"{listing['make']} {listing['model']} {listing['year']}" if listing else None,
     })
     res = await db.applications.insert_one(doc)
+    if user_id:
+        profile = {k: v for k, v in {
+            "phone": body.phone, "dob": body.dob, "dvla_licence": body.dvla_licence,
+            "pco_licence": body.pco_licence, "years_experience": body.years_experience,
+        }.items() if v not in (None, "")}
+        if profile:
+            await db.users.update_one({"_id": ObjectId(user_id)}, {"$set": profile})
     await db.leads.insert_one({
         "name": body.full_name, "email": body.email.lower(), "phone": body.phone,
         "source": "vehicle_application", "user_id": user_id, "created_at": now_iso(),
