@@ -13,6 +13,22 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 6 — go-live plumbing: auth recovery, email scaffold, demand capture)
+- Rebuilt driver & operator LOGIN pages on the cinematic canvas to match registration; added "Forgot password?" links.
+- Password reset flow: POST /auth/forgot-password (no user enumeration) + /auth/reset-password (1h single-use token, TTL-indexed, bcrypt). Frontend /forgot-password + /reset-password pages. Verified e2e + 7 pytest cases.
+- Email scaffold (backend/emailer.py, Emergent Resend): welcome email per role on signup (editable per-role document links), founder alert on every signup/interest/car-request. DEFENSIVE: no-ops silently until EMERGENT_EMAIL_KEY is provisioned; all copy/links/sender/reply-to/alert address are .env-editable (EMAIL_FROM_NAME, CONTACT_EMAIL, ALERT_EMAIL, DRIVER_DOC_URL, OPERATOR_DOC_URL, PUBLIC_BASE_URL).
+- Demand capture: moved "request a car" off the search page into its own /request-a-car page (behind a button) — captures type/budget/notes, tracked as city_requests + leads for sharing with rental companies. Added budget field to CityInterestIn.
+- Footer: removed "Dashboard preview"; earlier added driver/operator logins + launch-updates email capture.
+- Tests: 54/54 backend, full frontend E2E green.
+
+### Admin analytics access
+URL /admin — admin@caro.co.uk / CaroAdmin2026! (see test_credentials.md).
+
+### TODO before emails go live (needs user)
+- Provision EMERGENT_EMAIL_KEY (platform) — until then emails are skipped by design.
+- Register caro.uk domain, then set real CONTACT_EMAIL, ALERT_EMAIL, DRIVER_DOC_URL, OPERATOR_DOC_URL in backend/.env.
+- Prepare the two welcome documents (driver + operator) and drop their URLs into the *_DOC_URL vars.
+
 ## Implemented (2026-06 / iteration 5 — cinematic registration rebuild + dashboards)
 - Rebuilt driver & operator registration on a cinematic dark-emerald "canvas": layered ambient glow + grain, oversized editorial headlines, glass estimator modules, floating form cards, micro-interactions.
 - Driver take-home widget: full-time only, higher realistic London minicab figures (e.g. hybrid £750/wk take-home from £1,220 fares); car-type selector drives an animated figure.
