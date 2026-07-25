@@ -86,7 +86,7 @@ export default function OperatorInterest() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-16 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         {/* LEFT — estimator stage */}
-        <div className="text-white">
+        <div className="text-white text-center lg:text-left">
           <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.14em] uppercase text-[#5FD3A6]">
               <Zap className="w-3.5 h-3.5" /> For rental companies
@@ -98,7 +98,7 @@ export default function OperatorInterest() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.55 }}
-            className="mt-9 max-w-md rounded-[26px] bg-[#0A1712]/70 border border-white/10 backdrop-blur-2xl p-6 sm:p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]" data-testid="earnings-estimator">
+            className="mt-9 max-w-md mx-auto lg:mx-0 text-left rounded-[26px] bg-[#0A1712]/70 border border-white/10 backdrop-blur-2xl p-6 sm:p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]" data-testid="earnings-estimator">
             <div className="text-[11px] text-white/50 uppercase tracking-[0.18em]">Estimated monthly earnings</div>
             <div className="flex items-end gap-1.5 mt-1">
               <AnimatedNumber value={earn.grossMonth} prefix="£" data-testid="estimator-monthly" className="text-[clamp(2.8rem,8vw,4.2rem)] font-heading font-extrabold text-[#5FD3A6] leading-[0.9]" />
@@ -130,7 +130,7 @@ export default function OperatorInterest() {
             <button onClick={scrollToForm} data-testid="estimator-cta" className="w-full mt-5 h-11 rounded-2xl bg-[#5FD3A6] hover:bg-white text-[#07110D] text-[15px] font-semibold transition-colors">Register my fleet interest</button>
           </motion.div>
 
-          <div className="mt-7 space-y-2.5 max-w-md">
+          <div className="mt-7 space-y-2.5 max-w-md mx-auto lg:mx-0 text-left">
             {[[ShieldCheck, "Every driver background and licence checked"], [Wallet, "No listing fees, a flat 10% on the rental side only"], [MapPin, "Track every vehicle's live location from your dashboard"], [TrendingUp, "Rent covered up to two weeks if a driver defaults"]].map(([Icon, t]) => (
               <div key={t} className="flex items-start gap-3 text-[14px] text-white/75"><Icon className="w-5 h-5 text-[#5FD3A6] shrink-0 mt-0.5" strokeWidth={1.5} /> {t}</div>
             ))}

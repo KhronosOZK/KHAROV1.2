@@ -48,12 +48,12 @@ export default function DriverPortal() {
         </div>
       </div>
 
-      <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 sm:gap-6 mt-7">
+      <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 mt-7">
         {/* HERO empty state */}
         <motion.div variants={item} className="lg:col-span-8 relative overflow-hidden rounded-3xl bg-[#0A130F] text-white min-h-[280px] flex" data-testid="portal-hero">
           <img src="https://images.pexels.com/photos/5835016/pexels-photo-5835016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=800&w=1200" alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F]/95 via-[#0A130F]/80 to-[#0A130F]/45" />
-          <div className="relative p-7 sm:p-9 flex flex-col justify-center max-w-md">
+          <div className="relative p-7 sm:p-9 flex flex-col justify-center max-w-md [text-shadow:0_2px_16px_rgba(0,0,0,0.5)]">
             <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[#5FD3A6] bg-white/8 rounded-full px-3 py-1 w-fit"><Sparkles className="w-3.5 h-3.5" /> No car yet</span>
             <h2 className="text-2xl sm:text-[32px] font-heading font-extrabold mt-4 leading-tight">Start earning this week.</h2>
             <p className="text-white/70 mt-3 text-[15px] leading-relaxed">Browse vetted cars in London with insurance and cover already in the price. Apply in minutes with your details saved.</p>

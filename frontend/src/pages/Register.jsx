@@ -50,19 +50,19 @@ export default function Register() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-16 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center min-h-[calc(100vh-68px)]">
         {/* LEFT — cinematic value stage */}
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-white">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-white text-center lg:text-left">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.14em] uppercase text-[#5FD3A6]">
             <Zap className="w-3.5 h-3.5" /> Drive with Caro
           </div>
           <h1 className="mt-6 font-heading font-extrabold tracking-tight text-[40px] leading-[1.04] sm:text-5xl lg:text-[64px] text-balance">
             The keys to a<br /><span className="text-[#5FD3A6]">better week.</span>
           </h1>
-          <p className="mt-5 text-[16px] sm:text-[17px] text-white/65 max-w-md leading-relaxed">
+          <p className="mt-5 text-[16px] sm:text-[17px] text-white/65 max-w-md mx-auto lg:mx-0 leading-relaxed">
             Rent, insurance and breakdown cover in one honest weekly figure. Pick a car and see what a full-time week could put in your pocket.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.5 }}
-            className="mt-9 max-w-md rounded-[26px] bg-[#0A1712]/70 border border-white/10 backdrop-blur-2xl p-6 sm:p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]" data-testid="driver-take-home">
+            className="mt-9 max-w-md mx-auto lg:mx-0 text-left rounded-[26px] bg-[#0A1712]/70 border border-white/10 backdrop-blur-2xl p-6 sm:p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]" data-testid="driver-take-home">
             <div className="text-[11px] text-white/50 uppercase tracking-[0.18em]">Your estimated take-home</div>
             <div className="flex items-end gap-2 mt-1.5">
               <AnimatedNumber value={est.takeHome} prefix="£" data-testid="driver-takehome-value" className="text-[clamp(3rem,9vw,4.5rem)] font-heading font-extrabold text-white leading-[0.9]" />
@@ -86,7 +86,7 @@ export default function Register() {
             <p className="text-[11px] text-white/40 mt-4 leading-relaxed">A guide based on typical London minicab fares at full-time hours. Your figure moves with the hours you put in.</p>
           </motion.div>
 
-          <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2.5">
+          <div className="mt-7 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2.5">
             {[[ShieldCheck, "Cover built in"], [Clock, "Hear back within a day"], [Check, "No deposit until approved"]].map(([Icon, t]) => (
               <span key={t} className="flex items-center gap-2 text-[13px] text-white/70"><Icon className="w-4 h-4 text-[#5FD3A6]" strokeWidth={1.5} /> {t}</span>
             ))}

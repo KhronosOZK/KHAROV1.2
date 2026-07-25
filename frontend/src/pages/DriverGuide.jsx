@@ -20,7 +20,7 @@ export default function DriverGuide() {
       <section className="relative overflow-hidden">
         <img src={IMG.taxiDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/50" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 [text-shadow:0_2px_16px_rgba(0,0,0,0.45)]">
           <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For drivers</p>
           <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">From first look to keys in your hand.</h1>
           <p className="text-white/75 mt-5 text-[18px] max-w-2xl leading-relaxed">Here is the whole thing, start to finish, in plain English. No small print surprises.</p>
