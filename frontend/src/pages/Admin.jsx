@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Download, Lock, TrendingUp, Users, Building2, MapPin } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Download, Lock, TrendingUp, Users, Building2, MapPin, Search } from "lucide-react";
 import { toast } from "sonner";
 import { api, API } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
@@ -19,11 +19,14 @@ export default function Admin() {
   const [tab, setTab] = useState("leads");
   const [rows, setRows] = useState([]);
   const [creds, setCreds] = useState({ email: "", password: "" });
+  const [q, setQ] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
   const isAdmin = user && user.role === "admin";
 
   useEffect(() => { if (isAdmin) { api.get("/admin/summary").then((r) => setSummary(r.data)).catch(() => {}); api.get("/admin/analytics").then((r) => setAnalytics(r.data)).catch(() => {}); } }, [isAdmin]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { if (isAdmin) api.get(`/admin/${tab}`).then((r) => setRows(r.data)).catch(() => setRows([])); }, [isAdmin, tab]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (isAdmin) api.get(`/admin/${tab}`).then((r) => setRows(r.data)).catch(() => setRows([])); setQ(""); setFrom(""); setTo(""); }, [isAdmin, tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const doLogin = async (e) => {
     e.preventDefault();
@@ -32,6 +35,15 @@ export default function Admin() {
   };
 
   const exportCsv = () => { window.open(`${API}/admin/export/${tab}`, "_blank"); };
+
+  const columns = rows.length ? Object.keys(rows[0]).filter((k) => k !== "data" && k !== "password_hash").slice(0, 6) : [];
+  const filtered = useMemo(() => rows.filter((r) => {
+    const cdate = typeof r.created_at === "string" ? r.created_at.slice(0, 10) : "";
+    if (from && cdate && cdate < from) return false;
+    if (to && cdate && cdate > to) return false;
+    if (q) { const hay = columns.map((c) => String(r[c] ?? "")).join(" ").toLowerCase(); if (!hay.includes(q.toLowerCase())) return false; }
+    return true;
+  }), [rows, q, from, to, columns]);
 
   if (!isAdmin) return (
     <main className="max-w-md mx-auto px-4 py-16">
@@ -64,6 +76,30 @@ export default function Admin() {
   ] : [];
 
   const columns = rows.length ? Object.keys(rows[0]).filter((k) => k !== "data" && k !== "password_hash").slice(0, 6) : [];
+
+  const filtered = useMemo(() => rows.filter((r) => {
+    const cdate = typeof r.created_at === "string" ? r.created_at.slice(0, 10) : "";
+    if (from && cdate && cdate < from) return false;
+    if (to && cdate && cdate > to) return false;
+    if (q) {
+      const hay = columns.map((c) => String(r[c] ?? "")).join(" ").toLowerCase();
+      if (!hay.includes(q.toLowerCase())) return false;
+    }
+    return true;
+  }), [rows, q, from, to, columns]);
+
+  const columns = rows.length ? Object.keys(rows[0]).filter((k) => k !== "data" && k !== "password_hash").slice(0, 6) : [];
+
+  const filtered = useMemo(() => rows.filter((r) => {
+    const cdate = typeof r.created_at === "string" ? r.created_at.slice(0, 10) : "";
+    if (from && cdate && cdate < from) return false;
+    if (to && cdate && cdate > to) return false;
+    if (q) {
+      const hay = columns.map((c) => String(r[c] ?? "")).join(" ").toLowerCase();
+      if (!hay.includes(q.toLowerCase())) return false;
+    }
+    return true;
+  }), [rows, q, from, to, columns]);
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
@@ -172,18 +208,35 @@ export default function Admin() {
           <Button onClick={exportCsv} variant="outline" className="rounded-full" data-testid="export-csv-btn"><Download className="w-4 h-4 mr-2" /> Export CSV</Button>
         </div>
 
+        <div className="mt-4 bg-white border border-slate-200 rounded-2xl p-3 flex flex-wrap items-center gap-3">
+          <div className="relative flex-1 min-w-[200px]">
+            <Search className="w-4 h-4 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search this table…" data-testid="admin-filter-search" className="h-10 pl-9 rounded-full border-slate-200" />
+          </div>
+          <div className="flex items-center gap-2 text-[13px] text-[#64748B]">
+            <span>From</span>
+            <Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} data-testid="admin-filter-from" className="h-10 w-[150px] rounded-lg border-slate-200" />
+            <span>To</span>
+            <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} data-testid="admin-filter-to" className="h-10 w-[150px] rounded-lg border-slate-200" />
+          </div>
+          {(q || from || to) && <Button variant="ghost" onClick={() => { setQ(""); setFrom(""); setTo(""); }} data-testid="admin-filter-clear" className="rounded-full text-[#0B6B4F]">Clear</Button>}
+          <span className="text-[12.5px] text-[#94A3B8] ml-auto" data-testid="admin-filter-count">{filtered.length} of {rows.length}</span>
+        </div>
+
         {TABS.map((t) => (
           <TabsContent key={t} value={t} className="mt-4">
             <div className="bg-white border border-slate-200 rounded-xl overflow-x-auto">
               {rows.length === 0 ? (
                 <div className="p-8 text-center text-[#64748B] text-sm">No records yet.</div>
+              ) : filtered.length === 0 ? (
+                <div className="p-8 text-center text-[#64748B] text-sm" data-testid="admin-no-matches">No records match your filters.</div>
               ) : (
                 <table className="w-full text-sm" data-testid={`table-${t}`}>
                   <thead><tr className="text-left text-[#64748B] text-xs border-b border-slate-200 bg-[#F9F8F6]">
                     {columns.map((c) => <th key={c} className="py-3 px-4 capitalize whitespace-nowrap">{c.replace(/_/g, " ")}</th>)}
                   </tr></thead>
                   <tbody>
-                    {rows.map((r, i) => (
+                    {filtered.map((r, i) => (
                       <tr key={r.id || r.email || r.created_at || `row-${i}`} className="border-b border-slate-100 last:border-0 hover:bg-[#F9F8F6]">
                         {columns.map((c) => <td key={c} className="py-2.5 px-4 text-[#475569] whitespace-nowrap max-w-xs truncate">{String(r[c] ?? "-")}</td>)}
                       </tr>
