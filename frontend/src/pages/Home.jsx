@@ -212,9 +212,9 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
         <div className="relative rounded-[26px] overflow-hidden">
           <img src={IMG.showroom} alt="" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-[#0A130F]/86" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F]/97 via-[#0A130F]/90 to-[#0A130F]/70" />
           <div className="relative p-8 sm:p-16 grid lg:grid-cols-2 gap-8 items-center">
-            <div className="text-white">
+            <div className="text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]">
               <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For rental companies</p>
               <h2 className="text-[26px] sm:text-4xl font-heading font-bold mt-3 text-balance">Keep your cars earning, not sitting on a forecourt.</h2>
               <p className="text-white/75 mt-4 leading-relaxed text-[17px]">List your fleet, get matched with vetted drivers, and get paid every fortnight. If a driver stops paying, we cover the rent for up to two weeks while you sort it out.</p>
