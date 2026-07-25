@@ -71,14 +71,14 @@ export const DRIVER_CARS = [
   { key: "executive", label: "Executive", sub: "Higher fares" },
 ];
 
-export function estimateDriverWeek(carKey, fullTime) {
-  const grossFull = { electric: 980, hybrid: 920, executive: 1160 };
+export function estimateDriverWeek(carKey) {
+  const grossFull = { electric: 1180, hybrid: 1220, executive: 1450 };
   const rentByCar = { electric: 235, hybrid: 255, executive: 330 };
-  const gross = Math.round((grossFull[carKey] ?? 920) * (fullTime ? 1 : 0.52));
+  const gross = Math.round(grossFull[carKey] ?? 1220);
   const insurance = 72;
   const cover = 8;
   const rent = rentByCar[carKey] ?? 255;
-  const fuel = fullTime ? (carKey === "electric" ? 55 : 135) : (carKey === "electric" ? 30 : 72);
+  const fuel = carKey === "electric" ? 55 : carKey === "executive" ? 155 : 135;
   const carCost = rent + insurance + cover;
   const takeHome = Math.max(gross - carCost - fuel, 0);
   return { gross, rent, insurance, cover, fuel, carCost, takeHome };
