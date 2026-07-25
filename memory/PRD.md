@@ -13,6 +13,15 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 5 — cinematic registration rebuild + dashboards)
+- Rebuilt driver & operator registration on a cinematic dark-emerald "canvas": layered ambient glow + grain, oversized editorial headlines, glass estimator modules, floating form cards, micro-interactions.
+- Driver take-home widget: full-time only, higher realistic London minicab figures (e.g. hybrid £750/wk take-home from £1,220 fares); car-type selector drives an animated figure.
+- Operator registration now CREATES AN ACCOUNT (password added) so operators can log in — verified /operator-login works with credentials created at signup. Added an email-follow-up promise (earnings/onboarding/verification) and a live vehicle-tracking mention.
+- Rebuilt DRIVER dashboard as a bento grid with a strong empty state (real applications/documents/saved data). Rebuilt OPERATOR dashboard as a Fleet Command Center led by a LIVE VEHICLE-LOCATION TRACKING map (pins + live list) plus overview/fleet/applications/financials/compliance.
+- Fixed text-over-image legibility: vehicle-card borough label is now a glass pill; strengthened operator-login quote scrim.
+- Applied code-review fixes: removed hardcoded secrets in tests (read ADMIN_* from backend/.env), fixed array-index React keys, silenced hook-dep warnings, `is`→`==` in tests. AnimatedNumber now forwards data-testid.
+- Backend: /api/admin/analytics returns a 14-day `trend`; new investor-ready Admin dashboard with a recharts growth chart. Tests: 47/47 pass.
+
 ## Implemented (2026-06 / iteration 4 — conversion polish + go-live pass)
 - Removed the "Verified against TfL & Companies House" footer badge (per user request).
 - Redesigned driver Register and operator Interest left rails: enticing headlines, 5-star testimonial (driver), per-car earnings teaser (operator), trust bullets, social proof counts.
