@@ -211,7 +211,7 @@ export default function Admin() {
                   </tr></thead>
                   <tbody>
                     {filtered.map((r, i) => (
-                      <tr key={r.id || r.email || r.created_at || `row-${i}`} className="border-b border-slate-100 last:border-0 hover:bg-[#F9F8F6]">
+                      <tr key={`${t}-${r.id || r.email || "row"}-${i}`} className="border-b border-slate-100 last:border-0 hover:bg-[#F9F8F6]">
                         {columns.map((c) => <td key={c} className="py-2.5 px-4 text-[#475569] whitespace-nowrap max-w-xs truncate">{String(r[c] ?? "-")}</td>)}
                       </tr>
                     ))}

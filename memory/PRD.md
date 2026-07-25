@@ -13,6 +13,13 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 8 — Uber-style registration wizards + light auth theme)
+- Rebuilt driver (/register, 6 steps) and operator (/list-your-fleet, 9 steps) registration into an Uber-style one-question-per-screen wizard: single logical field group per step, progress bar + "Step X of Y" label, Back arrow, Continue/submit, framer-motion slide transitions, per-step validation (canNext). All original data-testids preserved.
+- Restyled all four auth pages (Login, Register, OperatorLogin, OperatorInterest) from the dark "cinematic" theme to the app's LIGHT aesthetic (off-white #F9F8F6 bg, ink #1A2E25 headings, emerald #0B6B4F accents, white cards ring-1 ring-slate-200/70) to match Search/Why Caro/How it works. Estimators (driver take-home, operator earnings) restyled to light and still reactive.
+- Fixed Admin.jsx compile error (triplicated columns/filtered declarations left from prior fork) and duplicate React key warnings (row keys now include tab+index). Driver Login now redirects role==='admin' to /admin.
+- Verified via testing agent (iteration 8): both wizards advance/submit end-to-end (100%), all auth pages confirmed light-themed, login flows work.
+
+
 ## Implemented (2026-06 / iteration 7 — tablet responsiveness + legibility)
 - Fixed tablet layouts: driver/operator LOGIN left panels now visible + centered (were hidden/awkward); driver/operator REGISTRATION interactive widgets (take-home / earnings estimator) centered on tablet.
 - Driver dashboard tablet grid fixed: was cramped 4-column (md:grid-cols-4), now stacks full-width below lg.
