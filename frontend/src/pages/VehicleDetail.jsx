@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ChevronLeft, Heart, Share2, MapPin, Check, RotateCw, ChevronLeft as CL, ChevronRight as CR } from "lucide-react";
+import { ChevronLeft, Heart, Share2, MapPin, Check, RotateCw, ChevronLeft as CL, ChevronRight as CR, ArrowUpRight } from "lucide-react";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { PRICING_TIERS, weeklyForWeeks } from "@/lib/pricing";
@@ -163,7 +163,7 @@ export default function VehicleDetail() {
 
         <div className="hidden lg:block">
           <div className="sticky top-24 bg-white rounded-[22px] p-6 ring-1 ring-slate-200/70 shadow-sm">
-            <CostPanel v={v} insurance={insurance} breakdownCost={breakdownCost} rentWeekly={rentWeekly} weeks={weeks} total={total} monthly={monthly} navigate={navigate} />
+            <CostPanel v={v} insurance={insurance} breakdownCost={breakdownCost} rentWeekly={rentWeekly} weeks={weeks} total={total} monthly={monthly} navigate={navigate} quote={quote} />
           </div>
         </div>
       </div>
@@ -208,19 +208,24 @@ function Spin360({ photos }) {
   );
 }
 
-function CostPanel({ v, insurance, breakdownCost, rentWeekly, weeks, total, monthly, navigate }) {
+function CostPanel({ v, insurance, breakdownCost, rentWeekly, weeks, total, monthly, navigate, quote }) {
   return (
     <>
       <div className="flex items-baseline gap-1"><span className="text-3xl font-heading font-extrabold text-[#1A2E25]">£{rentWeekly.toFixed(0)}</span><span className="text-[#7A857F]">a week</span></div>
       <p className="text-[12px] text-[#7A857F] mt-1">over {weeks} weeks, plus £{v.deposit} deposit returned at the end</p>
       <div className="mt-5 space-y-3 text-[14px]">
         <div className="flex justify-between"><span className="text-[#4A564F]">Weekly rent</span><span className="font-semibold">£{rentWeekly.toFixed(2)}</span></div>
-        <div className="flex justify-between"><span className="text-[#4A564F]">Insurance quote</span><span className="font-semibold">{insurance != null ? `£${insurance.toFixed(2)}` : "…"}</span></div>
+        <div className="flex justify-between"><span className="text-[#4A564F]">Insurance <span className="text-[11px] text-[#9AA39D]">(indicative)</span></span><span className="font-semibold">{insurance != null ? `£${insurance.toFixed(2)}` : "…"}</span></div>
         <div className="flex justify-between"><span className="text-[#4A564F]">Breakdown cover</span><span className="font-semibold">{v.breakdown_included ? "Included" : `£${breakdownCost.toFixed(2)}`}</span></div>
         <div className="border-t border-slate-200 pt-3 flex justify-between text-base"><span className="font-semibold text-[#1A2E25]">Every week</span><span className="font-heading font-extrabold text-[#0B6B4F]">£{total}</span></div>
         <div className="text-[12px] text-[#7A857F] text-right">around £{monthly} a month</div>
       </div>
-      <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-to-rent-btn" className="w-full mt-5 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
+      <a href={quote?.quotezone_url || "https://www.quotezone.co.uk/taxi-insurance"} target="_blank" rel="noopener noreferrer" data-testid="quotezone-link"
+        className="mt-4 flex items-center justify-between gap-2 rounded-2xl bg-[#F1EFE9] hover:bg-[#E9E6DE] px-4 py-3 transition-colors">
+        <span className="text-[12.5px] text-[#1A2E25] leading-snug">Get a real taxi-insurance quote via <span className="font-semibold">Quotezone</span></span>
+        <ArrowUpRight className="w-4 h-4 text-[#0B6B4F] shrink-0" />
+      </a>
+      <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-to-rent-btn" className="w-full mt-4 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
       <div className="mt-5"><div className="text-[12px] font-semibold text-[#4A564F] mb-2">What happens after you apply</div>
         <ol className="space-y-2 text-[12.5px] text-[#7A857F]">{["The company reviews your application", "A quick background check runs", "You sign the agreement digitally", "You pay and arrange to collect"].map((s, i) => (<li key={s} className="flex gap-2"><span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 text-[10px] flex items-center justify-center shrink-0 font-bold">{i + 1}</span>{s}</li>))}</ol>
       </div>

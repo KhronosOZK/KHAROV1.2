@@ -6,4 +6,4 @@ export const MORE_CITIES = [
 ];
 export const ALL_CITIES = [...POPULAR_CITIES, ...MORE_CITIES];
 // Cities with live inventory in this validation build
-export const LIVE_CITIES = ["London"];
+export const LIVE_CITIES = ["London", "Birmingham", "Manchester", "Leeds"];

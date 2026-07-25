@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import { Check, ShieldCheck, Lock, Sparkles } from "lucide-react";
+import { Check, ShieldCheck, Lock, Sparkles, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
@@ -172,6 +172,11 @@ export default function Apply() {
                 <div className="border-t border-slate-200 pt-2.5 flex justify-between text-base"><span className="font-semibold">Each week</span><span className="font-heading font-extrabold text-[#0B6B4F]">£{total}</span></div>
               </div>
               <div className="mt-4 flex items-center gap-2 text-[12px] text-[#7A857F]"><Lock className="w-3.5 h-3.5 text-[#0B6B4F]" /> Operator revealed once you are approved.</div>
+              <a href={quote?.quotezone_url || "https://www.quotezone.co.uk/taxi-insurance"} target="_blank" rel="noopener noreferrer" data-testid="apply-quotezone-link"
+                className="mt-4 flex items-center justify-between gap-2 rounded-xl bg-[#F1EFE9] hover:bg-[#E9E6DE] px-3.5 py-2.5 transition-colors">
+                <span className="text-[12px] text-[#1A2E25] leading-snug">Insurance shown is indicative. Get a real quote via <span className="font-semibold">Quotezone</span></span>
+                <ArrowUpRight className="w-4 h-4 text-[#0B6B4F] shrink-0" />
+              </a>
             </div>
           </div>
         </div>

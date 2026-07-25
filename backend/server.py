@@ -302,7 +302,12 @@ async def quote(body: QuoteIn):
         {"insurer": "Mercer Cover", "level": "Third party, fire & theft", "weekly": round(cheapest * 0.82, 2),
          "note": "Lower cover, lower price", "cheapest": False},
     ]
-    return {"cheapest_weekly": cheapest, "quotes": quotes}
+    return {
+        "cheapest_weekly": cheapest,
+        "quotes": quotes,
+        "indicative": True,
+        "quotezone_url": os.environ.get("QUOTEZONE_URL", "https://www.quotezone.co.uk/taxi-insurance"),
+    }
 
 # ---------------------------------------------------------------- Data capture
 @api.post("/applications")
@@ -512,8 +517,8 @@ async def seed_admin():
 
 async def seed_listings():
     from seed_data import LISTINGS
-    if await db.listings.count_documents({}) == 0:
-        await db.listings.insert_many([dict(x) for x in LISTINGS])
+    for x in LISTINGS:
+        await db.listings.update_one({"id": x["id"]}, {"$set": dict(x)}, upsert=True)
 
 @app.on_event("startup")
 async def startup():

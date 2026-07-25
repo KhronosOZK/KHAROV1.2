@@ -13,6 +13,16 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 9 — expanded inventory + Quotezone referral)
+- Expanded seed inventory to 60 listings: 48 in London (across 24 boroughs) + 12 across Birmingham, Manchester and Leeds. Data generated in seed_data.py from realistic model/borough/operator templates; each gets royalty-free Unsplash/Pexels photos (commercially safe) grouped by vehicle look.
+- Re-benchmarked weekly rents DOWN to rent-only market levels (Prius £175, Corolla £165, budget Insignia £120, EVs £175–£265, executive £225–£265) after research (Splend/Otto/G&M; insurance is a separate line in Caro). Updated the original 12 flagship listings too.
+- Seeding now UPSERTS by id on startup (was insert-only-if-empty), so inventory/price changes apply on restart.
+- Budget slider now starts at £0 (was £180) on both Home and Search.
+- Multi-city search live: Birmingham/Manchester/Leeds added to LIVE_CITIES so they show inventory instead of the "request your city" form.
+- Quotezone: NO public API exists (Seopa is comparison/affiliate only). Implemented BOTH per user choice — kept the in-app indicative estimate (now labelled "indicative") AND added a "Get a real quote via Quotezone" referral link on VehicleDetail + Apply. URL is env-configurable via backend QUOTEZONE_URL (default https://www.quotezone.co.uk/taxi-insurance) so an affiliate/partner link can be dropped in later.
+- Verified via curl (60 listings, per-city counts, quote returns indicative+quotezone_url) and screenshots (Birmingham search, vehicle detail Quotezone link, £0 budget).
+
+
 ## Implemented (2026-06 / iteration 8 — Uber-style registration wizards + light auth theme)
 - Rebuilt driver (/register, 6 steps) and operator (/list-your-fleet, 9 steps) registration into an Uber-style one-question-per-screen wizard: single logical field group per step, progress bar + "Step X of Y" label, Back arrow, Continue/submit, framer-motion slide transitions, per-step validation (canNext). All original data-testids preserved.
 - Restyled all four auth pages (Login, Register, OperatorLogin, OperatorInterest) from the dark "cinematic" theme to the app's LIGHT aesthetic (off-white #F9F8F6 bg, ink #1A2E25 headings, emerald #0B6B4F accents, white cards ring-1 ring-slate-200/70) to match Search/Why Caro/How it works. Estimators (driver take-home, operator earnings) restyled to light and still reactive.

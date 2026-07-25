@@ -16,7 +16,7 @@ export default function SearchResults() {
   const [city, setCity] = useState(params.get("city") || "London");
   const [vtype, setVtype] = useState(params.get("type") || "any");
   const [fuel, setFuel] = useState(params.get("fuel") || "any");
-  const [range, setRange] = useState([Number(params.get("min")) || 180, Number(params.get("max")) || 400]);
+  const [range, setRange] = useState([Number(params.get("min")) || 0, Number(params.get("max")) || 400]);
   const [sort, setSort] = useState("default");
 
   const run = useCallback(async () => {
@@ -62,7 +62,7 @@ export default function SearchResults() {
           </Field>
           <Field label="Type"><Select value={vtype} onValueChange={setVtype}><SelectTrigger data-testid="sr-type" className="h-11 bg-white"><SelectValue /></SelectTrigger><SelectContent>{["any", "saloon", "executive", "mpv", "estate", "wav"].map((t) => <SelectItem key={t} value={t} className="capitalize">{t === "any" ? "Any type" : t.toUpperCase()}</SelectItem>)}</SelectContent></Select></Field>
           <Field label="Fuel"><Select value={fuel} onValueChange={setFuel}><SelectTrigger data-testid="sr-fuel" className="h-11 bg-white"><SelectValue /></SelectTrigger><SelectContent>{["any", "hybrid", "electric", "petrol", "diesel"].map((f) => <SelectItem key={f} value={f} className="capitalize">{f === "any" ? "Any fuel" : f}</SelectItem>)}</SelectContent></Select></Field>
-          <Field label={`Budget: £${range[0]} to £${range[1] >= 400 ? "400+" : range[1]}`}><div className="h-11 flex items-center px-1"><Slider min={180} max={400} step={5} value={range} onValueChange={setRange} data-testid="sr-budget" minStepsBetweenThumbs={1} /></div></Field>
+          <Field label={`Budget: £${range[0]} to £${range[1] >= 400 ? "400+" : range[1]}`}><div className="h-11 flex items-center px-1"><Slider min={0} max={400} step={5} value={range} onValueChange={setRange} data-testid="sr-budget" minStepsBetweenThumbs={1} /></div></Field>
         </div>
         <Button onClick={apply} data-testid="sr-apply" className="mt-4 rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white"><Search className="w-4 h-4 mr-2" /> Update results</Button>
       </div>

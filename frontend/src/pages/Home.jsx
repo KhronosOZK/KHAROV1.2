@@ -24,7 +24,7 @@ export default function Home() {
   const [city, setCity] = useState("London");
   const [vtype, setVtype] = useState("any");
   const [fuel, setFuel] = useState("any");
-  const [range, setRange] = useState([180, 400]);
+  const [range, setRange] = useState([0, 400]);
 
   useEffect(() => { api.get("/listings").then((r) => setAll(r.data)); }, []);
 
@@ -94,7 +94,7 @@ export default function Home() {
                   <SelectContent>{["any", "hybrid", "electric", "petrol", "diesel"].map((f) => <SelectItem key={f} value={f} className="capitalize">{f === "any" ? "Any fuel" : f}</SelectItem>)}</SelectContent></Select>
               </Filter>
               <Filter label={`Weekly budget: £${range[0]} to £${range[1] >= 400 ? "400+" : range[1]}`}>
-                <div className="h-11 flex items-center px-1"><Slider min={180} max={400} step={5} value={range} onValueChange={setRange} data-testid="filter-budget" minStepsBetweenThumbs={1} /></div>
+                <div className="h-11 flex items-center px-1"><Slider min={0} max={400} step={5} value={range} onValueChange={setRange} data-testid="filter-budget" minStepsBetweenThumbs={1} /></div>
               </Filter>
             </div>
             <Button onClick={goSearch} data-testid="search-btn" className="w-full mt-4 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white text-base font-semibold">
