@@ -91,6 +91,12 @@ export default function SearchResults() {
           {listings.map((v, i) => (<div key={v.id} className="animate-fade-up" style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}><VehicleCard v={v} /></div>))}
         </div>
       )}
+
+      {listings != null && listings.length > 0 && (
+        <div className="mt-12 bg-[#F1EFE9] rounded-[22px] p-6 sm:p-10" data-testid="sr-car-request">
+          <CityInterestForm city={city} mode="request" />
+        </div>
+      )}
     </main>
   );
 }

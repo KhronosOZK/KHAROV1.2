@@ -132,6 +132,7 @@ class CityInterestIn(BaseModel):
     email: EmailStr
     phone: Optional[str] = None
     vehicle_type: Optional[str] = None
+    budget: Optional[str] = None
     note: Optional[str] = None
 
 class LeadIn(BaseModel):
