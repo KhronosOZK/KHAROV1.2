@@ -43,8 +43,8 @@ export default function Home() {
   const earn = estimateOperatorAnnual("6-15");
 
   const stats = [
-    { n: "1,240+", l: "drivers matched to a car" },
-    { n: "4.7", l: "average operator rating" },
+    { n: all.length ? `${all.length}` : "60", l: "cars from operators we've checked" },
+    { n: "4 cities", l: "London, Birmingham, Manchester & Leeds" },
     { n: "Under 24h", l: "to hear back after you apply" },
     { n: "One price", l: "rent, insurance and cover, weekly" },
   ];
@@ -64,11 +64,11 @@ export default function Home() {
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
             className="mt-4 text-[38px] leading-[1.03] sm:text-6xl lg:text-[76px] font-heading font-extrabold text-white tracking-tight max-w-4xl text-balance drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
-            The car that pays for itself, without the games.
+            London private hire cars, no hidden costs and no nonsense.
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}
             className="mt-5 text-[17px] sm:text-xl text-white/85 max-w-2xl leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-            Every car here comes from a rental company we have checked ourselves. You see the real weekly cost before you commit, and you pay nothing until you are approved and behind the wheel.
+            You pay nothing until you're approved and behind the wheel. Every car comes from a rental company we've checked ourselves, with the real weekly cost — rent, insurance and cover — shown up front.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}
@@ -117,7 +117,7 @@ export default function Home() {
       {featured && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Worth a look</p>
-          <h2 className="text-[26px] sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2">The cars drivers rate the highest right now</h2>
+          <h2 className="text-[26px] sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2">Popular cars from our vetted operators</h2>
           <div className="grid lg:grid-cols-2 gap-6 mt-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               onClick={() => navigate(`/vehicle/${featured.id}`)}
@@ -189,7 +189,7 @@ export default function Home() {
               {[
                 { n: "1", t: "Look around", d: "Filter by borough, fuel and budget. The price you see is the price you pay, cover included." },
                 { n: "2", t: "Tell us once", d: "Your licence and insurance details are saved and reused, so you never fill the same form twice." },
-                { n: "3", t: "Sign and drive", d: "Sign digitally, do a quick photo handover, and the keys are yours." },
+                { n: "3", t: "Agree and drive", d: "Agree the rental terms with the operator, do a quick photo walkround at handover, and the keys are yours." },
               ].map((s) => (
                 <div key={s.n} className="flex gap-5">
                   <div className="text-[34px] font-heading font-extrabold text-[#D6D2C8] leading-none w-8">{s.n}</div>

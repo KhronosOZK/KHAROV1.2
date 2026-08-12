@@ -58,7 +58,7 @@ h1, h2, h3, h4, .font-heading {
   font-family: 'Cabinet Grotesk', 'Satoshi', sans-serif;
 }
 
-::selection { background: #10B981; color: #fff; }
+::selection { background: #0B6B4F; color: #fff; }
 
 .caro-wordmark {
   font-family: 'Cabinet Grotesk', sans-serif;

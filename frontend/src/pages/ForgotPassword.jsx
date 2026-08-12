@@ -51,7 +51,7 @@ export default function ForgotPassword() {
               <p className="text-[14.5px] text-[#4A5D54] mt-2 mb-7">Enter your email and we will send you a link to set a new one.</p>
               <form onSubmit={submit} className="space-y-4">
                 <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Email</Label><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} data-testid="forgot-email" className={inputCls} required /></div>
-                <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white" data-testid="forgot-submit">{loading ? "Sending" : "Send reset link"}</Button>
+                <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="forgot-submit">{loading ? "Sending" : "Send reset link"}</Button>
               </form>
               <p className="text-[13px] text-[#7A857F] mt-6 text-center">Remembered it? <Link to="/login" className="text-[#0B6B4F] font-semibold">Sign in</Link></p>
             </>

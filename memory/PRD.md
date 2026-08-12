@@ -13,6 +13,19 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-08 / iteration 9 — rebrand to "Kharo" + full design/copy review)
+- Renamed the platform Caro → **Kharo** everywhere in user-facing text and the wordmark ("kharo."), plus backend email sender name and API title. Kept internal identifiers (WhyCaro component/route, CSS vars, shadcn Carousel) to avoid breakage.
+- Actioned the full 24-item aesthetics/design/copy review:
+  - Removed fabricated stats ("1,240+ drivers", "4.7 rating") → honest metrics (real car count, 4 cities, product claims). Removed the "+37" operator-count inflation; purged demo interest rows and added a durable /api/stats filter that excludes test/abc/abv/demo rows so test pollution never leaks into user-visible copy (operators now honestly reads 0 pre-launch → "Be one of the first operators to join Kharo").
+  - Corrected copy that overpromised unbuilt features: digital signing → "agree the rental terms"; photo handover framed "at launch"; DriverGuide insurance step reworded to the Quotezone-referral reality; "report from your account" softened.
+  - Removed internal fields from public views: number plate off VehicleDetail; operator_code off Apply review/success.
+  - Standardised brand green to #0B6B4F sitewide (replaced #10B981/#047857). Footer social links are now real icon anchors (Instagram/Facebook/LinkedIn) with testids, not plain text. Footer nav "Search cars" (matches header). Newsletter success adds expectation copy.
+  - "360" section renamed "More angles"; reviews now show an honest empty-state instead of fake reviews; insurance labelled "(indicative)" with the Quotezone referral link.
+  - Domain standardised to kharo.uk (hello@kharo.uk, privacy@kharo.uk; backend CONTACT/ALERT emails). Help copy "one working day", operator button "List your fleet". Removed the operator-dashboard "Preview" button (was showing mock data). Earnings fleet rows labelled "hybrid saloons". Register password sub + "Nothing to pay before you're approved". iOS safe-area padding on the mobile sticky bar. Single primary CTA on DriverGuide.
+- Verified via testing agent (iteration 9): 100% frontend pass across rebrand, honest stats, budget-from-£0, per-city listings, vehicle detail, apply flow, footer, help/legal, Quotezone links, brand green.
+- Admin credentials unchanged (internal ops account): admin@caro.co.uk / CaroAdmin2026!.
+
+
 ## Implemented (2026-06 / iteration 9 — expanded inventory + Quotezone referral)
 - Expanded seed inventory to 60 listings: 48 in London (across 24 boroughs) + 12 across Birmingham, Manchester and Leeds. Data generated in seed_data.py from realistic model/borough/operator templates; each gets royalty-free Unsplash/Pexels photos (commercially safe) grouped by vehicle look.
 - Re-benchmarked weekly rents DOWN to rent-only market levels (Prius £175, Corolla £165, budget Insignia £120, EVs £175–£265, executive £225–£265) after research (Splend/Otto/G&M; insurance is a separate line in Caro). Updated the original 12 flagship listings too.

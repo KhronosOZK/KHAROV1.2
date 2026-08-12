@@ -6,10 +6,10 @@ import { IMG } from "@/lib/images";
 
 const steps = [
   { n: "01", t: "Have a proper look", d: "Filter by borough, type of car, fuel and what you can afford each week. The price on every card already includes insurance and breakdown, so you are comparing like for like from the start.", img: IMG.phoneInCar },
-  { n: "02", t: "Sort your insurance once", d: "You give us your licence and driving history a single time. We pull quotes for proper private hire cover, put the best value one in front of you, and reuse it on every car you look at after that.", img: IMG.signingCouple },
+  { n: "02", t: "Sort your insurance once", d: "You give us your licence and driving history a single time. We connect you to specialist hire-and-reward cover through Quotezone, and reuse your details so you never fill the same form twice.", img: IMG.signingCouple },
   { n: "03", t: "Apply and get the nod", d: "The application is short and your details fill themselves in. The rental company reviews it and runs a background check. Most drivers hear back inside a day.", img: IMG.signingLaptop },
-  { n: "04", t: "Check the car over together", d: "You and the operator take photos from every angle before you drive off. Both sides get a timestamped record, so if anything comes up later, there is proof rather than a disagreement.", img: IMG.keysWoman },
-  { n: "05", t: "Get out there and earn", d: "Anything crops up, a warning light, a bump, a parking ticket, you report it straight from your account. Breakdown cover and servicing are already handled.", img: IMG.driverNight },
+  { n: "04", t: "Check the car over together", d: "At launch, you and the operator take photos from every angle before you drive off. Both sides get a timestamped record, so if anything comes up later there is proof rather than a disagreement.", img: IMG.keysWoman },
+  { n: "05", t: "Get out there and earn", d: "Anything crops up — a warning light, a bump, a parking ticket — you let us know and we point you to the right person. Breakdown cover and servicing are already handled.", img: IMG.driverNight },
   { n: "06", t: "Hand back or carry on", d: "Book a return slot and do the same quick photo check in reverse. Your deposit comes back once both sets match. Want to keep going? Compare fresh quotes and extend with your details already saved.", img: IMG.vintageDriver },
 ];
 
@@ -53,8 +53,8 @@ export default function DriverGuide() {
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white text-balance">Ready when you are.</h2>
             <p className="text-white/75 mt-3 max-w-xl mx-auto text-[16px]">Set up your account in about a minute, then browse and apply with your details already in place. No deposit until you are approved.</p>
             <div className="flex gap-3 justify-center mt-7 flex-wrap">
-              <Button onClick={() => navigate("/")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Browse cars</Button>
-              <Button onClick={() => navigate("/register")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">Create account</Button>
+              <Button onClick={() => navigate("/register")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Create your free account <ArrowRight className="w-4 h-4 ml-2" /></Button>
+              <button onClick={() => navigate("/")} className="text-white/80 hover:text-white text-[14px] font-medium underline underline-offset-4">Browse cars first</button>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ const steps = [
   { n: "01", t: "Register your interest", d: "Before we go live near you, tell us about your fleet and leave a contact. We will reach out when onboarding opens in your area.", img: IMG.handshake },
   { n: "02", t: "Get verified", d: "We check your Companies House record and TfL operator licence against the public register before anything goes live. It is the same badge of trust your drivers will see.", img: IMG.signingLaptop },
   { n: "03", t: "List your cars", d: "Add each vehicle with photos, weekly rent, what is included and any conditions. Pause or edit a listing whenever you like from your dashboard.", img: IMG.showroom },
-  { n: "04", t: "Pick your drivers", d: "Vetted drivers apply to your listings. You see their experience and rating up front, then approve or decline from one queue.", img: IMG.driverMirror },
+  { n: "04", t: "Pick your drivers", d: "Vetted drivers apply to your listings. You see their experience and background-check status up front, then approve or decline from one queue.", img: IMG.driverMirror },
   { n: "05", t: "Hand over with proof", d: "A quick photo handover at pickup protects you if a car comes back damaged, and the same happens at return, so any deduction is backed by evidence.", img: IMG.keysWoman },
   { n: "06", t: "Get paid on time", d: "Payouts run every fortnight, minus the 10% fee. The rent guarantee has your back if a driver defaults.", img: IMG.executive },
   { n: "07", t: "Stay on top of the paperwork", d: "MOT, tax, insurance and PHV licence dates for the whole fleet in one view, with a heads up before anything lapses.", img: IMG.interior },
@@ -89,7 +89,7 @@ export default function OperatorGuide() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4">
             {[5, 15, 30].map((n) => (
               <div key={n} className="flex items-center justify-between bg-white/5 rounded-2xl p-5 ring-1 ring-white/10">
-                <span className="text-white/70">{n} car fleet</span>
+                <span className="text-white/70">{n} hybrid saloons</span>
                 <span className="text-xl font-heading font-extrabold text-white">£{(255 * 52 * 0.85 * n).toLocaleString()}<span className="text-[12px] text-white/50 font-normal">/yr</span></span>
               </div>
             ))}
@@ -107,7 +107,6 @@ export default function OperatorGuide() {
             <p className="text-white/70 mt-3 max-w-xl mx-auto text-[16px]">Register your interest and take a look at the dashboard you will run everything from.</p>
             <div className="flex gap-3 justify-center mt-7 flex-wrap">
               <Button onClick={() => navigate("/list-your-fleet")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Register interest</Button>
-              <Button onClick={() => navigate("/operator-dashboard")} variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">Preview the dashboard</Button>
             </div>
           </div>
         </div>

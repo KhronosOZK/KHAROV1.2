@@ -43,7 +43,7 @@ export default function OperatorInterest() {
   });
   const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
 
-  useEffect(() => { api.get("/stats").then((r) => setCount(r.data.operators + 37)).catch(() => {}); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { api.get("/stats").then((r) => setCount(r.data.operators)).catch(() => {}); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { setF((p) => ({ ...p, fleet_size: fleetBucket(cars) })); }, [cars]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const earn = estimateFleetEarnings(cars, vClass.weekly);
@@ -82,7 +82,7 @@ export default function OperatorInterest() {
   if (done) return (
     <main className="max-w-xl mx-auto px-4 py-24 text-center">
       <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto"><Check className="w-8 h-8 text-emerald-700" /></div>
-      <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25] mt-6" data-testid="interest-success">You are in. Welcome to Caro.</h1>
+      <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25] mt-6" data-testid="interest-success">You are in. Welcome to Kharo.</h1>
       <p className="text-[#4A564F] mt-3 text-[16px] leading-relaxed">Your account is ready. We have sent an email with your earning potential, the onboarding steps and how verification works. In the meantime, take a look around your fleet dashboard.</p>
       <div className="flex gap-3 justify-center mt-8 flex-wrap">
         <Button onClick={() => navigate("/operator-dashboard")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="interest-goto-dashboard">Open my dashboard <ArrowRight className="w-4 h-4 ml-2" /></Button>
@@ -101,7 +101,7 @@ export default function OperatorInterest() {
             <h1 className="mt-3 font-heading font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.03] text-[#1A2E25] text-balance">
               Put your fleet<br /><span className="text-[#0B6B4F]">to work.</span>
             </h1>
-            <p className="mt-5 text-[17px] text-[#4A564F] max-w-md mx-auto lg:mx-0 leading-relaxed">Drag to your fleet size and see what Caro could bring in, matched with vetted drivers and paid every fortnight.</p>
+            <p className="mt-5 text-[17px] text-[#4A564F] max-w-md mx-auto lg:mx-0 leading-relaxed">Drag to your fleet size and see what Kharo could bring in, matched with vetted drivers and paid every fortnight.</p>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.5 }}
@@ -141,7 +141,7 @@ export default function OperatorInterest() {
             {[[ShieldCheck, "Every driver background and licence checked"], [Wallet, "No listing fees, a flat 10% on the rental side only"], [MapPin, "Track every vehicle's live location from your dashboard"], [TrendingUp, "Rent covered up to two weeks if a driver defaults"]].map(([Icon, t]) => (
               <div key={t} className="flex items-start gap-3 text-[14px] text-[#4A564F]"><Icon className="w-5 h-5 text-[#0B6B4F] shrink-0 mt-0.5" strokeWidth={1.6} /> {t}</div>
             ))}
-            <p className="text-[#9AA39D] text-[13px] pt-1">{count} operators have already registered their interest</p>
+            <p className="text-[#9AA39D] text-[13px] pt-1">{count > 0 ? `${count} operator${count === 1 ? "" : "s"} have already registered their interest` : "Be one of the first operators to join Kharo"}</p>
           </div>
         </div>
 

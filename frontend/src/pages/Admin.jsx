@@ -48,13 +48,13 @@ export default function Admin() {
   if (!isAdmin) return (
     <main className="max-w-md mx-auto px-4 py-16">
       <div className="bg-white border border-slate-200 rounded-2xl p-8">
-        <Lock className="w-6 h-6 text-[#047857]" />
-        <h1 className="text-2xl font-heading font-bold text-[#1A2E25] mt-3">Caro Ops, admin</h1>
+        <Lock className="w-6 h-6 text-[#0B6B4F]" />
+        <h1 className="text-2xl font-heading font-bold text-[#1A2E25] mt-3">Kharo Ops, admin</h1>
         <p className="text-sm text-[#64748B] mt-1 mb-6">Sign in with your operations account to view captured leads.</p>
         <form onSubmit={doLogin} className="space-y-4">
           <div><Label className="mb-1.5 block text-sm">Email</Label><Input type="email" value={creds.email} onChange={(e) => setCreds((p) => ({ ...p, email: e.target.value }))} data-testid="admin-email" /></div>
           <div><Label className="mb-1.5 block text-sm">Password</Label><Input type="password" value={creds.password} onChange={(e) => setCreds((p) => ({ ...p, password: e.target.value }))} data-testid="admin-password" /></div>
-          <Button type="submit" className="w-full rounded-full bg-[#047857] hover:bg-[#065F46] text-white" data-testid="admin-login">Sign in</Button>
+          <Button type="submit" className="w-full rounded-full bg-[#0B6B4F] hover:bg-[#065F46] text-white" data-testid="admin-login">Sign in</Button>
         </form>
       </div>
     </main>
@@ -104,7 +104,7 @@ export default function Admin() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6">
         {headline.map((c) => (
           <div key={c.l} className="bg-white border border-slate-200 rounded-2xl p-5" data-testid={`stat-${c.l}`}>
-            <c.i className="w-5 h-5 text-[#047857]" />
+            <c.i className="w-5 h-5 text-[#0B6B4F]" />
             <AnimatedNumber value={c.v} className="text-[32px] font-heading font-extrabold text-[#1A2E25] mt-3 block leading-none" />
             <div className="text-[13px] font-medium text-[#1A2E25] mt-2">{c.l}</div>
             <div className="text-[11.5px] text-[#94A3B8] mt-0.5">{c.hint}</div>
@@ -118,7 +118,7 @@ export default function Admin() {
           <div className="flex items-center justify-between flex-wrap gap-2 mb-5">
             <h3 className="font-heading font-bold text-[#1A2E25] text-lg">Growth over the last 14 days</h3>
             <div className="flex gap-4 text-[12px]">
-              <span className="flex items-center gap-1.5 text-[#64748B]"><span className="w-2.5 h-2.5 rounded-full bg-[#047857]" /> Page views</span>
+              <span className="flex items-center gap-1.5 text-[#64748B]"><span className="w-2.5 h-2.5 rounded-full bg-[#0B6B4F]" /> Page views</span>
               <span className="flex items-center gap-1.5 text-[#64748B]"><span className="w-2.5 h-2.5 rounded-full bg-[#0EA5E9]" /> Driver signups</span>
               <span className="flex items-center gap-1.5 text-[#64748B]"><span className="w-2.5 h-2.5 rounded-full bg-[#C08A2D]" /> Leads</span>
             </div>
@@ -126,13 +126,13 @@ export default function Admin() {
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={analytics.trend} margin={{ top: 4, right: 8, left: -18, bottom: 0 }}>
               <defs>
-                <linearGradient id="gv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#047857" stopOpacity={0.28} /><stop offset="100%" stopColor="#047857" stopOpacity={0} /></linearGradient>
+                <linearGradient id="gv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#0B6B4F" stopOpacity={0.28} /><stop offset="100%" stopColor="#0B6B4F" stopOpacity={0} /></linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#EEF0EC" />
               <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={11} stroke="#94A3B8" />
               <YAxis tickLine={false} axisLine={false} fontSize={11} stroke="#94A3B8" allowDecimals={false} />
               <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB", fontSize: 13 }} />
-              <Area type="monotone" dataKey="views" name="Page views" stroke="#047857" strokeWidth={2.5} fill="url(#gv)" />
+              <Area type="monotone" dataKey="views" name="Page views" stroke="#0B6B4F" strokeWidth={2.5} fill="url(#gv)" />
               <Line type="monotone" dataKey="signups" name="Driver signups" stroke="#0EA5E9" strokeWidth={2.5} dot={false} />
               <Line type="monotone" dataKey="leads" name="Leads" stroke="#C08A2D" strokeWidth={2.5} dot={false} />
             </AreaChart>

@@ -1,9 +1,9 @@
 """
-Caro email scaffold (Emergent-managed Resend).
+Kharo email scaffold (Emergent-managed Resend).
 
 EDIT LATER: the values below come from /app/backend/.env and are safe to change
 once the caro.uk domain and welcome documents are ready:
-  EMAIL_FROM_NAME   - sender display name (currently "Caro")
+  EMAIL_FROM_NAME   - sender display name (currently "Kharo")
   CONTACT_EMAIL     - reply-to address
   ALERT_EMAIL       - where new-registration alerts are sent (founder inbox)
   DRIVER_DOC_URL    - link to the driver welcome document
@@ -37,7 +37,7 @@ async def send_email(to: str, subject: str, html: str) -> None:
         "to": [to],
         "subject": subject,
         "html": html,
-        "from_name": cfg("EMAIL_FROM_NAME", "Caro"),
+        "from_name": cfg("EMAIL_FROM_NAME", "Kharo"),
     }
     reply_to = cfg("CONTACT_EMAIL")
     if reply_to:
@@ -77,7 +77,7 @@ def _shell(heading: str, body: str) -> str:
         {body}
       </td></tr>
       <tr><td style="padding:20px 32px;background:#F1EFE9;color:#7A857F;font-size:12px;">
-        Caro, London's marketplace for private hire vehicle rental. If you did not expect this email you can ignore it.
+        Kharo, London's marketplace for private hire vehicle rental. If you did not expect this email you can ignore it.
       </td></tr>
     </table>
   </td></tr>
@@ -94,35 +94,35 @@ async def send_welcome(role: str, to: str, name: str) -> None:
     if role == "operator":
         doc = cfg("OPERATOR_DOC_URL")
         body = (
-            f"<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>Hi {first}, thanks for registering your fleet interest with Caro. "
+            f"<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>Hi {first}, thanks for registering your fleet interest with Kharo. "
             "Your account is ready, and we will be in touch as we open in your area.</p>"
             "<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>Attached below is everything you need: your earning potential, "
             "the onboarding process, how verification works and how live vehicle tracking works.</p>"
             + (f"<p style='margin:20px 0;'>{_btn('Read your operator pack', doc)}</p>" if doc else
                "<p style='color:#7A857F;font-size:13px;'>[Your operator welcome document link will appear here.]</p>")
         )
-        await send_email(to, "Welcome to Caro, your fleet pack inside", _shell("You are on the list", body))
+        await send_email(to, "Welcome to Kharo, your fleet pack inside", _shell("You are on the list", body))
     else:
         doc = cfg("DRIVER_DOC_URL")
         body = (
-            f"<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>Hi {first}, welcome to Caro. Your account is ready, so you can "
+            f"<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>Hi {first}, welcome to Kharo. Your account is ready, so you can "
             "browse vetted cars in London and apply with your details already saved.</p>"
             "<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>Here is your getting-started guide covering how renting works, "
             "what is included and what you could take home each week.</p>"
             + (f"<p style='margin:20px 0;'>{_btn('Read your driver guide', doc)}</p>" if doc else
                "<p style='color:#7A857F;font-size:13px;'>[Your driver welcome document link will appear here.]</p>")
         )
-        await send_email(to, "Welcome to Caro", _shell("Welcome aboard", body))
+        await send_email(to, "Welcome to Kharo", _shell("Welcome aboard", body))
 
 
 async def send_reset(to: str, link: str) -> None:
     body = (
-        "<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>We received a request to reset your Caro password. "
+        "<p style='color:#4A5D54;font-size:15px;line-height:1.6;'>We received a request to reset your Kharo password. "
         "This link is valid for one hour and can be used once.</p>"
         f"<p style='margin:20px 0;'>{_btn('Reset my password', link)}</p>"
         "<p style='color:#7A857F;font-size:13px;'>If you did not request this, you can safely ignore this email.</p>"
     )
-    await send_email(to, "Reset your Caro password", _shell("Password reset", body))
+    await send_email(to, "Reset your Kharo password", _shell("Password reset", body))
 
 
 async def send_alert(kind: str, details: dict) -> None:
@@ -135,6 +135,6 @@ async def send_alert(kind: str, details: dict) -> None:
         f"<td style='padding:4px 0;color:#1A2E25;font-size:13px;'>{v}</td></tr>"
         for k, v in details.items() if v
     )
-    body = (f"<p style='color:#4A5D54;font-size:15px;'>New activity on Caro: <b>{kind}</b>.</p>"
+    body = (f"<p style='color:#4A5D54;font-size:15px;'>New activity on Kharo: <b>{kind}</b>.</p>"
             f"<table cellpadding='0' cellspacing='0'>{rows}</table>")
-    await send_email(to, f"Caro: {kind}", _shell("New registration", body))
+    await send_email(to, f"Kharo: {kind}", _shell("New registration", body))

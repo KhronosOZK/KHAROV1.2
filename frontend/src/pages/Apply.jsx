@@ -79,7 +79,7 @@ export default function Apply() {
     <main className="max-w-xl mx-auto px-4 py-20 text-center">
       <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto"><Check className="w-8 h-8 text-emerald-700" /></div>
       <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25] mt-6" data-testid="apply-success">Application sent</h1>
-      <p className="text-[#4A564F] mt-3 leading-relaxed">The operator behind {v.operator_code} usually replies within 24 hours. We will email and notify you the moment they review it, and share their full details the moment they accept.</p>
+      <p className="text-[#4A564F] mt-3 leading-relaxed">The operator will review your application and usually replies within 24 hours. We will email and notify you the moment they respond, and share their full details the moment they accept.</p>
       <div className="flex gap-3 justify-center mt-8"><Button onClick={() => navigate("/portal")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white">Go to my portal</Button><Button onClick={() => navigate("/")} variant="outline" className="rounded-full">Keep browsing</Button></div>
     </main>
   );
@@ -136,7 +136,7 @@ export default function Apply() {
             </div>)}
             {step === 3 && (<div>
               <h1 className="text-2xl font-heading font-bold text-[#1A2E25]">Check it over and send</h1>
-              <p className="text-[15px] text-[#4A564F] mt-2 mb-6">Make sure this looks right, then send it to the operator behind {v.operator_code}.</p>
+              <p className="text-[15px] text-[#4A564F] mt-2 mb-6">Make sure this looks right, then send it. The operator will review it and come back to you within 24 hours.</p>
               <div className="space-y-3 text-[14px] bg-[#F9F8F6] rounded-2xl p-5">
                 <Rev l="Car" v={`${v.make} ${v.model} ${v.year}`} />
                 <Rev l="Rental length" v={`${weeks} weeks`} />
@@ -145,7 +145,7 @@ export default function Apply() {
                 <Rev l="Insurance" v={`${quote?.quotes?.[0]?.insurer || "Quote"}, £${insurance.toFixed(2)}/wk`} />
                 <div className="border-t border-slate-200 pt-3 flex justify-between font-semibold text-base"><span>Total each week</span><span className="text-[#0B6B4F]">£{total}</span></div>
               </div>
-              <div className="mt-4 flex items-start gap-2 text-[12px] text-[#7A857F]"><ShieldCheck className="w-4 h-4 text-[#0B6B4F] shrink-0 mt-0.5" /> Your details are used only to vet you for this rental, never sold on. Nothing is charged until you sign a digital agreement.</div>
+              <div className="mt-4 flex items-start gap-2 text-[12px] text-[#7A857F]"><ShieldCheck className="w-4 h-4 text-[#0B6B4F] shrink-0 mt-0.5" /> Your details are used only to vet you for this rental, never sold on. Nothing is charged until you agree the rental terms with the operator.</div>
             </div>)}
 
             <div className="flex gap-3 mt-8">

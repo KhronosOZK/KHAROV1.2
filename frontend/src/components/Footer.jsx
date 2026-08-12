@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Instagram, Facebook, Linkedin } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 
 const cols = [
-  { h: "Drivers", links: [["Search vehicles", "/"], ["How renting works", "/driver-guide"], ["Driver login", "/login"]] },
+  { h: "Drivers", links: [["Search cars", "/"], ["How renting works", "/driver-guide"], ["Driver login", "/login"]] },
   { h: "Operators", links: [["List your fleet", "/list-your-fleet"], ["Operator guide", "/operator-guide"], ["Operator login", "/operator-login"]] },
-  { h: "Company", links: [["Why choose Caro", "/why-caro"], ["Get help", "/help"], ["Legal & privacy", "/legal"]] },
+  { h: "Company", links: [["Why choose Kharo", "/why-caro"], ["Get help", "/help"], ["Legal & privacy", "/legal"]] },
 ];
 
 export default function Footer() {
@@ -29,13 +29,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
-            <div className="caro-wordmark text-3xl">caro<span className="text-[#10B981]">.</span></div>
+            <div className="caro-wordmark text-3xl">kharo<span className="text-[#0B6B4F]">.</span></div>
             <p className="text-sm text-white/60 mt-3 max-w-xs">London's marketplace for private hire vehicle rental. Vetted operators, transparent pricing, cover built in.</p>
             <div className="mt-6">
               <p className="text-[13px] font-semibold text-white/90">Get launch updates</p>
               <p className="text-[12.5px] text-white/50 mt-1">Be first to know when we open in your area.</p>
               {sent ? (
-                <p className="text-[13px] text-[#5FD3A6] mt-3">Thanks, you are on the list.</p>
+                <p className="text-[13px] text-[#5FD3A6] mt-3">Thanks, you're on the list — we'll be in touch before we go live in your area.</p>
               ) : (
                 <form onSubmit={subscribe} className="mt-3 flex items-center gap-2 max-w-xs">
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com"
@@ -59,8 +59,12 @@ export default function Footer() {
           ))}
         </div>
         <div className="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-white/40">
-          <span>© 2026 Caro. Launching across Greater London.</span>
-          <span>Instagram · Facebook · TikTok</span>
+          <span>© 2026 Kharo. Launching across Greater London.</span>
+          <div className="flex items-center gap-3" data-testid="footer-social">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-testid="social-instagram" className="w-8 h-8 rounded-full bg-white/5 hover:bg-[#0B6B4F] flex items-center justify-center transition-colors"><Instagram className="w-4 h-4 text-white/70" /></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" data-testid="social-facebook" className="w-8 h-8 rounded-full bg-white/5 hover:bg-[#0B6B4F] flex items-center justify-center transition-colors"><Facebook className="w-4 h-4 text-white/70" /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-testid="social-linkedin" className="w-8 h-8 rounded-full bg-white/5 hover:bg-[#0B6B4F] flex items-center justify-center transition-colors"><Linkedin className="w-4 h-4 text-white/70" /></a>
+          </div>
         </div>
       </div>
     </footer>

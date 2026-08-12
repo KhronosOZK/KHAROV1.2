@@ -26,7 +26,7 @@ export const PRICING_TIERS = [
   { label: "Long term", sub: "12 weeks or more", weeks: 12 },
 ];
 
-// Rough operator earnings estimate (gross, before Caro's 10% fee)
+// Rough operator earnings estimate (gross, before Kharo's 10% fee)
 export function estimateOperatorAnnual(fleetSizeLabel) {
   const midpoint = { "1-5": 3, "6-15": 10, "16-30": 22, "30+": 40 }[fleetSizeLabel] || 10;
   const avgWeekly = 255;

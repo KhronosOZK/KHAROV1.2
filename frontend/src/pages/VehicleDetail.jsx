@@ -53,11 +53,6 @@ export default function VehicleDetail() {
     `Servicing booked in at ${v.designated_garage}`,
     "A live insurance quote through Quotezone at checkout",
   ];
-  const reviews = [
-    { n: "Mo R.", t: "3 weeks ago", r: 5, txt: "Handover took about fifteen minutes, photos done properly on both sides, and the car was exactly as listed." },
-    { n: "David K.", t: "6 weeks ago", r: 4, txt: "Good chat throughout. One small delay getting a service slot but they sorted a courtesy day rate while it was in." },
-  ];
-
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-32 lg:pb-6">
       <div className="flex items-center justify-between mb-4">
@@ -84,7 +79,7 @@ export default function VehicleDetail() {
       <div className="grid lg:grid-cols-3 gap-10 mt-8">
         <div className="lg:col-span-2">
           <h1 className="text-3xl sm:text-[40px] font-heading font-extrabold text-[#1A2E25] leading-tight">{v.make} {v.model} {v.year}</h1>
-          <p className="text-[#4A564F] mt-2 text-[16px]">{v.colour} · {v.mileage.toLocaleString()} miles on the clock · plate {v.plate}</p>
+          <p className="text-[#4A564F] mt-2 text-[16px]">{v.colour} · {v.mileage.toLocaleString()} miles on the clock</p>
 
           {/* Clean trust row, no chips */}
           <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] text-[#3B4A44]">
@@ -95,7 +90,7 @@ export default function VehicleDetail() {
 
           <div className="mt-6 rounded-2xl bg-[#F1EFE9] p-5">
             <div className="font-semibold text-[#1A2E25]">A trusted operator in {v.borough}</div>
-            <p className="text-[14px] text-[#4A564F] mt-1.5 leading-relaxed">We keep the company name private until your application is approved, so nobody can go around us. They usually reply in {v.operator_response} and have been renting through Caro since {v.operator_since}.</p>
+            <p className="text-[14px] text-[#4A564F] mt-1.5 leading-relaxed">We keep the operator's details private until you're approved. This protects you from being approached off-platform before the match is confirmed, so the rental happens under your Kharo protections. They usually reply in {v.operator_response} and have been renting through Kharo since {v.operator_since}.</p>
           </div>
 
           <Section title="What your weekly rent covers">
@@ -130,8 +125,8 @@ export default function VehicleDetail() {
           </Section>
 
           {/* 360 spin */}
-          <Section title="Take a spin around it">
-            <p className="text-[14px] text-[#4A564F] mb-4">Drag left or right to look around the car, or press play to spin it yourself.</p>
+          <Section title="More angles">
+            <p className="text-[14px] text-[#4A564F] mb-4">Drag left or right, or press spin, to look through the photos of this car.</p>
             <Spin360 photos={v.photos} />
           </Section>
 
@@ -153,10 +148,10 @@ export default function VehicleDetail() {
             <p className="text-[14px] text-[#7A857F] mt-3 flex items-center gap-2"><MapPin className="w-4 h-4 text-[#0B6B4F]" /> Roughly around {v.borough}, {v.postcode}. You get the exact address once you are approved.</p>
           </Section>
 
-          <Section title="What drivers say">
-            <div className="flex items-baseline gap-2 mb-4"><span className="text-4xl font-heading font-extrabold text-[#1A2E25]">{v.operator_rating}</span><span className="text-[#C08A2D] text-lg">★★★★★</span><span className="text-[14px] text-[#7A857F]">from {v.operator_rentals} rentals</span></div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {reviews.map((r) => (<div key={r.n} className="bg-white rounded-2xl p-5 ring-1 ring-slate-200/70"><div className="flex items-center justify-between"><span className="font-semibold text-[#1A2E25]">{r.n}</span><span className="text-[12px] text-[#7A857F]">{r.t}</span></div><div className="text-[#C08A2D] my-1.5 text-sm">{"★".repeat(r.r)}</div><p className="text-[14px] text-[#4A564F] leading-relaxed">{r.txt}</p></div>))}
+          <Section title="Reviews">
+            <div className="bg-white rounded-2xl p-6 ring-1 ring-slate-200/70" data-testid="reviews-empty">
+              <p className="text-[15px] text-[#1A2E25] font-medium">No reviews yet — this operator is new to Kharo.</p>
+              <p className="text-[14px] text-[#4A564F] mt-1.5 leading-relaxed">Background and licence checks are complete. Driver reviews will appear here once the first rentals are underway.</p>
             </div>
           </Section>
         </div>
@@ -168,7 +163,7 @@ export default function VehicleDetail() {
         </div>
       </div>
 
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200 p-4">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
         <div className="flex items-center justify-between gap-3">
           <div><div className="text-[12px] text-[#7A857F]">All in from</div><div className="text-xl font-heading font-extrabold text-[#1A2E25]">£{total}<span className="text-sm font-medium text-[#7A857F]"> pw</span></div></div>
           <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-mobile-btn" className="flex-1 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
@@ -227,7 +222,7 @@ function CostPanel({ v, insurance, breakdownCost, rentWeekly, weeks, total, mont
       </a>
       <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-to-rent-btn" className="w-full mt-4 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
       <div className="mt-5"><div className="text-[12px] font-semibold text-[#4A564F] mb-2">What happens after you apply</div>
-        <ol className="space-y-2 text-[12.5px] text-[#7A857F]">{["The company reviews your application", "A quick background check runs", "You sign the agreement digitally", "You pay and arrange to collect"].map((s, i) => (<li key={s} className="flex gap-2"><span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 text-[10px] flex items-center justify-center shrink-0 font-bold">{i + 1}</span>{s}</li>))}</ol>
+        <ol className="space-y-2 text-[12.5px] text-[#7A857F]">{["The company reviews your application", "We and the operator check your licence and history", "You agree the rental terms", "You pay and arrange to collect"].map((s, i) => (<li key={s} className="flex gap-2"><span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 text-[10px] flex items-center justify-center shrink-0 font-bold">{i + 1}</span>{s}</li>))}</ol>
       </div>
     </>
   );

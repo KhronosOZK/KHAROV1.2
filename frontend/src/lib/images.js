@@ -1,4 +1,4 @@
-// Curated imagery for Caro
+// Curated imagery for Kharo
 export const IMG = {
   heroSuv: "https://images.pexels.com/photos/7903330/pexels-photo-7903330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1200&w=1800",
   londonStreet: "https://images.unsplash.com/photo-1680027026280-7217b71d3eef?crop=entropy&cs=srgb&fm=jpg&q=85&w=1800",

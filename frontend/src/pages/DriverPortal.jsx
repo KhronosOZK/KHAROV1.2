@@ -39,12 +39,12 @@ export default function DriverPortal() {
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-[28px] sm:text-4xl font-heading font-extrabold text-[#1A2E25]">Hi {firstName}, welcome to Caro.</h1>
+          <h1 className="text-[28px] sm:text-4xl font-heading font-extrabold text-[#1A2E25]">Hi {firstName}, welcome to Kharo.</h1>
           <p className="text-[#4A5D54] mt-1.5">Everything you need to get on the road, in one place.</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate("/saved")} className="rounded-full border-[#1A2E25]/20" data-testid="portal-saved"><Heart className="w-4 h-4 mr-2" /> Saved{saved.length ? ` (${saved.length})` : ""}</Button>
-          <Button onClick={() => navigate("/search")} className="rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white" data-testid="portal-find-car">Find a car</Button>
+          <Button onClick={() => navigate("/search")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="portal-find-car">Find a car</Button>
         </div>
       </div>
 
@@ -89,7 +89,7 @@ export default function DriverPortal() {
               <div className="w-12 h-12 rounded-2xl bg-[#F1EFE9] flex items-center justify-center mx-auto"><Car className="w-6 h-6 text-[#0B6B4F]" strokeWidth={1.5} /></div>
               <p className="text-[15px] text-[#1A2E25] font-medium mt-3">No applications yet</p>
               <p className="text-[13px] text-[#7A857F] mt-1">When you apply for a car, you can track the operator's response here.</p>
-              <Button onClick={() => navigate("/search")} className="rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white mt-4 text-[13px] h-9">Find your first car</Button>
+              <Button onClick={() => navigate("/search")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white mt-4 text-[13px] h-9">Find your first car</Button>
             </div>
           ) : (
             <div className="space-y-3" data-testid="my-applications">

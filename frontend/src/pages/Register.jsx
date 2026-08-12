@@ -16,7 +16,7 @@ const STEPS = [
   { key: "name", q: "What's your name?", sub: "This is how operators will see you when you apply.", fields: [{ label: "Full name", name: "name", placeholder: "Jordan Smith", testid: "reg-name" }], required: ["name"] },
   { key: "email", q: "What's your email?", sub: "We'll send your account details and quotes here.", fields: [{ label: "Email", name: "email", type: "email", placeholder: "you@email.com", testid: "reg-email" }], required: ["email"] },
   { key: "phone", q: "Your mobile number", sub: "Operators can reach you faster this way.", fields: [{ label: "Mobile number", name: "phone", placeholder: "07…", testid: "reg-phone" }], required: ["phone"] },
-  { key: "password", q: "Create a password", sub: "So you can pick up right where you left off.", fields: [{ label: "Password", name: "password", type: "password", placeholder: "At least 6 characters", testid: "reg-password" }], required: ["password"], minPassword: true },
+  { key: "password", q: "Create a password", sub: "Keeps your application details and documents secure.", fields: [{ label: "Password", name: "password", type: "password", placeholder: "At least 6 characters", testid: "reg-password" }], required: ["password"], minPassword: true },
   { key: "dob", q: "When were you born?", sub: "Most operators require drivers to be 21 or over.", fields: [{ label: "Date of birth", name: "dob", type: "date", testid: "reg-dob" }] },
   { key: "licence", q: "Your driving licences", sub: "Optional now, but adding them means faster quotes and one less form later.", fields: [{ label: "DVLA licence number", name: "dvla_licence", placeholder: "SMITH901284JS9AB", testid: "reg-dvla" }, { label: "PCO / TfL badge number", name: "pco_licence", placeholder: "123456", testid: "reg-pco" }] },
 ];
@@ -46,7 +46,7 @@ export default function Register() {
     setLoading(true);
     const res = await register({ ...f, role: "driver" });
     setLoading(false);
-    if (res.ok) { toast.success("Account created. Welcome to Caro."); navigate("/portal"); }
+    if (res.ok) { toast.success("Account created. Welcome to Kharo."); navigate("/portal"); }
     else toast.error(res.error);
   };
 
@@ -61,7 +61,7 @@ export default function Register() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
         {/* LEFT — value stage (light) */}
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center lg:text-left">
-          <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Drive with Caro</p>
+          <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Drive with Kharo</p>
           <h1 className="mt-3 font-heading font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.03] text-[#1A2E25] text-balance">
             The keys to a<br /><span className="text-[#0B6B4F]">better week.</span>
           </h1>
@@ -95,7 +95,7 @@ export default function Register() {
           </motion.div>
 
           <div className="mt-7 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2.5">
-            {[[ShieldCheck, "Cover built in"], [Clock, "Hear back within a day"], [Check, "No deposit until approved"]].map(([Icon, t]) => (
+            {[[ShieldCheck, "Cover built in"], [Clock, "Hear back within a day"], [Check, "Nothing to pay before you're approved"]].map(([Icon, t]) => (
               <span key={t} className="flex items-center gap-2 text-[13px] text-[#4A564F]"><Icon className="w-4 h-4 text-[#0B6B4F]" strokeWidth={1.6} /> {t}</span>
             ))}
           </div>

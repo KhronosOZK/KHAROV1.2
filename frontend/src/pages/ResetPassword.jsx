@@ -56,7 +56,7 @@ export default function ResetPassword() {
               <form onSubmit={submit} className="space-y-4">
                 <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">New password</Label><Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-testid="reset-password" className={inputCls} placeholder="At least 6 characters" required /></div>
                 <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Confirm password</Label><Input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} data-testid="reset-confirm" className={inputCls} required /></div>
-                <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white" data-testid="reset-submit">{loading ? "Updating" : "Update password"}</Button>
+                <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="reset-submit">{loading ? "Updating" : "Update password"}</Button>
               </form>
             </>
           )}

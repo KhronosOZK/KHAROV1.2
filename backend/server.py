@@ -26,7 +26,7 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-app = FastAPI(title="Caro API")
+app = FastAPI(title="Kharo API")
 api = APIRouter(prefix="/api")
 
 JWT_ALGORITHM = "HS256"
@@ -396,11 +396,12 @@ async def city_demand():
 
 @api.get("/stats")
 async def stats():
-    drivers = await db.users.count_documents({"role": "driver"})
-    operators = await db.interests.count_documents({})
+    real = {"company_name": {"$not": {"$regex": "(test|abc|abv|^demo)", "$options": "i"}}}
+    drivers = await db.users.count_documents({"role": "driver", "email": {"$not": {"$regex": "^test", "$options": "i"}}})
+    operators = await db.interests.count_documents(real)
     listings = await db.listings.count_documents({})
     apps = await db.applications.count_documents({})
-    recent = await db.interests.find({}, {"_id": 0, "company_name": 1, "fleet_size": 1, "areas": 1, "created_at": 1}).sort("created_at", -1).to_list(6)
+    recent = await db.interests.find(real, {"_id": 0, "company_name": 1, "fleet_size": 1, "areas": 1, "created_at": 1}).sort("created_at", -1).to_list(6)
     return {"drivers": drivers, "operators": operators, "combined": drivers + operators,
             "listings": listings, "applications": apps, "recent_operators": recent}
 
@@ -509,7 +510,7 @@ async def seed_admin():
     pwd = os.environ["ADMIN_PASSWORD"]
     existing = await db.users.find_one({"email": email})
     if not existing:
-        await db.users.insert_one({"name": "Caro Ops", "email": email, "phone": "",
+        await db.users.insert_one({"name": "Kharo Ops", "email": email, "phone": "",
                                    "password_hash": hash_password(pwd), "role": "admin",
                                    "created_at": now_iso()})
     elif not verify_password(pwd, existing["password_hash"]):

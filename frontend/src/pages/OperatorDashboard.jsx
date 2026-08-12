@@ -99,7 +99,7 @@ export default function OperatorDashboard() {
           <div className="w-12 h-12 rounded-2xl bg-[#1A2E25] text-white flex items-center justify-center font-heading font-bold text-lg">SF</div>
           <div><h1 className="text-2xl font-heading font-extrabold text-[#1A2E25]">South Forest Rentals</h1><p className="text-sm text-[#4A5D54]">Newham &amp; East London <span className="ml-2 text-xs bg-amber-50 text-amber-800 px-2 py-0.5 rounded-full">Preview</span></p></div>
         </div>
-        <Button className="rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white hover:-translate-y-[2px] transition-transform"><Plus className="w-4 h-4 mr-2" /> Add vehicle</Button>
+        <Button className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white hover:-translate-y-[2px] transition-transform"><Plus className="w-4 h-4 mr-2" /> Add vehicle</Button>
       </div>
 
       <Tabs value={tab} onValueChange={setTab} className="mt-6">
@@ -168,7 +168,7 @@ export default function OperatorDashboard() {
                 <div className="w-10 h-10 rounded-full bg-[#F1EFE9] flex items-center justify-center font-heading font-bold text-[#0B6B4F]">{a[0][0]}</div>
                 <div><div className="font-medium text-[#1A2E25]">{a[0]}</div><div className="text-xs text-[#7A857F]">{a[1]} · <span className={a[3] ? "text-emerald-700" : "text-amber-700"}>{a[2]}</span></div></div>
               </div>
-              <div className="flex gap-2"><Button size="sm" variant="outline" className="rounded-full border-[#1A2E25]/20"><X className="w-4 h-4 mr-1" /> Decline</Button><Button size="sm" className="rounded-full bg-[#0B6B4F] hover:bg-[#047857] text-white"><Check className="w-4 h-4 mr-1" /> Approve</Button></div>
+              <div className="flex gap-2"><Button size="sm" variant="outline" className="rounded-full border-[#1A2E25]/20"><X className="w-4 h-4 mr-1" /> Decline</Button><Button size="sm" className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white"><Check className="w-4 h-4 mr-1" /> Approve</Button></div>
             </div>
           ))}
         </TabsContent>
@@ -177,7 +177,7 @@ export default function OperatorDashboard() {
           <div className="grid sm:grid-cols-3 gap-4 mb-4">
             <Stat l="Next fortnightly payout" v="£8,415.00" hint="Fri 4 Jul 2026" />
             <Stat l="Deposits held (ring-fenced)" v="£4,400.00" hint="Released on return" />
-            <Stat l="Caro fee this month" v="£1,285.00" hint="10% flat" />
+            <Stat l="Kharo fee this month" v="£1,285.00" hint="10% flat" />
           </div>
           <div className="bg-white border border-[#1A2E25]/10 rounded-2xl p-5 shadow-sm">
             <div className="flex items-center justify-between mb-3"><h3 className="font-heading font-bold text-[#1A2E25]">Revenue by vehicle, this month</h3><Button size="sm" variant="outline" className="rounded-full border-[#1A2E25]/20">Export CSV</Button></div>

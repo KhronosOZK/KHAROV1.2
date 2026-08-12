@@ -9,7 +9,7 @@ import {
 
 const navLinks = [
   { to: "/", label: "Search cars" },
-  { to: "/why-caro", label: "Why Caro" },
+  { to: "/why-caro", label: "Why Kharo" },
   { to: "/driver-guide", label: "How it works" },
   { to: "/list-your-fleet", label: "For operators" },
 ];
@@ -26,7 +26,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-[#FBFAF8]/85 backdrop-blur-xl border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between">
         <Link to="/" className="caro-wordmark text-[30px] text-[#1A2E25]" data-testid="logo-link">
-          caro<span className="text-[#0B6B4F]">.</span>
+          kharo<span className="text-[#0B6B4F]">.</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-9">
@@ -87,7 +87,7 @@ export default function Header() {
               <button className="md:hidden p-2" data-testid="mobile-menu-btn"><Menu className="w-6 h-6" /></button>
             </SheetTrigger>
             <SheetContent side="right" className="w-80 bg-white overflow-y-auto">
-              <div className="caro-wordmark text-3xl text-[#1A2E25] mt-2 mb-6">caro<span className="text-[#0B6B4F]">.</span></div>
+              <div className="caro-wordmark text-3xl text-[#1A2E25] mt-2 mb-6">kharo<span className="text-[#0B6B4F]">.</span></div>
               <div className="flex flex-col gap-1">
                 {navLinks.map((l) => (<Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="py-3 px-2 text-base font-medium text-[#1A2E25] hover:bg-[#F1EFE9] rounded-lg">{l.label}</Link>))}
                 <div className="border-t border-slate-200 my-3" />
@@ -102,7 +102,7 @@ export default function Header() {
                     <Link to="/login" onClick={() => setOpen(false)} className="py-3 px-2 font-semibold text-[#0B6B4F] flex items-center gap-2">Drivers: log in or sign up <ArrowRight className="w-4 h-4" /></Link>
                     <Link to="/list-your-fleet" onClick={() => setOpen(false)} className="py-3 px-2 font-semibold text-[#0B6B4F] flex items-center gap-2">Operators: list your fleet <ArrowRight className="w-4 h-4" /></Link>
                     <div className="border-t border-slate-200 my-3" />
-                    <Link to="/why-caro" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Why choose Caro</Link>
+                    <Link to="/why-caro" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Why choose Kharo</Link>
                     <Link to="/help" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Get help</Link>
                     <Link to="/legal" onClick={() => setOpen(false)} className="py-3 px-2 text-[#4A564F]">Legal and privacy</Link>
                   </>

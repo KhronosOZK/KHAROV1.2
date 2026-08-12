@@ -7,14 +7,14 @@ import { IMG } from "@/lib/images";
 const driverPoints = [
   { t: "You know the number before you commit", d: "Rent, insurance and breakdown are added up for you on every car. What you see is what leaves your account each week." },
   { t: "Insured for the work you actually do", d: "A normal policy will not cover private hire. Every quote we show is proper hire and reward cover, so you are never caught out." },
-  { t: "Your money is not sitting with a stranger", d: "You pay Caro, not an unknown yard. Your deposit is held safely and comes back once the return photos are agreed." },
-  { t: "One point of contact when things go wrong", d: "Breakdown, bump, or a parking ticket. You report it from your account and we help sort it, instead of leaving you on hold." },
+  { t: "Your money is not sitting with a stranger", d: "You pay Kharo, not an unknown yard. Your deposit is held safely and comes back once the return photos are agreed." },
+  { t: "One point of contact when things go wrong", d: "Breakdown, bump, or a parking ticket. You let us know and we point you to the right person, instead of leaving you on hold." },
 ];
 const operatorPoints = [
   { t: "Drivers who are already checked", d: "Everyone who applies has been through background and licence checks. You approve the ones you like and skip the time wasters." },
   { t: "Rent that turns up on time", d: "Payments run through us and land in your account every fortnight. If a driver defaults, we cover the rent for up to two weeks." },
   { t: "Your paperwork in one place", d: "MOT, tax, insurance and PHV licence dates for the whole fleet, with a nudge before anything runs out. No more spreadsheet." },
-  { t: "Evidence instead of arguments", d: "Timestamped handover photos at pickup and return mean any deposit deduction is backed by proof, not a shouting match." },
+  { t: "Evidence instead of arguments", d: "At launch, timestamped handover photos at pickup and return mean any deposit deduction is backed by proof, not a shouting match." },
 ];
 
 export default function WhyCaro() {
@@ -25,9 +25,9 @@ export default function WhyCaro() {
         <img src={IMG.driverSuit} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/55" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
-          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Why Caro</p>
+          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Why Kharo</p>
           <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">Renting a private hire car should not feel like a risk.</h1>
-          <p className="text-white/75 mt-5 text-[18px] max-w-2xl leading-relaxed">Drivers hand over real money before they have even seen the car. Operators hand over their livelihood. We built Caro so both sides can relax a little.</p>
+          <p className="text-white/75 mt-5 text-[18px] max-w-2xl leading-relaxed">Drivers hand over real money before they have even seen the car. Operators hand over their livelihood. We built Kharo so both sides can relax a little.</p>
         </div>
       </section>
 
