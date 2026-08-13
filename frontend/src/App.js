@@ -63,8 +63,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/request-a-car" element={<RequestCar />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Footer />
           <Toaster position="top-center" richColors />

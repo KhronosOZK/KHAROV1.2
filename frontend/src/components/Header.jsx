@@ -10,8 +10,9 @@ import {
 const navLinks = [
   { to: "/", label: "Search cars" },
   { to: "/why-caro", label: "Why Kharo" },
-  { to: "/for-drivers", label: "For drivers" },
+  { to: "/driver-guide", label: "How it works" },
   { to: "/operator-guide", label: "For operators" },
+  { to: "/for-drivers", label: "For drivers" },
 ];
 
 export default function Header() {
