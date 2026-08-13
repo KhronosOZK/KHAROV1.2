@@ -1,127 +1,133 @@
 {
-  "project_name": "Caro - Premium UK PHV Rental Marketplace",
-  "theme": "Light mode primary (Warm Trust & Premium Editorial) with Dark mode elements for Dashboard metrics and Maps.",
+  "brand": "Kharo",
+  "theme": "light",
   "typography": {
-    "headings": {
-      "font_family": "Cabinet Grotesk, sans-serif",
-      "strategy": "Swiss Brutalist / Editorial Future. High impact, tight tracking (`tracking-tight`), large fluid scales.",
-      "weights": "Extrabold or Black for Hero H1s, Medium for subtle section headers."
+    "fonts": {
+      "display": "Cabinet Grotesk, sans-serif",
+      "body": "Satoshi, sans-serif"
     },
-    "body": {
-      "font_family": "Satoshi, sans-serif",
-      "strategy": "Clean, highly readable geometric sans. Loose line-height for body (`leading-relaxed`), tight for labels (`leading-none`).",
-      "weights": "Regular (400) for body, Medium (500) for buttons and key metrics."
-    },
-    "hierarchy_rules": "Never exceed text-6xl for headings. H1: text-5xl md:text-6xl tracking-tight. H2: text-3xl md:text-4xl. Labels: uppercase, text-xs, tracking-[0.2em]."
+    "hierarchy": {
+      "h1": "font-display text-5xl sm:text-6xl tracking-tighter leading-[1.1] text-foreground",
+      "h2": "font-display text-3xl sm:text-4xl tracking-tight leading-tight text-foreground",
+      "h3": "font-display text-2xl sm:text-3xl tracking-tight text-foreground",
+      "h4": "font-sans text-lg sm:text-xl font-bold text-foreground",
+      "body": "font-sans text-base md:text-lg leading-relaxed text-foreground/90",
+      "overline": "font-sans tracking-[0.2em] text-xs font-bold uppercase text-muted-foreground",
+      "labels": "font-sans text-sm font-medium text-foreground"
+    }
   },
   "colors": {
-    "background": {
-      "primary": "#F9F8F6",
-      "surface": "#FFFFFF",
-      "dark_surface": "#1A2E25"
-    },
-    "brand": {
-      "primary": "#0B6B4F",
-      "primary_hover": "#047857",
-      "accent": "#5FD3A6",
-      "ink": "#1A2E25"
-    },
-    "text": {
+    "palette": {
+      "background": "#F9F8F6",
+      "foreground": "#1A2E25",
+      "card": "#F1EFE9",
+      "card_foreground": "#1A2E25",
+      "popover": "#F1EFE9",
+      "popover_foreground": "#1A2E25",
       "primary": "#1A2E25",
-      "secondary": "#4A5D54",
-      "inverse": "#F9F8F6"
+      "primary_foreground": "#F9F8F6",
+      "secondary": "#0B6B4F",
+      "secondary_foreground": "#F9F8F6",
+      "accent": "#5FD3A6",
+      "accent_foreground": "#1A2E25",
+      "muted": "#E8E6DF",
+      "muted_foreground": "#4A6054",
+      "border": "#E8E6DF",
+      "input": "#E8E6DF",
+      "ring": "#5FD3A6"
     },
-    "status": {
-      "success": "#0B6B4F",
-      "warning": "#F59E0B",
-      "danger": "#EF4444"
-    },
-    "rules": "Do NOT use generic SaaS blue. Use Off-white (#F9F8F6) as the core background to feel warm and human, NOT sterile white. Use near-black ink (#1A2E25) for high-contrast text. Accent mint (#5FD3A6) for active states, highlights, and slider tracks."
+    "rules": [
+      "Strict contrast: Text on accent (#5FD3A6) MUST be foreground (#1A2E25).",
+      "Strict contrast: Text on background and cards MUST be foreground (#1A2E25) or muted-foreground (#4A6054).",
+      "Never use pure white (#FFFFFF) for text; use #F9F8F6 instead."
+    ]
   },
   "visual_enhancers": {
-    "text_over_image_legibility": "CRITICAL: Never use naked white text over imagery. Apply a two-layer strategy: 1) A background gradient scrim on the image container (e.g., `bg-gradient-to-t from-[#1A2E25]/90 via-[#1A2E25]/40 to-transparent`). 2) For cards or floating elements, place text inside a 'Crystal Glass' panel: `backdrop-blur-xl bg-[#1A2E25]/60 border border-white/10` with `text-[#F9F8F6]`.",
-    "borders_and_surfaces": "Use 1px subtle borders (`border-[#1A2E25]/10`) to define structure on the off-white background. Avoid heavy drop shadows. Use slight inner-shadows or 1px outer borders for definition. Corner radius: `rounded-2xl` for large panels, `rounded-xl` for cards, `rounded-full` for buttons (pill-shaped).",
-    "motion_and_interaction": "All buttons MUST have hover states (`hover:-translate-y-[2px] transition-transform`). Use Framer Motion for entrance staggers on dashboard grids. For numbers (e.g., earnings calculators), use animated count-ups.",
-    "empty_states": "Must be high-craft. Don't just show a grey icon. Use a subtle patterned background, an encouraging headline, and a prominent primary CTA (e.g., 'Browse available cars in London')."
-  },
-  "layouts_and_grids": {
-    "registration_pages": "Split-screen 'Editorial Layout'. Left side (sticky on desktop): Immersive imagery with gradient overlay and value-add interactive widget. Right side (scrollable): The multi-step form. Maximize screen real estate.",
-    "driver_dashboard": "Bento Grid (High Density). Base: `grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-6`. Hero widget (Current Rental) spans 8 cols. Action widgets span 4 cols. Strict alignment. Use white cards on the off-white background.",
-    "operator_dashboard": "Sidebar Navigation + Main Content. Main area uses a modular dashboard layout. Top row: Key Metrics (4 cols each). Middle row: Wide Live Map tracking (spans full width, height 400px). Bottom row: Applications Queue and Compliance tables."
-  },
-  "core_experiences_blueprints": {
-    "driver_registration": {
-      "concept": "The 'Matchmaker & Cost Calculator'.",
-      "layout": "Split-screen.",
-      "interactive_feature": "A 3-step 'Find Your Match' wizard (NOT a slider). Step 1: 'Full-time or Part-time?'. Step 2: 'EV, Hybrid, or Exec?'. Step 3: Outputs a personalized weekly all-in cost vs estimated earnings card. This acts as the 'hook' before asking for personal details.",
-      "form_fields": ["Name", "Email", "Phone", "Password", "DOB", "DVLA License Upload", "PCO License Upload"],
-      "image": "https://images.pexels.com/photos/3517990/pexels-photo-3517990.jpeg"
+    "shadows": {
+      "sm": "shadow-[0_2px_8px_rgba(26,46,37,0.04)]",
+      "md": "shadow-[0_8px_24px_rgba(26,46,37,0.08)]",
+      "lg": "shadow-[0_16px_48px_rgba(26,46,37,0.12)]"
     },
-    "operator_registration": {
-      "concept": "The 'Fleet ROI Estimator'.",
-      "layout": "Split-screen.",
-      "interactive_feature": "Airbnb-style monthly earnings slider. Input: Number of cars. Select: Vehicle Class (Standard, Exec, EV). Output (Animated Count-ups): Gross £/month, Gross £/year, Net (after 10% Caro fee) per car.",
-      "key_messaging": "Include prominent info box: 'After registering, you will receive an email detailing earning potential, onboarding, and next steps.' Highlight feature: 'Live Vehicle Location Tracking from your Dashboard'.",
-      "form_fields": ["Company Name", "Contact Name", "Email", "Phone", "Password", "Fleet Size Interest"],
-      "image": "https://images.unsplash.com/photo-1541376936666-59ec998f1afd"
-    },
-    "driver_dashboard": {
-      "concept": "The 'Driver Portal' - Beautiful Utility.",
-      "layout": "Bento Grid.",
-      "widgets": [
-        "Current Rental Summary: Photo of car, plate number, weekly cost, countdown to next payment.",
-        "Quick Actions: Report Issue, Request Roadside Assistance (High contrast buttons).",
-        "Payment History: Mini-table of past weeks.",
-        "Compliance: Insurance status/expiry, MOT handled by operator (show 'Valid' badge).",
-        "Document Vault: DVLA/PCO status.",
-        "Applications: Status of pending car requests."
-      ],
-      "empty_state": "If no active rental, show 'Start earning this week.' with a primary 'Find a Car' CTA."
-    },
-    "operator_dashboard": {
-      "concept": "The 'Fleet Command Center'.",
-      "layout": "Sidebar + Content Grid.",
-      "widgets": [
-        "Headline Feature: Live Vehicle Location Tracking Map. Use a dark-mode styled map with glowing mint vehicle pins.",
-        "Fleet Overview: Utilization rate (%), Total Revenue (fortnightly countdown).",
-        "Applications Queue: List of vetted drivers requesting cars. Inline 'Approve' / 'Decline' actions.",
-        "Compliance Calendar: Upcoming MOT/Insurance renewals."
-      ]
+    "radii": {
+      "button": "rounded-full",
+      "card": "rounded-2xl",
+      "input": "rounded-xl",
+      "image": "rounded-3xl"
     }
   },
-  "component_instructions": {
-    "buttons": "Pill-shaped (`rounded-full`). Primary: `bg-[#0B6B4F] text-white hover:bg-[#047857]`. Secondary: `border border-[#1A2E25]/20 bg-transparent text-[#1A2E25] hover:bg-[#1A2E25]/5`.",
-    "inputs": "Shadcn based. Custom styling: `bg-transparent border-b border-[#1A2E25]/20 rounded-none focus:border-[#0B6B4F] focus:ring-0 px-0` for a premium editorial form look, or rounded solid inputs `bg-white border-[#1A2E25]/10 rounded-xl` for dashboards.",
-    "cards": "For dashboards: `bg-white rounded-2xl border border-[#1A2E25]/10 p-6 shadow-sm`.",
-    "tables": "Shadcn tables. Left-aligned, ample padding (`py-4`). Badges for status: `bg-[#E6F5F0] text-[#0B6B4F]` for active/valid."
+  "components": {
+    "Button": "Pill-shaped (rounded-full). Primary uses bg-[#1A2E25]. Accent (high-priority CTA) uses bg-[#5FD3A6]. Add hover:scale-[1.02] active:scale-95 transition-all.",
+    "Card": "Use bg-[#F1EFE9] with rounded-2xl and 1px border of #E8E6DF. Do not over-shadow; rely on border and subtle bg contrast.",
+    "Input": "bg-[#F9F8F6] border-[#E8E6DF] rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5FD3A6] focus:border-transparent outline-none.",
+    "Header": "MUST NOT be fully transparent. Use backdrop-blur-xl bg-[#F9F8F6]/80 with border-b border-[#E8E6DF].",
+    "Badge": "rounded-full px-3 py-1 text-xs font-bold bg-[#E8E6DF] text-[#1A2E25]."
   },
-  "media": {
-    "image_urls": {
-      "driver_reg_hero": {
-        "url": "https://images.pexels.com/photos/3517990/pexels-photo-3517990.jpeg",
-        "description": "London black taxi driving through autumn leaves. Use with a gradient overlay."
-      },
-      "operator_reg_hero": {
-        "url": "https://images.unsplash.com/photo-1541376936666-59ec998f1afd",
-        "description": "Classic black car making right turn beside glass curtain buildings. Perfect for fleet operators."
-      },
-      "dashboard_map_bg": {
-        "url": "https://images.unsplash.com/photo-1660233868899-f800885dca59",
-        "description": "London street at night. Can be heavily darkened and blurred as a fallback for map backgrounds if real map component isn't used."
-      }
+  "layouts": {
+    "container": "mx-auto w-full max-w-7xl px-4 md:px-8",
+    "spacing": "Use 2x-3x more whitespace than default. Use py-20 to py-32 for section padding to ensure a premium, uncrowded feel.",
+    "grids": "Use Bento grids for features. Asymmetrical layouts for marketing pages. Strict tabular/dense layouts for Dashboards."
+  },
+  "motion": {
+    "page_transitions": "Subtle opacity and slight Y-axis transform on mount.",
+    "hover_states": "Buttons translate-y-[-2px]. Cards should have subtle shadow enhancement without moving."
+  },
+  "accessibility": {
+    "contrast": "All text must pass WCAG AA. Muted text must be #4A6054 on #F9F8F6.",
+    "focus": "Focus rings must use the Mint accent (#5FD3A6) with 2px offset.",
+    "data_testids": "CRITICAL: Do NOT break functionality or rename existing data-testids. Add them to new interactive elements."
+  },
+  "page_specific_instructions": {
+    "Home": "Hero must feature a large, immersive image (rounded-3xl) with the car search widget overlapping it at the bottom. Use Cabinet Grotesk for the massive headline. Ensure the search widget uses glassmorphism.",
+    "Search_Results": "Grid of vehicle cards. Each card must have a high-quality 4:3 image, price (bold Cabinet Grotesk), and specs presented cleanly with Lucide/Phosphor icons.",
+    "Vehicle_Detail": "Two-column desktop layout. Immersive photo gallery on the left/top. Sticky cost breakdown panel on the right. Clear 'Apply' CTA using the Mint accent.",
+    "Registration_Wizards": "Distraction-free layout. Remove primary navigation. Show a clear progress bar using #5FD3A6. Generous spacing around form inputs.",
+    "Dashboards": "High-density functional UI. Use #F9F8F6 base with #FFFFFF or #F1EFE9 cards. Avoid rounded-3xl here, stick to rounded-xl. Sharp typography hierarchy."
+  },
+  "image_urls": [
+    {
+      "url": "https://images.unsplash.com/photo-1617727553401-3ec4e92f32a5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBlbGVjdHJpYyUyMHNlZGFuJTIwY2FyJTIwd2hpdGV8ZW58MHx8fHwxNzgyODgyMDk5fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern white electric sedan. Perfect for vehicle listing card or hero image.",
+      "category": "Vehicles"
+    },
+    {
+      "url": "https://images.pexels.com/photos/20483372/pexels-photo-20483372.jpeg",
+      "description": "London street scene with a vehicle. Excellent for 'Why Kharo' or London-centric marketing sections.",
+      "category": "Marketing/Context"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1567808291548-fc3ee04dbcf0",
+      "description": "Premium black car parked. Good for luxury or high-tier vehicle listings.",
+      "category": "Vehicles"
+    },
+    {
+      "url": "https://images.pexels.com/photos/6868163/pexels-photo-6868163.jpeg",
+      "description": "Professional smiling driver. Perfect for the 'For Drivers' marketing page or testimonials.",
+      "category": "People"
     }
-  },
-  "testing_and_accessibility": {
-    "contrast": "Ensure all text meets APCA/WCAG standards. Use ink (#1A2E25) on off-white (#F9F8F6) for body text.",
-    "data_testid": "MANDATORY. Add `data-testid` to all interactive elements (e.g., `data-testid='driver-reg-submit'`, `data-testid='operator-earnings-slider'`)."
-  },
+  ],
+  "instructions_to_main_agent": [
+    "The project uses .js files, NOT .tsx files. Write all components as React .jsx/.js.",
+    "The user's primary concerns are text legibility, alignment, and lack of a premium feel. Fix this by strictly enforcing the typography hierarchy and color contrast rules defined here.",
+    "Maintain the specific color hexes requested (Dark Forest Green #1A2E25, Warm Off-White #F9F8F6, Mint Accent #5FD3A6) but apply them carefully. The mint is for high-priority actions; the green is for text and primary elements; the off-white is for backgrounds.",
+    "Do NOT center-align everything. Use left-aligned text for paragraphs and forms to improve readability. Optical alignment is key.",
+    "DO NOT use pure transparent backgrounds for any element that sits over scrolling content (like headers). Use backdrop-blur and a semi-transparent color.",
+    "All interactive elements MUST preserve existing data-testids. New elements must include kebab-case data-testids."
+  ],
   "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
-    "Do not use generic 'AI slop' styling. Create a distinctive, premium UK brand feel.",
-    "Implement staggered Framer Motion entrance animations for dashboard bento grids.",
-    "Use pill-shaped buttons with hover micro-interactions.",
-    "Ensure generous padding (`p-6` to `p-8`) inside cards.",
-    "Use Lucide-react icons, styled elegantly (stroke-width 1.5).",
-    "Never use naked white text on images. Always use a scrim or glassmorphism panel.",
-    "Mobile-first: Ensure multi-step forms and bento grids collapse gracefully on small screens."
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements excluding transforms.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "NEVER use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations separate good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories = placeholder text which is FORBIDDEN.",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "Use sonner for toasts, located in /app/src/components/ui/sonner.js"
   ]
 }
