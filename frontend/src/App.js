@@ -16,6 +16,7 @@ import DriverPortal from "@/pages/DriverPortal";
 import OperatorDashboard from "@/pages/OperatorDashboard";
 import OperatorInterest from "@/pages/OperatorInterest";
 import DriverGuide from "@/pages/DriverGuide";
+import ForDrivers from "@/pages/ForDrivers";
 import OperatorGuide from "@/pages/OperatorGuide";
 import Admin from "@/pages/Admin";
 import WhyCaro from "@/pages/WhyCaro";
@@ -53,6 +54,7 @@ function App() {
             <Route path="/operator-dashboard" element={<OperatorDashboard />} />
             <Route path="/list-your-fleet" element={<OperatorInterest />} />
             <Route path="/driver-guide" element={<DriverGuide />} />
+            <Route path="/for-drivers" element={<ForDrivers />} />
             <Route path="/operator-guide" element={<OperatorGuide />} />
             <Route path="/why-caro" element={<WhyCaro />} />
             <Route path="/help" element={<Help />} />

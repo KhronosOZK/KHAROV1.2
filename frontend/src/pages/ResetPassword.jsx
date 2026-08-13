@@ -46,16 +46,16 @@ export default function ResetPassword() {
           {!token ? (
             <div className="mt-5">
               <h1 className="text-2xl font-heading font-extrabold text-[#1A2E25]">This link looks incomplete</h1>
-              <p className="text-[#4A5D54] mt-2 text-[15px]">Please use the full link from your email, or request a new one.</p>
+              <p className="text-[#4A564F] mt-2 text-[15px]">Please use the full link from your email, or request a new one.</p>
               <Link to="/forgot-password" className="inline-block mt-5 text-[#0B6B4F] font-semibold">Request a new link</Link>
             </div>
           ) : (
             <>
               <h1 className="text-[28px] font-heading font-extrabold text-[#1A2E25] mt-4">Choose a new password</h1>
-              <p className="text-[14.5px] text-[#4A5D54] mt-2 mb-7">Make it something you will remember.</p>
+              <p className="text-[14.5px] text-[#4A564F] mt-2 mb-7">Make it something you will remember.</p>
               <form onSubmit={submit} className="space-y-4">
-                <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">New password</Label><Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-testid="reset-password" className={inputCls} placeholder="At least 6 characters" required /></div>
-                <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Confirm password</Label><Input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} data-testid="reset-confirm" className={inputCls} required /></div>
+                <div><Label className="text-[13px] font-medium text-[#4A564F] mb-1.5 block">New password</Label><Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-testid="reset-password" className={inputCls} placeholder="At least 6 characters" required /></div>
+                <div><Label className="text-[13px] font-medium text-[#4A564F] mb-1.5 block">Confirm password</Label><Input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} data-testid="reset-confirm" className={inputCls} required /></div>
                 <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="reset-submit">{loading ? "Updating" : "Update password"}</Button>
               </form>
             </>

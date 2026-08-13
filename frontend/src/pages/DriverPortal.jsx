@@ -40,7 +40,7 @@ export default function DriverPortal() {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-[28px] sm:text-4xl font-heading font-extrabold text-[#1A2E25]">Hi {firstName}, welcome to Kharo.</h1>
-          <p className="text-[#4A5D54] mt-1.5">Everything you need to get on the road, in one place.</p>
+          <p className="text-[#4A564F] mt-1.5">Everything you need to get on the road, in one place.</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate("/saved")} className="rounded-full border-[#1A2E25]/20" data-testid="portal-saved"><Heart className="w-4 h-4 mr-2" /> Saved{saved.length ? ` (${saved.length})` : ""}</Button>
@@ -67,7 +67,7 @@ export default function DriverPortal() {
         <motion.div variants={item} className="lg:col-span-4 bg-white rounded-2xl border border-[#1A2E25]/10 p-6 shadow-sm" data-testid="portal-documents">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-[#1A2E25] font-heading font-bold"><IdCard className="w-5 h-5 text-[#0B6B4F]" strokeWidth={1.5} /> Your documents</div>
-            <span className="text-[12px] text-[#4A5D54]">{docsDone}/2 done</span>
+            <span className="text-[12px] text-[#4A564F]">{docsDone}/2 done</span>
           </div>
           <div className="mt-4 space-y-3">
             <DocRow label="DVLA licence" ok={hasDvla} value={user.dvla_licence} />
@@ -82,7 +82,7 @@ export default function DriverPortal() {
         <motion.div variants={item} className="lg:col-span-8 bg-white rounded-2xl border border-[#1A2E25]/10 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 text-[#1A2E25] font-heading font-bold"><FileText className="w-5 h-5 text-[#0B6B4F]" strokeWidth={1.5} /> Your applications</div>
-            {apps.length > 0 && <span className="text-[12px] text-[#4A5D54]">{apps.length} total</span>}
+            {apps.length > 0 && <span className="text-[12px] text-[#4A564F]">{apps.length} total</span>}
           </div>
           {apps.length === 0 ? (
             <div className="text-center py-8">
@@ -110,9 +110,9 @@ export default function DriverPortal() {
           <div className="flex items-center gap-2 text-[#1A2E25] font-heading font-bold"><ShieldCheck className="w-5 h-5 text-[#0B6B4F]" strokeWidth={1.5} /> Cover & compliance</div>
           <p className="text-[13px] text-[#7A857F] mt-2">Once you are in a car, this is where your insurance, MOT and service dates live.</p>
           <div className="mt-4 space-y-2.5 text-[13.5px]">
-            <div className="flex items-center justify-between"><span className="text-[#4A5D54]">Hire &amp; reward insurance</span><span className="text-[#7A857F]">Priced at checkout</span></div>
-            <div className="flex items-center justify-between"><span className="text-[#4A5D54]">MOT &amp; servicing</span><span className="text-[#0B6B4F] font-medium">Handled by operator</span></div>
-            <div className="flex items-center justify-between"><span className="text-[#4A5D54]">Breakdown cover</span><span className="text-[#0B6B4F] font-medium">Included or £8/wk</span></div>
+            <div className="flex items-center justify-between"><span className="text-[#4A564F]">Hire &amp; reward insurance</span><span className="text-[#7A857F]">Priced at checkout</span></div>
+            <div className="flex items-center justify-between"><span className="text-[#4A564F]">MOT &amp; servicing</span><span className="text-[#0B6B4F] font-medium">Handled by operator</span></div>
+            <div className="flex items-center justify-between"><span className="text-[#4A564F]">Breakdown cover</span><span className="text-[#0B6B4F] font-medium">Included or £8/wk</span></div>
           </div>
         </motion.div>
 

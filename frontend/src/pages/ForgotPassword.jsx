@@ -42,15 +42,15 @@ export default function ForgotPassword() {
             <div className="mt-5 text-center py-4" data-testid="forgot-success">
               <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto"><Check className="w-7 h-7 text-emerald-700" /></div>
               <h1 className="text-2xl font-heading font-extrabold text-[#1A2E25] mt-4">Check your inbox</h1>
-              <p className="text-[#4A5D54] mt-2 text-[15px]">If an account exists for that email, we have sent a link to reset your password. It is valid for one hour.</p>
+              <p className="text-[#4A564F] mt-2 text-[15px]">If an account exists for that email, we have sent a link to reset your password. It is valid for one hour.</p>
               <Link to="/login" className="inline-block mt-6 text-[#0B6B4F] font-semibold">Back to sign in</Link>
             </div>
           ) : (
             <>
               <h1 className="text-[28px] font-heading font-extrabold text-[#1A2E25] mt-4">Forgot your password?</h1>
-              <p className="text-[14.5px] text-[#4A5D54] mt-2 mb-7">Enter your email and we will send you a link to set a new one.</p>
+              <p className="text-[14.5px] text-[#4A564F] mt-2 mb-7">Enter your email and we will send you a link to set a new one.</p>
               <form onSubmit={submit} className="space-y-4">
-                <div><Label className="text-[13px] font-medium text-[#4A5D54] mb-1.5 block">Email</Label><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} data-testid="forgot-email" className={inputCls} required /></div>
+                <div><Label className="text-[13px] font-medium text-[#4A564F] mb-1.5 block">Email</Label><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} data-testid="forgot-email" className={inputCls} required /></div>
                 <Button type="submit" disabled={loading} className="w-full h-11 rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="forgot-submit">{loading ? "Sending" : "Send reset link"}</Button>
               </form>
               <p className="text-[13px] text-[#7A857F] mt-6 text-center">Remembered it? <Link to="/login" className="text-[#0B6B4F] font-semibold">Sign in</Link></p>

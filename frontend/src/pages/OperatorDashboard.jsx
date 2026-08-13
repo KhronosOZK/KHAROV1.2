@@ -97,7 +97,7 @@ export default function OperatorDashboard() {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-[#1A2E25] text-white flex items-center justify-center font-heading font-bold text-lg">SF</div>
-          <div><h1 className="text-2xl font-heading font-extrabold text-[#1A2E25]">South Forest Rentals</h1><p className="text-sm text-[#4A5D54]">Newham &amp; East London <span className="ml-2 text-xs bg-amber-50 text-amber-800 px-2 py-0.5 rounded-full">Preview</span></p></div>
+          <div><h1 className="text-2xl font-heading font-extrabold text-[#1A2E25]">South Forest Rentals</h1><p className="text-sm text-[#4A564F]">Newham &amp; East London <span className="ml-2 text-xs bg-amber-50 text-amber-800 px-2 py-0.5 rounded-full">Preview</span></p></div>
         </div>
         <Button className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white hover:-translate-y-[2px] transition-transform"><Plus className="w-4 h-4 mr-2" /> Add vehicle</Button>
       </div>
@@ -113,7 +113,7 @@ export default function OperatorDashboard() {
               <motion.div key={k.l} variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }} className="bg-white border border-[#1A2E25]/10 rounded-2xl p-5 shadow-sm">
                 <div className="flex items-center justify-between"><k.i className="w-5 h-5 text-[#0B6B4F]" strokeWidth={1.5} />{k.up && <TrendingUp className="w-4 h-4 text-emerald-600" />}</div>
                 <div className="text-2xl font-heading font-extrabold text-[#1A2E25] mt-3">{k.v}</div>
-                <div className="text-xs text-[#4A5D54]">{k.l}</div>
+                <div className="text-xs text-[#4A564F]">{k.l}</div>
                 <div className="text-xs text-emerald-700 mt-1">{k.d}</div>
               </motion.div>
             ))}
@@ -132,7 +132,7 @@ export default function OperatorDashboard() {
               <h3 className="font-heading font-bold text-[#1A2E25] mb-4">Net revenue by vehicle (this month)</h3>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={revChart}>
-                  <XAxis dataKey="name" tickLine={false} axisLine={false} fontSize={12} stroke="#4A5D54" />
+                  <XAxis dataKey="name" tickLine={false} axisLine={false} fontSize={12} stroke="#4A564F" />
                   <Tooltip cursor={{ fill: "#F3F1EC" }} formatter={(x) => [`£${x}`, "Net"]} />
                   <Bar dataKey="v" radius={[6, 6, 0, 0]}>{revChart.map((d, i) => <Cell key={d.name} fill={i % 2 ? "#5FD3A6" : "#0B6B4F"} />)}</Bar>
                 </BarChart>
@@ -140,13 +140,13 @@ export default function OperatorDashboard() {
             </div>
             <div className="bg-white border border-[#1A2E25]/10 rounded-2xl p-5 shadow-sm">
               <h3 className="font-heading font-bold text-[#1A2E25] mb-3">Compliance alerts</h3>
-              {compliance.slice(0, 3).map((c) => (<div key={c} className="flex items-start gap-2 py-2 text-sm text-[#4A5D54] border-b border-[#1A2E25]/8 last:border-0"><AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" /> {c}</div>))}
+              {compliance.slice(0, 3).map((c) => (<div key={c} className="flex items-start gap-2 py-2 text-sm text-[#4A564F] border-b border-[#1A2E25]/8 last:border-0"><AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" /> {c}</div>))}
             </div>
           </div>
         </TabsContent>
 
         <TabsContent value="tracking" className="mt-6">
-          <div className="mb-4"><h3 className="font-heading font-bold text-[#1A2E25] text-lg">Where your fleet is right now</h3><p className="text-[13px] text-[#4A5D54] mt-1">Every rented car reports its location so you always know where your assets are. Tap a pin for detail.</p></div>
+          <div className="mb-4"><h3 className="font-heading font-bold text-[#1A2E25] text-lg">Where your fleet is right now</h3><p className="text-[13px] text-[#4A564F] mt-1">Every rented car reports its location so you always know where your assets are. Tap a pin for detail.</p></div>
           <LiveMap />
         </TabsContent>
 
@@ -189,7 +189,7 @@ export default function OperatorDashboard() {
         </TabsContent>
 
         <TabsContent value="compliance" className="mt-6">
-          <div className="bg-white border border-[#1A2E25]/10 rounded-2xl p-5 shadow-sm">{compliance.map((c) => (<div key={c} className="flex items-center gap-2 py-3 text-sm text-[#4A5D54] border-b border-[#1A2E25]/8 last:border-0"><AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" /> {c}</div>))}</div>
+          <div className="bg-white border border-[#1A2E25]/10 rounded-2xl p-5 shadow-sm">{compliance.map((c) => (<div key={c} className="flex items-center gap-2 py-3 text-sm text-[#4A564F] border-b border-[#1A2E25]/8 last:border-0"><AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" /> {c}</div>))}</div>
         </TabsContent>
       </Tabs>
     </main>

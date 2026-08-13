@@ -13,6 +13,15 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-08 / iteration 10 — For Drivers page, nav, slider, consistency)
+- Fixed the homepage/search budget slider so BOTH range thumbs render (shadcn slider.jsx now maps a Thumb per value; previously only one showed).
+- Top nav: "For operators" now opens the Operator Guide (/operator-guide); added a new "For drivers" link. Nav testids made unique (nav-for-drivers, nav-for-operators).
+- Built a new **For Drivers page** (/for-drivers, ForDrivers.jsx) using PRD + market research: hero, trust strip, 6 benefit cards (one honest weekly figure, hire-and-reward insurance via Quotezone, vetted operators, GPS-tracked rentals, cover built in, 4 cities), take-home teaser, 4-step how-it-works linking to the full guide, a "what you'll need" requirements checklist, and CTAs. Matches the site's light design system.
+- Live-location tracking is now explicitly surfaced as a feature ("Every rental is GPS-tracked" on For Drivers; retained on operator pages) per user request.
+- Listings remain 60 realistic demo cars with rent-only (pre-insurance) pricing benchmarked to Splend/Otto/Gumtree/Facebook Marketplace (£120–£280/wk).
+- Consistency pass: standardised the stray body-text grey #4A5D54 → #4A564F across DriverPortal, OperatorDashboard, ForgotPassword, ResetPassword.
+
+
 ## Implemented (2026-08 / iteration 9 — rebrand to "Kharo" + full design/copy review)
 - Renamed the platform Caro → **Kharo** everywhere in user-facing text and the wordmark ("kharo."), plus backend email sender name and API title. Kept internal identifiers (WhyCaro component/route, CSS vars, shadcn Carousel) to avoid breakage.
 - Actioned the full 24-item aesthetics/design/copy review:

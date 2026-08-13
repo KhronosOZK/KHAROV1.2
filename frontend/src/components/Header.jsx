@@ -10,8 +10,8 @@ import {
 const navLinks = [
   { to: "/", label: "Search cars" },
   { to: "/why-caro", label: "Why Kharo" },
-  { to: "/driver-guide", label: "How it works" },
-  { to: "/list-your-fleet", label: "For operators" },
+  { to: "/for-drivers", label: "For drivers" },
+  { to: "/operator-guide", label: "For operators" },
 ];
 
 export default function Header() {
@@ -31,7 +31,7 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-9">
           {navLinks.map((l) => (
-            <Link key={l.to} to={l.to} data-testid={`nav-${l.label.split(" ")[0].toLowerCase()}`}
+            <Link key={l.to} to={l.to} data-testid={`nav-${l.label.toLowerCase().replace(/\s+/g, "-")}`}
               className="text-[14px] font-medium text-[#4A564F] hover:text-[#0B6B4F] transition-colors">
               {l.label}
             </Link>
