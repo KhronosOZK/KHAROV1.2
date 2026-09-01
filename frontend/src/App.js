@@ -26,6 +26,7 @@ import Saved from "@/pages/Saved";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import RequestCar from "@/pages/RequestCar";
+import CityPage from "@/pages/CityPage";
 import { api, trackEvent } from "@/lib/api";
 
 function RouteTracker() {
@@ -63,6 +64,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/request-a-car" element={<RequestCar />} />
+            <Route path="/city/:name" element={<CityPage />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

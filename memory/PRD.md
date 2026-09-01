@@ -13,6 +13,13 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 12 — colour variants, city pages, save & compare, tracking badge)
+- **More colours**: added Red & Green variants for popular models (Prius, Corolla, Tesla Model 3, Kia Niro, Hyundai Ioniq) with matched front+rear AI photos; London colour spread now White/Silver/Grey/Black/Red/Blue/Green. Still 180 listings.
+- **City landing pages** (`CityPage.jsx`, route `/city/:name`): per-city hero with a real AI skyline, live stats (car count, vetted operators, areas, from-price), a 9-car preview grid and cross-links. Unknown cities redirect home. Added a "Browse by city" tile section on Home. Sheffield now a live city.
+- **Save & Compare** (`Saved.jsx`): shortlist via hearts, then a side-by-side compare table (rent, indicative insurance via /api/quote, breakdown, all-in/week, deposit, fuel, seats, mileage, area, rating) with the cheapest all-in highlighted, plus per-car Apply/remove.
+- **Operator dashboard**: added a clear amber badge on the live map — "Preview · live GPS tracking goes live at launch".
+- Verified via testing agent (iteration 11): 100% of the 5 flows pass, no critical issues; applied review fixes (unknown-city redirect, no "0 cars" flash, hardened compare quote effect).
+
 ## Implemented (2026-06 / iteration 11 — inventory rebuild with matched photography)
 - Rebuilt the entire seed inventory (backend/seed_data.py) to **180 listings**: 100 London + 20 each in Birmingham, Manchester, Leeds and **Sheffield** (new live city). LIVE_CITIES/POPULAR_CITIES updated (Sheffield swapped in for Glasgow); "4 cities" copy → "5 cities" on Home + ForDrivers.
 - Every listing now uses **AI-generated photography that matches its exact make/model/colour** — a front shot, a rear shot and a segment-correct interior (3 photos each). Fixes the long-standing complaint that photos didn't match the car or its price. 30 model/colour exteriors + 30 rear angles + 5 interiors generated (Gemini Nano Banana), hosted on Emergent static CDN.

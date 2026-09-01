@@ -5,7 +5,7 @@ import { Search, ArrowRight, Zap, Accessibility, Sparkles, Coins } from "lucide-
 import { api, trackEvent } from "@/lib/api";
 import { IMG } from "@/lib/images";
 import { estimateOperatorAnnual } from "@/lib/pricing";
-import { POPULAR_CITIES, MORE_CITIES } from "@/lib/cities";
+import { POPULAR_CITIES, MORE_CITIES, LIVE_CITIES, CITY_IMAGES } from "@/lib/cities";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
@@ -175,6 +175,29 @@ export default function Home() {
               </div>
             </motion.button>
           ))}
+        </div>
+      </section>
+
+      {/* CITIES */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+        <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Where we operate</p>
+        <h2 className="text-[26px] sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 mb-7">Browse cars by city</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+          {LIVE_CITIES.map((c, i) => {
+            const n = all.filter((v) => v.city === c).length;
+            return (
+              <motion.button key={c} onClick={() => navigate(`/city/${c}`)} data-testid={`home-city-${c}`}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                className="group relative rounded-2xl overflow-hidden aspect-[4/5] text-left">
+                <img src={CITY_IMAGES[c]} alt={`${c} skyline`} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A130F]/92 via-[#0A130F]/25 to-transparent" />
+                <div className="relative h-full flex flex-col justify-end p-4 text-white">
+                  <h3 className="font-heading font-bold text-[18px] leading-tight">{c}</h3>
+                  <p className="text-[12.5px] text-white/75 mt-0.5">{all.length ? `${n} car${n !== 1 ? "s" : ""}` : "View cars"}</p>
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
       </section>
 

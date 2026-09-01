@@ -54,6 +54,9 @@ function LiveMap() {
           <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#5FD3A6] opacity-75" /><span className="relative inline-flex rounded-full h-2 w-2 bg-[#5FD3A6]" /></span>
           Live · {vehicles.filter((v) => v.live).length} vehicles online
         </div>
+        <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-amber-400/95 px-3 py-1.5 text-[11px] font-semibold text-[#3A2A00] shadow-sm" data-testid="tracking-launch-badge">
+          <Radio className="w-3.5 h-3.5" strokeWidth={2} /> Preview · live GPS tracking goes live at launch
+        </div>
         {vehicles.map((v) => (
           <div key={v.plate} className="absolute -translate-x-1/2 -translate-y-1/2 group" style={{ left: `${v.x}%`, top: `${v.y}%` }}>
             {v.status === "Moving" && <span className="animate-ping absolute inset-0 m-auto h-8 w-8 rounded-full opacity-40" style={{ background: pinColor(v.status) }} />}
