@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ChevronLeft, Heart, Share2, MapPin, Check, RotateCw, ChevronLeft as CL, ChevronRight as CR, ArrowUpRight } from "lucide-react";
+import { ChevronLeft, Heart, Share2, MapPin, Check, RotateCw, ChevronLeft as CL, ChevronRight as CR } from "lucide-react";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { PRICING_TIERS, weeklyForWeeks } from "@/lib/pricing";
@@ -51,7 +51,7 @@ export default function VehicleDetail() {
     "MOT, road tax and PHV compliance handled by the operator",
     v.breakdown_included ? "Breakdown cover with 24/7 roadside help" : "Add breakdown cover for £8 a week at checkout",
     `Servicing booked in at ${v.designated_garage}`,
-    "A live insurance quote through Quotezone at checkout",
+    "Insurance sorted before you drive away",
   ];
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-32 lg:pb-6">
@@ -86,11 +86,7 @@ export default function VehicleDetail() {
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-[#0B6B4F]" /> TfL licence checked</span>
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-[#0B6B4F]" /> Companies House verified</span>
             <span className="flex items-center gap-1.5"><span className="text-[#C08A2D]">★</span> {v.operator_rating} across {v.operator_rentals} rentals</span>
-          </div>
-
-          <div className="mt-6 rounded-2xl bg-[#F1EFE9] p-5">
-            <div className="font-semibold text-[#1A2E25]">A trusted operator in {v.borough}</div>
-            <p className="text-[14px] text-[#4A564F] mt-1.5 leading-relaxed">We keep the operator's details private until you're approved. This protects you from being approached off-platform before the match is confirmed, so the rental happens under your Kharo protections. They usually reply in {v.operator_response} and have been renting through Kharo since {v.operator_since}.</p>
+            <span className="text-[#7A857F]">Usually replies in {v.operator_response}</span>
           </div>
 
           <Section title="What your weekly rent covers">
@@ -215,12 +211,7 @@ function CostPanel({ v, insurance, breakdownCost, rentWeekly, weeks, total, mont
         <div className="border-t border-slate-200 pt-3 flex justify-between text-base"><span className="font-semibold text-[#1A2E25]">Every week</span><span className="font-heading font-extrabold text-[#0B6B4F]" data-testid="detail-all-in">£{total}</span></div>
         <div className="text-[12px] text-[#7A857F] text-right">around £{monthly} a month</div>
       </div>
-      <a href={quote?.quotezone_url || "https://www.quotezone.co.uk/taxi-insurance"} target="_blank" rel="noopener noreferrer" data-testid="quotezone-link"
-        className="mt-4 flex items-center justify-between gap-2 rounded-2xl bg-[#F1EFE9] hover:bg-[#E9E6DE] px-4 py-3 transition-colors">
-        <span className="text-[12.5px] text-[#1A2E25] leading-snug">Get a real taxi-insurance quote via <span className="font-semibold">Quotezone</span></span>
-        <ArrowUpRight className="w-4 h-4 text-[#0B6B4F] shrink-0" />
-      </a>
-      <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-to-rent-btn" className="w-full mt-4 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
+      <Button onClick={() => navigate(`/apply/${v.id}?weeks=${weeks}`)} data-testid="apply-to-rent-btn" className="w-full mt-5 h-12 rounded-2xl bg-[#0B6B4F] hover:bg-[#095B43] text-white font-semibold">Apply to rent</Button>
       <div className="mt-5"><div className="text-[12px] font-semibold text-[#4A564F] mb-2">What happens after you apply</div>
         <ol className="space-y-2 text-[12.5px] text-[#7A857F]">{["The company reviews your application", "We and the operator check your licence and history", "You agree the rental terms", "You pay and arrange to collect"].map((s, i) => (<li key={s} className="flex gap-2"><span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 text-[10px] flex items-center justify-center shrink-0 font-bold">{i + 1}</span>{s}</li>))}</ol>
       </div>

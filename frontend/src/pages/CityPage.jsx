@@ -88,7 +88,7 @@ export default function CityPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F] via-[#0A130F]/70 to-[#0A130F]/35" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-16 sm:pt-20 sm:pb-24">
-          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">Private hire cars in</p>
+          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">Private hire cars in</p>
           <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
             className="mt-3 text-[42px] leading-[1.02] sm:text-6xl lg:text-[72px] font-heading font-extrabold text-white tracking-tight drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
             {city}

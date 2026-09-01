@@ -26,9 +26,10 @@ export default function OperatorGuide() {
     <main>
       <section className="relative overflow-hidden">
         <img src={IMG.rowCars} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/92 via-[#0E1A14]/58 to-[#0E1A14]/15" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0E1A14]/60 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
-          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For rental companies</p>
+          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">For rental companies</p>
           <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">Fill your fleet with drivers worth having.</h1>
           <p className="text-white/75 mt-5 text-[18px] max-w-2xl leading-relaxed">Put the spreadsheets and the WhatsApp groups away. List once, get matched with vetted drivers, and get paid when you should.</p>
           <Button onClick={() => navigate("/list-your-fleet")} className="mt-8 rounded-full bg-white text-[#1A2E25] hover:bg-[#F1EFE9] font-semibold">Register your interest <ArrowRight className="w-4 h-4 ml-2" /></Button>
@@ -62,7 +63,7 @@ export default function OperatorGuide() {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <div className="bg-[#0E1A14] rounded-[26px] p-7 sm:p-12 text-white">
-          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Your earning potential</p>
+          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">Your earning potential</p>
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-end mt-2">
             <div>
               <h2 className="text-3xl sm:text-4xl font-heading font-bold text-balance">See what your fleet could bring in.</h2>

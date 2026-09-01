@@ -1,133 +1,118 @@
 {
-  "brand": "Kharo",
-  "theme": "light",
-  "typography": {
-    "fonts": {
-      "display": "Cabinet Grotesk, sans-serif",
-      "body": "Satoshi, sans-serif"
-    },
-    "hierarchy": {
-      "h1": "font-display text-5xl sm:text-6xl tracking-tighter leading-[1.1] text-foreground",
-      "h2": "font-display text-3xl sm:text-4xl tracking-tight leading-tight text-foreground",
-      "h3": "font-display text-2xl sm:text-3xl tracking-tight text-foreground",
-      "h4": "font-sans text-lg sm:text-xl font-bold text-foreground",
-      "body": "font-sans text-base md:text-lg leading-relaxed text-foreground/90",
-      "overline": "font-sans tracking-[0.2em] text-xs font-bold uppercase text-muted-foreground",
-      "labels": "font-sans text-sm font-medium text-foreground"
+  "project_name": "Kharo London Private-Hire Marketplace - Human Design Blueprint",
+  "design_philosophy": "Anti-AI Human Editorial Design. Replaces predictable AI-template artifacts (omnipresent uppercase eyebrows, cookie-cutter centered card grids, blanket dark green hero overlays, repeated big-stat rows, over-cute copy) with authoritative, asymmetric, London-tailored private hire marketplace editorial design.",
+  "user_choices_directives": [
+    "Remove 'get a real quote from quotezone' completely across VehicleDetail and VehicleCard components.",
+    "Remove 'a trusted operator from the area' text/badge on all car listings and card components.",
+    "Eliminate AI-esque slop across the entire website and replace key items with professional, human editorial craftsmanship."
+  ],
+  "color_palette": {
+    "background_primary": "#FBFAF8",
+    "background_secondary": "#F9F8F6",
+    "primary_deep_green": "#0B6B4F",
+    "accent_mint": "#5FD3A6",
+    "dark_ink_text": "#1A2E25",
+    "muted_grey_border": "rgba(26, 46, 37, 0.12)",
+    "card_background": "#FFFFFF",
+    "overlay_subtle_gradient": "linear-gradient(180deg, rgba(26, 46, 37, 0.4) 0%, rgba(26, 46, 37, 0) 100%)"
+  },
+  "typography_system": {
+    "heading_font": "font-heading (Serif / Display)",
+    "body_font": "font-sans (Clean Humanist / Geometric Sans)",
+    "mono_font": "font-mono (Used for numbers, pricing specs, TfL licence numbers)",
+    "rules": {
+      "h1_hero": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] font-bold text-[#1A2E25]",
+      "h2_section": "text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-[1.15] font-semibold text-[#1A2E25]",
+      "h3_card": "text-xl sm:text-2xl font-semibold text-[#1A2E25]",
+      "body_text": "text-base leading-relaxed text-[#1A2E25]/80",
+      "eyebrow_elimination_rule": "DO NOT put uppercase tracking-widest badges above every heading. Use single-line narrative lead-ins or integrated font-serif kickers embedded naturally in the main heading line."
     }
   },
-  "colors": {
-    "palette": {
-      "background": "#F9F8F6",
-      "foreground": "#1A2E25",
-      "card": "#F1EFE9",
-      "card_foreground": "#1A2E25",
-      "popover": "#F1EFE9",
-      "popover_foreground": "#1A2E25",
-      "primary": "#1A2E25",
-      "primary_foreground": "#F9F8F6",
-      "secondary": "#0B6B4F",
-      "secondary_foreground": "#F9F8F6",
-      "accent": "#5FD3A6",
-      "accent_foreground": "#1A2E25",
-      "muted": "#E8E6DF",
-      "muted_foreground": "#4A6054",
-      "border": "#E8E6DF",
-      "input": "#E8E6DF",
-      "ring": "#5FD3A6"
+  "ai_tells_elimination_matrix": {
+    "eyebrow_labels": {
+      "ai_tell": "Repetitive uppercase pill badges like 'PRIVATE HIRE CAR RENTAL, DONE PROPERLY' or 'WHY KHARO' before every heading.",
+      "human_replacement": "Asymmetrical section kickers, integrated serif italic prefixes (e.g., 'Crafted for London Drivers — *transparent weekly rental without the agency markup*'), or raw clean section headings with generous negative space."
     },
-    "rules": [
-      "Strict contrast: Text on accent (#5FD3A6) MUST be foreground (#1A2E25).",
-      "Strict contrast: Text on background and cards MUST be foreground (#1A2E25) or muted-foreground (#4A6054).",
-      "Never use pure white (#FFFFFF) for text; use #F9F8F6 instead."
+    "stat_rows": {
+      "ai_tell": "Identical 4-box big-number stat grids repeated on every marketing page.",
+      "human_replacement": "Human story callouts, integrated fleet ledger snippet, verified operator spotlight note, or structured tabular data with real context."
+    },
+    "card_grids": {
+      "ai_tell": "Uniform centered 3-column equal square cards with identical border radii and center-aligned text.",
+      "human_replacement": "Swiss / Mode A Tetris asymmetric layout: 8-column hero vehicle split + 4-column side specs; left-aligned editorial typography; variable height cards with subtle 1px border."
+    },
+    "hero_overlays": {
+      "ai_tell": "Heavy full dark-green or black solid overlay obscuring hero vehicle photography.",
+      "human_replacement": "Subtle direction gradient (top or bottom vignette max opacity 40%) or unmasked high-contrast photographic cutouts sitting on warm #FBFAF8 bone canvas."
+    },
+    "marketing_copy": {
+      "ai_tell": "Generic over-cute fluff like 'Your dream ride awaits' or 'Get a real quote from quotezone'.",
+      "human_replacement": "Direct, authoritative London private-hire language: 'TfL-PCO Licensed Fleets', 'EV Congestion Exempt', 'Weekly Rent Includes Maintenance & Servicing', 'Direct Fleet Operator Hire'."
+    }
+  },
+  "component_blueprint": {
+    "VehicleCard": {
+      "path": "src/components/VehicleCard.jsx",
+      "changes": [
+        "REMOVED: 'a trusted operator from the area' text and badge.",
+        "REMOVED: 'get a real quote from quotezone' text/link.",
+        "ADDED: Clean spec tags (e.g. 'TfL Ready', 'Hybrid / EV', 'Unlimited Mileage Option').",
+        "LAYOUT: Left-aligned, bold weekly price badge (£/wk), clean 1px border `border-[#1A2E25]/10`, subtle shadow on hover, warm card background `#FFFFFF`."
+      ]
+    },
+    "VehicleDetail": {
+      "path": "src/pages/VehicleDetail.jsx",
+      "changes": [
+        "REMOVED: Quotezone insurance widget/box.",
+        "ADDED: Full transparent Weekly Breakdown Ledger (Rent, TfL License status, Servicing included, Deposit terms).",
+        "LAYOUT: 2-column editorial breakdown — left wide interactive photo gallery with thumbnail scrub, right floating sticky direct operator deposit & booking card."
+      ]
+    },
+    "Header": {
+      "path": "src/components/Header.jsx",
+      "changes": [
+        "Glassmorphism container: `backdrop-blur-md bg-[#FBFAF8]/90 border-b border-[#1A2E25]/10`.",
+        "Navigation: Crisp text links with subtle dot indicator on active path, prominent 'Browse Fleets' action CTA."
+      ]
+    },
+    "Footer": {
+      "path": "src/components/Footer.jsx",
+      "changes": [
+        "Deep ink background `#1A2E25` with warm bone text `#FBFAF8`.",
+        "Editorial publication signature with large brand watermark and clear categorized sitemap links."
+      ]
+    },
+    "Home": {
+      "path": "src/pages/Home.jsx",
+      "changes": [
+        "Asymmetric Hero: Left bold editorial statement + embedded quick search filter card; Right floating unmasked hero vehicle image.",
+        "Spotlight Section: Wide featured vehicle banner with live availability indicator.",
+        "City Navigation: Interactive London borough & airport route quick links."
+      ]
+    }
+  },
+  "media_assets": {
+    "images": [
+      {
+        "category": "hero_london_cab",
+        "url": "https://images.unsplash.com/photo-1758020980355-53dacc26bfef?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHw0fHxsb25kb24lMjBlbGVjdHJpYyUyMGx1eHVyeSUyMGNhciUyMG1pbmljYWIlMjBkcml2ZXJ8ZW58MHx8fHwxNzg4MjkwMzM0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Black London taxi in iconic London street"
+      },
+      {
+        "category": "ev_charging",
+        "url": "https://images.unsplash.com/photo-1615829386703-e2bb66a7cb7d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBlbGVjdHJpYyUyMGx1eHVyeSUyMGNhciUyMGNoYXJnaW5nJTIwcGhvdG98ZW58MHx8fDE3ODgyOTAzMzd8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Electric vehicle charging on city street"
+      },
+      {
+        "category": "executive_fleet",
+        "url": "https://images.unsplash.com/photo-1541174609385-fa39c62cc9d9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxsb25kb24lMjBlbGVjdHJpYyUyMGx1eHVyeSUyMGNhciUyMG1pbmljYWIlMjBkcml2ZXJ8ZW58MHx8fHwxNzg4MjkwMzM0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Black luxury car in London architectural setting"
+      }
     ]
   },
-  "visual_enhancers": {
-    "shadows": {
-      "sm": "shadow-[0_2px_8px_rgba(26,46,37,0.04)]",
-      "md": "shadow-[0_8px_24px_rgba(26,46,37,0.08)]",
-      "lg": "shadow-[0_16px_48px_rgba(26,46,37,0.12)]"
-    },
-    "radii": {
-      "button": "rounded-full",
-      "card": "rounded-2xl",
-      "input": "rounded-xl",
-      "image": "rounded-3xl"
-    }
-  },
-  "components": {
-    "Button": "Pill-shaped (rounded-full). Primary uses bg-[#1A2E25]. Accent (high-priority CTA) uses bg-[#5FD3A6]. Add hover:scale-[1.02] active:scale-95 transition-all.",
-    "Card": "Use bg-[#F1EFE9] with rounded-2xl and 1px border of #E8E6DF. Do not over-shadow; rely on border and subtle bg contrast.",
-    "Input": "bg-[#F9F8F6] border-[#E8E6DF] rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5FD3A6] focus:border-transparent outline-none.",
-    "Header": "MUST NOT be fully transparent. Use backdrop-blur-xl bg-[#F9F8F6]/80 with border-b border-[#E8E6DF].",
-    "Badge": "rounded-full px-3 py-1 text-xs font-bold bg-[#E8E6DF] text-[#1A2E25]."
-  },
-  "layouts": {
-    "container": "mx-auto w-full max-w-7xl px-4 md:px-8",
-    "spacing": "Use 2x-3x more whitespace than default. Use py-20 to py-32 for section padding to ensure a premium, uncrowded feel.",
-    "grids": "Use Bento grids for features. Asymmetrical layouts for marketing pages. Strict tabular/dense layouts for Dashboards."
-  },
-  "motion": {
-    "page_transitions": "Subtle opacity and slight Y-axis transform on mount.",
-    "hover_states": "Buttons translate-y-[-2px]. Cards should have subtle shadow enhancement without moving."
-  },
-  "accessibility": {
-    "contrast": "All text must pass WCAG AA. Muted text must be #4A6054 on #F9F8F6.",
-    "focus": "Focus rings must use the Mint accent (#5FD3A6) with 2px offset.",
-    "data_testids": "CRITICAL: Do NOT break functionality or rename existing data-testids. Add them to new interactive elements."
-  },
-  "page_specific_instructions": {
-    "Home": "Hero must feature a large, immersive image (rounded-3xl) with the car search widget overlapping it at the bottom. Use Cabinet Grotesk for the massive headline. Ensure the search widget uses glassmorphism.",
-    "Search_Results": "Grid of vehicle cards. Each card must have a high-quality 4:3 image, price (bold Cabinet Grotesk), and specs presented cleanly with Lucide/Phosphor icons.",
-    "Vehicle_Detail": "Two-column desktop layout. Immersive photo gallery on the left/top. Sticky cost breakdown panel on the right. Clear 'Apply' CTA using the Mint accent.",
-    "Registration_Wizards": "Distraction-free layout. Remove primary navigation. Show a clear progress bar using #5FD3A6. Generous spacing around form inputs.",
-    "Dashboards": "High-density functional UI. Use #F9F8F6 base with #FFFFFF or #F1EFE9 cards. Avoid rounded-3xl here, stick to rounded-xl. Sharp typography hierarchy."
-  },
-  "image_urls": [
-    {
-      "url": "https://images.unsplash.com/photo-1617727553401-3ec4e92f32a5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBlbGVjdHJpYyUyMHNlZGFuJTIwY2FyJTIwd2hpdGV8ZW58MHx8fHwxNzgyODgyMDk5fDA&ixlib=rb-4.1.0&q=85",
-      "description": "Modern white electric sedan. Perfect for vehicle listing card or hero image.",
-      "category": "Vehicles"
-    },
-    {
-      "url": "https://images.pexels.com/photos/20483372/pexels-photo-20483372.jpeg",
-      "description": "London street scene with a vehicle. Excellent for 'Why Kharo' or London-centric marketing sections.",
-      "category": "Marketing/Context"
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1567808291548-fc3ee04dbcf0",
-      "description": "Premium black car parked. Good for luxury or high-tier vehicle listings.",
-      "category": "Vehicles"
-    },
-    {
-      "url": "https://images.pexels.com/photos/6868163/pexels-photo-6868163.jpeg",
-      "description": "Professional smiling driver. Perfect for the 'For Drivers' marketing page or testimonials.",
-      "category": "People"
-    }
-  ],
-  "instructions_to_main_agent": [
-    "The project uses .js files, NOT .tsx files. Write all components as React .jsx/.js.",
-    "The user's primary concerns are text legibility, alignment, and lack of a premium feel. Fix this by strictly enforcing the typography hierarchy and color contrast rules defined here.",
-    "Maintain the specific color hexes requested (Dark Forest Green #1A2E25, Warm Off-White #F9F8F6, Mint Accent #5FD3A6) but apply them carefully. The mint is for high-priority actions; the green is for text and primary elements; the off-white is for backgrounds.",
-    "Do NOT center-align everything. Use left-aligned text for paragraphs and forms to improve readability. Optical alignment is key.",
-    "DO NOT use pure transparent backgrounds for any element that sits over scrolling content (like headers). Use backdrop-blur and a semi-transparent color.",
-    "All interactive elements MUST preserve existing data-testids. New elements must include kebab-case data-testids."
-  ],
-  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
-    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
-    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
-    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
-    "Create depth through layered design elements with z-index hierarchy.",
-    "Use glass-morphism effects with backdrop filters (12-24px blur).",
-    "You MUST NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements excluding transforms.",
-    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
-    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
-    "NEVER use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons.",
-    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations.",
-    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
-    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations separate good from extraordinary.",
-    "Main agent relies on these image URLs. Missing categories = placeholder text which is FORBIDDEN.",
-    "Prioritize using pre-existing components from src/components/ui when applicable.",
-    "Use sonner for toasts, located in /app/src/components/ui/sonner.js"
-  ]
+  "general_ui_ux_guidelines": {
+    "data_testid_rule": "All interactive elements (buttons, inputs, links, dropdowns, filters) and key informational metrics MUST contain a explicit data-testid attribute in kebab-case format.",
+    "spacing_scale": "Generous editorial spacing: section padding py-16 sm:py-24, gap-8 to gap-12 between asymmetric columns.",
+    "hover_contrast": "Ensure explicit hover text contrast on all interactive states (e.g. hover:bg-[#0B6B4F] hover:text-[#FBFAF8])."
+  }
 }

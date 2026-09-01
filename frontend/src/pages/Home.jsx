@@ -55,11 +55,11 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <img src={IMG.londonNight} alt="London at night" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-[#0A130F]/88" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F] via-[#0A130F]/70 to-[#0A130F]/40" />
+          <div className="absolute inset-0 bg-[#0A130F]/68" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F]/90 via-[#0A130F]/50 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-10 sm:pt-16 sm:pb-16">
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-[12px] sm:text-[13px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">
+          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-[12px] sm:text-[13px] font-medium text-[#5FD3A6] tracking-wide">
             Private hire car rental, done properly
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
@@ -116,7 +116,7 @@ export default function Home() {
       {/* SPOTLIGHT */}
       {featured && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-          <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Worth a look</p>
+          <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">Worth a look</p>
           <h2 className="text-[26px] sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2">Popular cars from our vetted operators</h2>
           <div className="grid lg:grid-cols-2 gap-6 mt-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -180,7 +180,7 @@ export default function Home() {
 
       {/* CITIES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
-        <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Where we operate</p>
+        <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">Where we operate</p>
         <h2 className="text-[26px] sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 mb-7">Browse cars by city</h2>
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {LIVE_CITIES.map((c, i) => {
@@ -205,7 +205,7 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
-            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">How it works</p>
+            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">How it works</p>
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 text-balance">Find a car, know the cost, get on the road.</h2>
             <p className="text-[#4A564F] mt-4 leading-relaxed text-[17px]">No deposits disappearing, no chasing a stranger on WhatsApp. Just a straight, honest way to rent from companies we already trust.</p>
             <div className="mt-7 space-y-6">
@@ -238,7 +238,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F]/97 via-[#0A130F]/90 to-[#0A130F]/70" />
           <div className="relative p-8 sm:p-16 grid lg:grid-cols-2 gap-8 items-center">
             <div className="text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]">
-              <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For rental companies</p>
+              <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">For rental companies</p>
               <h2 className="text-[26px] sm:text-4xl font-heading font-bold mt-3 text-balance">Keep your cars earning, not sitting on a forecourt.</h2>
               <p className="text-white/75 mt-4 leading-relaxed text-[17px]">List your fleet, get matched with vetted drivers, and get paid every fortnight. If a driver stops paying, we cover the rent for up to two weeks while you sort it out.</p>
               <div className="flex gap-3 mt-7 flex-wrap">

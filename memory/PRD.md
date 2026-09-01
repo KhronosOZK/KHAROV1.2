@@ -13,6 +13,11 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 14 — humanised design pass)
+- Removed the "Get a real quote via Quotezone" box and the "A trusted operator in {borough}" panel from the car listing; folded the operator reply-time into the trust row and kept a plain "Insurance sorted before you drive away" line.
+- Made the site feel less AI-templated: de-capitalised the repeated uppercase letter-spaced eyebrow labels across all public pages (Home, City, ForDrivers, DriverGuide, OperatorGuide, WhyKaro, Register, Operator, RequestCar) so kickers read in sentence case, and softened the heavy flat dark-green hero overlays into lighter photographic gradients + a subtle bottom vignette.
+- Self-verified: clean compile, Quotezone link removed (data-testid gone), listing and home render correctly.
+
 ## Implemented (2026-06 / iteration 13 — interest-only pivot, compare-from-search, price parity, copy cleanup)
 - **Removed all driver/operator login & dashboards.** "Register" (drivers) and "List your fleet" (operators) are now interest-capture wizards that persist to MongoDB (`driver_interests`, `interests`, `leads`) and end on a "you're on the launch list" thank-you. New endpoint `POST /api/driver-interest`; `POST /api/interest` now also captures `vehicle_types` and no longer creates an account. Routes `/login`, `/operator-login`, `/portal`, `/operator-dashboard`, `/forgot-password`, `/reset-password` removed (catch-all redirects home). Header/Footer show interest CTAs only.
 - **Compare from search**: Compare checkbox on every card, a floating compare bar on search, and a `/compare` page (shared `CompareTable`) showing all-in weekly cost side by side with the cheapest highlighted.

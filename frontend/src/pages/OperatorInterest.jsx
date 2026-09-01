@@ -90,7 +90,7 @@ export default function OperatorInterest() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-20 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div className="text-center lg:text-left">
           <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">For rental companies</p>
+            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">For rental companies</p>
             <h1 className="mt-3 font-heading font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.03] text-[#1A2E25] text-balance">
               Put your fleet<br /><span className="text-[#0B6B4F]">to work.</span>
             </h1>

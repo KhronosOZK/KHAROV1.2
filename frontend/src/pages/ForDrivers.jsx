@@ -34,9 +34,10 @@ export default function ForDrivers() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <img src={IMG.happyDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/92 via-[#0E1A14]/58 to-[#0E1A14]/15" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0E1A14]/60 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
-          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For drivers</p>
+          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">For drivers</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">
             The right car for the week, no hidden costs.
           </h1>
@@ -64,7 +65,7 @@ export default function ForDrivers() {
 
       {/* Why drivers choose Kharo */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-        <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Why drivers choose Kharo</p>
+        <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">Why drivers choose Kharo</p>
         <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 max-w-2xl text-balance">Everything you need to rent with your eyes open.</h2>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {benefits.map((b, i) => (
@@ -82,7 +83,7 @@ export default function ForDrivers() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-4">
         <div className="rounded-[26px] overflow-hidden bg-[#0E1A14] text-white grid lg:grid-cols-2">
           <div className="p-8 sm:p-12">
-            <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">See what a week could pay</p>
+            <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">See what a week could pay</p>
             <h2 className="text-3xl sm:text-4xl font-heading font-extrabold mt-3 leading-tight text-balance">Pick a car and watch the numbers add up.</h2>
             <p className="text-white/70 mt-4 text-[15px] leading-relaxed max-w-md">
               Our take-home estimator shows typical weekly fares against the all-in car cost and fuel, so you know what a full-time week could really put in your pocket before you sign up.
@@ -97,7 +98,7 @@ export default function ForDrivers() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">How renting works</p>
+            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">How renting works</p>
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 text-balance">From first look to keys in your hand.</h2>
           </div>
           <button onClick={() => navigate("/driver-guide")} className="text-[#0B6B4F] font-semibold text-[15px] inline-flex items-center gap-1.5 hover:gap-2.5 transition-all self-start sm:self-auto">See the full guide <ArrowRight className="w-4 h-4" /></button>
@@ -119,7 +120,7 @@ export default function ForDrivers() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="rounded-[26px] overflow-hidden aspect-[4/3] shadow-lg"><img src={IMG.keysWoman} alt="Driver collecting keys" className="w-full h-full object-cover" /></div>
           <div>
-            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">What you'll need</p>
+            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">What you'll need</p>
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 text-balance">Ready to rent? Here's the checklist.</h2>
             <p className="text-[15px] text-[#4A564F] mt-3 leading-relaxed">You can browse and register with none of this to hand. You'll only need these to complete a rental.</p>
             <ul className="mt-6 space-y-4">

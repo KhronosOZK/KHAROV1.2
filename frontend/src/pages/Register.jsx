@@ -73,7 +73,7 @@ export default function Register() {
     <main className="bg-[#F9F8F6] min-h-[calc(100vh-68px)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center lg:text-left">
-          <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Drive with Kharo</p>
+          <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">Drive with Kharo</p>
           <h1 className="mt-3 font-heading font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.03] text-[#1A2E25] text-balance">
             Be first in line<br /><span className="text-[#0B6B4F]">at launch.</span>
           </h1>

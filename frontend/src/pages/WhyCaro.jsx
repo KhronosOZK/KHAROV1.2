@@ -23,9 +23,10 @@ export default function WhyCaro() {
     <main>
       <section className="relative overflow-hidden">
         <img src={IMG.driverSuit} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/92 via-[#0E1A14]/58 to-[#0E1A14]/15" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0E1A14]/60 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
-          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Why Kharo</p>
+          <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">Why Kharo</p>
           <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">Renting a car should not feel like a risk.</h1>
           <p className="text-white/75 mt-4 text-[17px] max-w-xl leading-relaxed">Drivers pay before they see the car. Operators risk their livelihood. Kharo makes both sides feel safe.</p>
         </div>
@@ -36,7 +37,7 @@ export default function WhyCaro() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="rounded-[26px] overflow-hidden aspect-[4/3] shadow-lg order-1"><img src={IMG.happyDriver} alt="Driver" className="w-full h-full object-cover" /></div>
           <div className="order-2">
-            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">If you are a driver</p>
+            <p className="text-[13px] font-medium text-[#0B6B4F] tracking-wide">If you are a driver</p>
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 text-balance">Get on the road with your eyes open.</h2>
             <div className="mt-7 space-y-6">
               {driverPoints.map((p, i) => (
@@ -56,7 +57,7 @@ export default function WhyCaro() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
-              <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">If you run a fleet</p>
+              <p className="text-[13px] font-medium text-[#5FD3A6] tracking-wide">If you run a fleet</p>
               <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mt-2 text-balance">Fewer empty cars, fewer headaches.</h2>
               <div className="mt-7 space-y-6">
                 {operatorPoints.map((p, i) => (
