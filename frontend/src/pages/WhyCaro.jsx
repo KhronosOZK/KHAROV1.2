@@ -24,10 +24,10 @@ export default function WhyCaro() {
       <section className="relative overflow-hidden">
         <img src={IMG.driverSuit} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/55" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
           <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">Why Kharo</p>
-          <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">Renting a private hire car should not feel like a risk.</h1>
-          <p className="text-white/75 mt-5 text-[18px] max-w-2xl leading-relaxed">Drivers hand over real money before they have even seen the car. Operators hand over their livelihood. We built Kharo so both sides can relax a little.</p>
+          <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">Renting a car should not feel like a risk.</h1>
+          <p className="text-white/75 mt-4 text-[17px] max-w-xl leading-relaxed">Drivers pay before they see the car. Operators risk their livelihood. Kharo makes both sides feel safe.</p>
         </div>
       </section>
 

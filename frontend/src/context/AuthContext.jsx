@@ -1,17 +1,16 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { api, formatApiError } from "@/lib/api";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null); // null=checking, false=guest, obj=user
+  const [user, setUser] = useState(false); // login removed; kept for shortlist state only
   const [saved, setSaved] = useState(() => {
     try { return JSON.parse(localStorage.getItem("caro_saved") || "[]"); } catch { return []; }
   });
-
-  useEffect(() => {
-    api.get("/auth/me").then((r) => setUser(r.data)).catch(() => setUser(false));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const [compare, setCompare] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("kharo_compare") || "[]"); } catch { return []; }
+  });
 
   const login = async (email, password) => {
     try {
@@ -49,8 +48,18 @@ export function AuthProvider({ children }) {
     });
   };
 
+  const toggleCompare = (id) => {
+    setCompare((prev) => {
+      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      localStorage.setItem("kharo_compare", JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const clearCompare = () => { setCompare([]); localStorage.setItem("kharo_compare", "[]"); };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, forgotPassword, resetPassword, saved, toggleSaved }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, forgotPassword, resetPassword, saved, toggleSaved, compare, toggleCompare, clearCompare }}>
       {children}
     </AuthContext.Provider>
   );

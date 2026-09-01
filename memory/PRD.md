@@ -13,6 +13,14 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 13 — interest-only pivot, compare-from-search, price parity, copy cleanup)
+- **Removed all driver/operator login & dashboards.** "Register" (drivers) and "List your fleet" (operators) are now interest-capture wizards that persist to MongoDB (`driver_interests`, `interests`, `leads`) and end on a "you're on the launch list" thank-you. New endpoint `POST /api/driver-interest`; `POST /api/interest` now also captures `vehicle_types` and no longer creates an account. Routes `/login`, `/operator-login`, `/portal`, `/operator-dashboard`, `/forgot-password`, `/reset-password` removed (catch-all redirects home). Header/Footer show interest CTAs only.
+- **Compare from search**: Compare checkbox on every card, a floating compare bar on search, and a `/compare` page (shared `CompareTable`) showing all-in weekly cost side by side with the cheapest highlighted.
+- **Price parity**: vehicle detail defaults to the base weekly rent, so search, compare and the car page all show the same headline figure. Seed rents nudged ~5% below market to stay attractive.
+- **Copy + layout**: trimmed hero text across Home/ForDrivers/WhyKaro/DriverGuide/Register/Operator, removed every em dash, lifted the Home search card above the fold, and gave the interest forms a cleaner segmented progress + softer inputs.
+- **City SEO**: each city page has a unique intro paragraph + 3-question FAQ.
+- Verified by testing agent (iteration 12): backend 100% (20/20), frontend 100%, no functional defects; console-noise and cosmetic nits then fixed.
+
 ## Implemented (2026-06 / iteration 12 — colour variants, city pages, save & compare, tracking badge)
 - **More colours**: added Red & Green variants for popular models (Prius, Corolla, Tesla Model 3, Kia Niro, Hyundai Ioniq) with matched front+rear AI photos; London colour spread now White/Silver/Grey/Black/Red/Blue/Green. Still 180 listings.
 - **City landing pages** (`CityPage.jsx`, route `/city/:name`): per-city hero with a real AI skyline, live stats (car count, vetted operators, areas, from-price), a 9-car preview grid and cross-links. Unknown cities redirect home. Added a "Browse by city" tile section on Home. Sheffield now a live city.

@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import { api } from "@/lib/api";
 
 const cols = [
-  { h: "Drivers", links: [["Search cars", "/"], ["How renting works", "/driver-guide"], ["Driver login", "/login"]] },
-  { h: "Operators", links: [["List your fleet", "/list-your-fleet"], ["Operator guide", "/operator-guide"], ["Operator login", "/operator-login"]] },
+  { h: "Drivers", links: [["Search cars", "/"], ["How renting works", "/driver-guide"], ["Register your interest", "/register"]] },
+  { h: "Operators", links: [["List your fleet", "/list-your-fleet"], ["Operator guide", "/operator-guide"]] },
   { h: "Company", links: [["Why choose Kharo", "/why-caro"], ["Get help", "/help"], ["Legal & privacy", "/legal"]] },
 ];
 
@@ -35,7 +35,7 @@ export default function Footer() {
               <p className="text-[13px] font-semibold text-white/90">Get launch updates</p>
               <p className="text-[12.5px] text-white/50 mt-1">Be first to know when we open in your area.</p>
               {sent ? (
-                <p className="text-[13px] text-[#5FD3A6] mt-3">Thanks, you're on the list — we'll be in touch before we go live in your area.</p>
+                <p className="text-[13px] text-[#5FD3A6] mt-3">Thanks, you're on the list. We'll be in touch before we go live in your area.</p>
               ) : (
                 <form onSubmit={subscribe} className="mt-3 flex items-center gap-2 max-w-xs">
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com"

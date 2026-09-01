@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Check } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { trackEvent } from "@/lib/api";
 
 export default function VehicleCard({ v }) {
   const navigate = useNavigate();
-  const { saved, toggleSaved } = useAuth();
+  const { saved, toggleSaved, compare, toggleCompare } = useAuth();
   const isSaved = saved.includes(v.id);
+  const inCompare = compare.includes(v.id);
 
   const open = () => {
     trackEvent("card_click", { listing_id: v.id });
@@ -28,6 +29,12 @@ export default function VehicleCard({ v }) {
         <span className="absolute bottom-3 left-3 inline-flex items-center text-[12.5px] font-medium text-white bg-black/45 backdrop-blur-sm rounded-full px-2.5 py-1">
           {v.borough}
         </span>
+        <button data-testid={`compare-check-${v.id}`}
+          onClick={(e) => { e.stopPropagation(); toggleCompare(v.id); }}
+          className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/85 backdrop-blur px-2.5 py-1 text-[12px] font-medium text-[#3B4A44] hover:bg-white transition-colors">
+          <span className={`w-4 h-4 rounded border flex items-center justify-center ${inCompare ? "bg-[#0B6B4F] border-[#0B6B4F]" : "border-slate-400 bg-white"}`}>{inCompare && <Check className="w-3 h-3 text-white" strokeWidth={3} />}</span>
+          Compare
+        </button>
       </div>
 
       <div className="p-5">

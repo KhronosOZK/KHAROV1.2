@@ -1,11 +1,54 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, MapPin, Car, Building2, PoundSterling } from "lucide-react";
+import { ArrowRight, MapPin, Car, Building2, PoundSterling, ChevronDown } from "lucide-react";
 import { api } from "@/lib/api";
 import { LIVE_CITIES, CITY_IMAGES } from "@/lib/cities";
 import VehicleCard from "@/components/VehicleCard";
 import { Button } from "@/components/ui/button";
+
+const CITY_SEO = {
+  London: {
+    intro: "London is where Kharo started. Whether you drive for Uber, Bolt or a local firm, you'll find PCO-ready hybrids, electric cars and executive saloons in every borough, almost all of them ULEZ friendly. Rent from operators we've checked, with rent, insurance and cover shown as one weekly figure.",
+    faq: [
+      { q: "Do I need a PCO licence to rent a car in London?", a: "Yes. Every private hire car in London needs a TfL PCO licence, and so do you. Have your badge ready and you're good to go." },
+      { q: "Are the cars ULEZ compliant?", a: "Almost all of them. Our hybrids and electric cars are ULEZ exempt or compliant, so you won't pay the daily charge." },
+      { q: "How much does a PCO car cost in London?", a: "Rent-only prices start from around £130 a week. Insurance and breakdown cover are shown on top, so there are no surprises." },
+    ],
+  },
+  Birmingham: {
+    intro: "Birmingham is one of the busiest private hire markets outside London. Kharo brings you checked local operators right across the city, from the centre to Sparkhill, Handsworth and Small Heath, with fuel-efficient cars ready to earn.",
+    faq: [
+      { q: "What licence do I need to drive private hire in Birmingham?", a: "You'll need a private hire driver licence from Birmingham City Council, plus a licensed vehicle. Kharo cars are ready for council plating." },
+      { q: "Which cars work best here?", a: "Hybrids like the Prius and Corolla are popular for low running costs, and we list plenty of them in Birmingham." },
+      { q: "How soon can I start?", a: "Register your interest and we'll match you with a local car and operator as soon as we go live in Birmingham." },
+    ],
+  },
+  Manchester: {
+    intro: "Manchester's private hire scene is growing fast. Kharo lists vetted operators from the city centre out to Cheetham Hill, Rusholme and Longsight, so you can find a reliable car close to where you drive.",
+    faq: [
+      { q: "Do I need a Manchester council licence?", a: "Yes, you'll need a private hire driver and vehicle licence from your local council. Our operators can help you get plated." },
+      { q: "Are electric cars a good choice in Manchester?", a: "They can be, with charging points across the city and very low running costs. We list electric and hybrid options here." },
+      { q: "What will it cost me each week?", a: "Rent starts from around £130 a week, with insurance and cover shown clearly on top." },
+    ],
+  },
+  Leeds: {
+    intro: "Leeds drivers get the same honest deal from Kharo: checked operators, clear weekly pricing and cars ready for private hire work across the city, from the centre to Harehills, Beeston and Hyde Park.",
+    faq: [
+      { q: "What do I need to drive private hire in Leeds?", a: "A private hire driver and vehicle licence from Leeds City Council. Kharo cars are ready for council plating." },
+      { q: "Which cars are available in Leeds?", a: "Mostly hybrids and electric cars with low running costs, plus a few MPVs and executive options." },
+      { q: "Is there anything to pay to register?", a: "No. Registering your interest is free. You only pay once you've been approved and you're renting a car." },
+    ],
+  },
+  Sheffield: {
+    intro: "Sheffield is one of our newest cities. Kharo connects you with vetted local operators across the city, from the centre to Burngreave, Attercliffe and Firth Park, with efficient cars suited to the hills and the daily miles.",
+    faq: [
+      { q: "What licence do I need in Sheffield?", a: "A private hire driver and vehicle licence from Sheffield City Council. Our operators can help you through plating." },
+      { q: "Which cars suit Sheffield best?", a: "Hybrids handle the hills well and keep fuel costs down. We list plenty of Priuses and Corollas here." },
+      { q: "When can I rent a car in Sheffield?", a: "Register your interest now and we'll email you the moment cars are ready to rent in Sheffield." },
+    ],
+  },
+};
 
 export default function CityPage() {
   const { name } = useParams();
@@ -51,7 +94,7 @@ export default function CityPage() {
             {city}
           </motion.h1>
           <p className="mt-4 text-[17px] sm:text-xl text-white/85 max-w-2xl leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-            {count} vetted rental cars in {city} from {operators} operators we've checked ourselves — rent,
+            {count} vetted rental cars in {city} from {operators} operators we've checked ourselves. Rent,
             insurance and cover shown up front. No deposits vanishing, no chasing a stranger on WhatsApp.
           </p>
           <div className="flex gap-3 mt-8 flex-wrap">
@@ -79,16 +122,20 @@ export default function CityPage() {
         </div>
       </section>
 
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-12">
+        <p className="text-[17px] text-[#3B4A44] leading-relaxed max-w-3xl" data-testid="city-intro">{CITY_SEO[city]?.intro}</p>
+      </section>
+
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="mb-7">
           <h2 className="text-[26px] sm:text-4xl font-heading font-bold text-[#1A2E25]">Cars in {city} right now</h2>
           <p className="text-[#7A857F] mt-1.5">
-            {greenCount} of them are hybrid or fully electric — the lowest running costs on the road.
+            {greenCount} of them are hybrid or fully electric, the lowest running costs on the road.
           </p>
         </div>
         {count === 0 ? (
           <div className="text-center py-20 text-[#7A857F] bg-white rounded-2xl ring-1 ring-slate-200">
-            No cars listed in {city} yet — check back soon.
+            No cars listed in {city} yet. Check back soon.
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -102,6 +149,21 @@ export default function CityPage() {
             </Button>
           </div>
         )}
+      </section>
+
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-4" data-testid="city-faq">
+        <h2 className="text-[24px] sm:text-3xl font-heading font-bold text-[#1A2E25] mb-6">Renting a car in {city}</h2>
+        <div className="divide-y divide-slate-200 rounded-2xl ring-1 ring-slate-200 bg-white">
+          {(CITY_SEO[city]?.faq || []).map((item) => (
+            <details key={item.q} data-testid="city-faq-item" className="group p-5">
+              <summary className="flex items-center justify-between gap-4 cursor-pointer list-none font-heading font-semibold text-[#1A2E25]">
+                {item.q}
+                <ChevronDown className="w-5 h-5 text-[#0B6B4F] shrink-0 transition-transform duration-300 group-open:rotate-180" />
+              </summary>
+              <p className="text-[15px] text-[#4A564F] mt-3 leading-relaxed">{item.a}</p>
+            </details>
+          ))}
+        </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">

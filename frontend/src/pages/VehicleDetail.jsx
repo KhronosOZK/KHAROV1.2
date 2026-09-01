@@ -20,7 +20,7 @@ export default function VehicleDetail() {
   const [v, setV] = useState(null);
   const [quote, setQuote] = useState(null);
   const [photo, setPhoto] = useState(0);
-  const [weeks, setWeeks] = useState(12);
+  const [weeks, setWeeks] = useState(1);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -150,7 +150,7 @@ export default function VehicleDetail() {
 
           <Section title="Reviews">
             <div className="bg-white rounded-2xl p-6 ring-1 ring-slate-200/70" data-testid="reviews-empty">
-              <p className="text-[15px] text-[#1A2E25] font-medium">No reviews yet — this operator is new to Kharo.</p>
+              <p className="text-[15px] text-[#1A2E25] font-medium">No reviews yet. This operator is new to Kharo.</p>
               <p className="text-[14px] text-[#4A564F] mt-1.5 leading-relaxed">Background and licence checks are complete. Driver reviews will appear here once the first rentals are underway.</p>
             </div>
           </Section>
@@ -206,13 +206,13 @@ function Spin360({ photos }) {
 function CostPanel({ v, insurance, breakdownCost, rentWeekly, weeks, total, monthly, navigate, quote }) {
   return (
     <>
-      <div className="flex items-baseline gap-1"><span className="text-3xl font-heading font-extrabold text-[#1A2E25]">£{rentWeekly.toFixed(0)}</span><span className="text-[#7A857F]">a week</span></div>
+      <div className="flex items-baseline gap-1"><span className="text-3xl font-heading font-extrabold text-[#1A2E25]" data-testid="detail-headline-price">£{rentWeekly.toFixed(0)}</span><span className="text-[#7A857F]">a week</span></div>
       <p className="text-[12px] text-[#7A857F] mt-1">over {weeks} weeks, plus £{v.deposit} deposit returned at the end</p>
       <div className="mt-5 space-y-3 text-[14px]">
-        <div className="flex justify-between"><span className="text-[#4A564F]">Weekly rent</span><span className="font-semibold">£{rentWeekly.toFixed(2)}</span></div>
+        <div className="flex justify-between"><span className="text-[#4A564F]">Weekly rent</span><span className="font-semibold" data-testid="detail-weekly-rent">£{rentWeekly.toFixed(2)}</span></div>
         <div className="flex justify-between"><span className="text-[#4A564F]">Insurance <span className="text-[11px] text-[#9AA39D]">(indicative)</span></span><span className="font-semibold">{insurance != null ? `£${insurance.toFixed(2)}` : "…"}</span></div>
         <div className="flex justify-between"><span className="text-[#4A564F]">Breakdown cover</span><span className="font-semibold">{v.breakdown_included ? "Included" : `£${breakdownCost.toFixed(2)}`}</span></div>
-        <div className="border-t border-slate-200 pt-3 flex justify-between text-base"><span className="font-semibold text-[#1A2E25]">Every week</span><span className="font-heading font-extrabold text-[#0B6B4F]">£{total}</span></div>
+        <div className="border-t border-slate-200 pt-3 flex justify-between text-base"><span className="font-semibold text-[#1A2E25]">Every week</span><span className="font-heading font-extrabold text-[#0B6B4F]" data-testid="detail-all-in">£{total}</span></div>
         <div className="text-[12px] text-[#7A857F] text-right">around £{monthly} a month</div>
       </div>
       <a href={quote?.quotezone_url || "https://www.quotezone.co.uk/taxi-insurance"} target="_blank" rel="noopener noreferrer" data-testid="quotezone-link"

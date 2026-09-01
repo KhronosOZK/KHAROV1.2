@@ -9,7 +9,7 @@ const steps = [
   { n: "02", t: "Sort your insurance once", d: "You give us your licence and driving history a single time. We connect you to specialist hire-and-reward cover through Quotezone, and reuse your details so you never fill the same form twice.", img: IMG.signingCouple },
   { n: "03", t: "Apply and get the nod", d: "The application is short and your details fill themselves in. The rental company reviews it and runs a background check. Most drivers hear back inside a day.", img: IMG.signingLaptop },
   { n: "04", t: "Check the car over together", d: "At launch, you and the operator take photos from every angle before you drive off. Both sides get a timestamped record, so if anything comes up later there is proof rather than a disagreement.", img: IMG.keysWoman },
-  { n: "05", t: "Get out there and earn", d: "Anything crops up — a warning light, a bump, a parking ticket — you let us know and we point you to the right person. Breakdown cover and servicing are already handled.", img: IMG.driverNight },
+  { n: "05", t: "Get out there and earn", d: "If anything crops up, like a warning light, a bump or a parking ticket, you let us know and we point you to the right person. Breakdown cover and servicing are already handled.", img: IMG.driverNight },
   { n: "06", t: "Hand back or carry on", d: "Book a return slot and do the same quick photo check in reverse. Your deposit comes back once both sets match. Want to keep going? Compare fresh quotes and extend with your details already saved.", img: IMG.vintageDriver },
 ];
 
@@ -20,10 +20,10 @@ export default function DriverGuide() {
       <section className="relative overflow-hidden">
         <img src={IMG.taxiDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/50" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 [text-shadow:0_2px_16px_rgba(0,0,0,0.45)]">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 [text-shadow:0_2px_16px_rgba(0,0,0,0.45)]">
           <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For drivers</p>
           <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">From first look to keys in your hand.</h1>
-          <p className="text-white/75 mt-5 text-[18px] max-w-2xl leading-relaxed">Here is the whole thing, start to finish, in plain English. No small print surprises.</p>
+          <p className="text-white/75 mt-4 text-[17px] max-w-xl leading-relaxed">The whole thing, start to finish, in plain English.</p>
           <Button onClick={() => navigate("/")} className="mt-8 rounded-full bg-white text-[#1A2E25] hover:bg-[#F1EFE9] font-semibold">Browse cars <ArrowRight className="w-4 h-4 ml-2" /></Button>
         </div>
       </section>
@@ -53,7 +53,7 @@ export default function DriverGuide() {
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white text-balance">Ready when you are.</h2>
             <p className="text-white/75 mt-3 max-w-xl mx-auto text-[16px]">Set up your account in about a minute, then browse and apply with your details already in place. No deposit until you are approved.</p>
             <div className="flex gap-3 justify-center mt-7 flex-wrap">
-              <Button onClick={() => navigate("/register")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Create your free account <ArrowRight className="w-4 h-4 ml-2" /></Button>
+              <Button onClick={() => navigate("/register")} className="rounded-full bg-[#5FD3A6] hover:bg-[#0B6B4F] text-[#0E1A14] hover:text-white font-semibold">Register your interest <ArrowRight className="w-4 h-4 ml-2" /></Button>
               <button onClick={() => navigate("/")} className="text-white/80 hover:text-white text-[14px] font-medium underline underline-offset-4">Browse cars first</button>
             </div>
           </div>

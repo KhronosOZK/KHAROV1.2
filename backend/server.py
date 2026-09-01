@@ -124,6 +124,21 @@ class InterestIn(BaseModel):
     email: EmailStr
     phone: str
     heard_from: Optional[str] = None
+    vehicle_types: Optional[str] = None
+
+class DriverInterestIn(BaseModel):
+    name: str
+    email: EmailStr
+    phone: str
+    dob: Optional[str] = None
+    dvla_licence: Optional[str] = None
+    pco_licence: Optional[str] = None
+    years_experience: Optional[str] = None
+    city: Optional[str] = None
+    car_type: Optional[str] = None
+    availability: Optional[str] = None
+    notes: Optional[str] = None
+    heard_from: Optional[str] = None
 
 class EventIn(BaseModel):
     type: str
@@ -357,6 +372,22 @@ async def create_interest(body: InterestIn):
     })
     fire(send_alert("Operator fleet interest", {"Company": body.company_name, "Contact": body.contact_name,
                                                 "Email": body.email.lower(), "Phone": body.phone, "Fleet size": body.fleet_size, "Areas": body.areas}))
+    return {"ok": True}
+
+@api.post("/driver-interest")
+async def create_driver_interest(body: DriverInterestIn):
+    doc = body.model_dump()
+    doc["email"] = doc["email"].lower()
+    doc["created_at"] = now_iso()
+    await db.driver_interests.insert_one(doc)
+    await db.leads.insert_one({
+        "name": body.name, "email": body.email.lower(), "phone": body.phone,
+        "source": "driver_interest", "created_at": now_iso(),
+        "data": {"city": body.city, "car_type": body.car_type, "years_experience": body.years_experience,
+                 "dvla_licence": body.dvla_licence, "pco_licence": body.pco_licence, "availability": body.availability},
+    })
+    fire(send_alert("New driver interest", {"Name": body.name, "Email": body.email.lower(), "Phone": body.phone,
+                                            "City": body.city, "Wants": body.car_type, "Experience": body.years_experience}))
     return {"ok": True}
 
 @api.post("/leads")

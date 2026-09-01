@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { SlidersHorizontal, Search } from "lucide-react";
 import { api, trackEvent } from "@/lib/api";
 import { POPULAR_CITIES, MORE_CITIES, LIVE_CITIES } from "@/lib/cities";
+import { useAuth } from "@/context/AuthContext";
 import VehicleCard from "@/components/VehicleCard";
 import CityInterestForm from "@/components/CityInterestForm";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import { Slider } from "@/components/ui/slider";
 export default function SearchResults() {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
+  const { compare, clearCompare } = useAuth();
   const [listings, setListings] = useState(null);
   const [city, setCity] = useState(params.get("city") || "London");
   const [vtype, setVtype] = useState(params.get("type") || "any");
@@ -104,6 +106,14 @@ export default function SearchResults() {
             <Button onClick={() => navigate(`/request-a-car?city=${encodeURIComponent(city)}`)} data-testid="sr-request-car-btn"
               className="rounded-full bg-[#5FD3A6] hover:bg-white text-[#0A130F] font-semibold shrink-0 hover:-translate-y-[2px] transition-transform">Request a car</Button>
           </div>
+        </div>
+      )}
+
+      {compare.length > 0 && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 rounded-full bg-[#1A2E25] text-white pl-5 pr-2 py-2 shadow-xl" data-testid="compare-bar">
+          <span className="text-[14px] font-medium">{compare.length} car{compare.length !== 1 ? "s" : ""} to compare</span>
+          <button onClick={clearCompare} data-testid="compare-clear-bar" className="text-[13px] text-white/60 hover:text-white transition-colors">Clear</button>
+          <Button onClick={() => navigate("/compare")} data-testid="go-compare" className="rounded-full bg-[#5FD3A6] hover:bg-white text-[#0A130F] font-semibold h-9">Compare</Button>
         </div>
       )}
     </main>

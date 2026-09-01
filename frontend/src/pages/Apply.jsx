@@ -80,7 +80,7 @@ export default function Apply() {
       <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto"><Check className="w-8 h-8 text-emerald-700" /></div>
       <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25] mt-6" data-testid="apply-success">Application sent</h1>
       <p className="text-[#4A564F] mt-3 leading-relaxed">The operator will review your application and usually replies within 24 hours. We will email and notify you the moment they respond, and share their full details the moment they accept.</p>
-      <div className="flex gap-3 justify-center mt-8"><Button onClick={() => navigate("/portal")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white">Go to my portal</Button><Button onClick={() => navigate("/")} variant="outline" className="rounded-full">Keep browsing</Button></div>
+      <div className="flex gap-3 justify-center mt-8"><Button onClick={() => navigate("/search")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white">Browse more cars</Button><Button onClick={() => navigate("/")} variant="outline" className="rounded-full">Back to home</Button></div>
     </main>
   );
 

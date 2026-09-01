@@ -1,32 +1,35 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, ArrowLeft, ShieldCheck, Clock } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
+import { api } from "@/lib/api";
 import { DRIVER_CARS, estimateDriverWeek } from "@/lib/pricing";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const inputCls = "h-12 bg-white border-slate-200 rounded-xl focus-visible:ring-[#0B6B4F]/30 focus-visible:border-[#0B6B4F]";
+const inputCls = "h-12 bg-[#F6F5F2] border border-transparent rounded-xl px-4 text-[15px] focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-[#0B6B4F]/25 focus-visible:border-[#0B6B4F] transition-colors";
 
 const STEPS = [
-  { key: "name", q: "What's your name?", sub: "This is how operators will see you when you apply.", fields: [{ label: "Full name", name: "name", placeholder: "Jordan Smith", testid: "reg-name" }], required: ["name"] },
-  { key: "email", q: "What's your email?", sub: "We'll send your account details and quotes here.", fields: [{ label: "Email", name: "email", type: "email", placeholder: "you@email.com", testid: "reg-email" }], required: ["email"] },
-  { key: "phone", q: "Your mobile number", sub: "Operators can reach you faster this way.", fields: [{ label: "Mobile number", name: "phone", placeholder: "07…", testid: "reg-phone" }], required: ["phone"] },
-  { key: "password", q: "Create a password", sub: "Keeps your application details and documents secure.", fields: [{ label: "Password", name: "password", type: "password", placeholder: "At least 6 characters", testid: "reg-password" }], required: ["password"], minPassword: true },
-  { key: "dob", q: "When were you born?", sub: "Most operators require drivers to be 21 or over.", fields: [{ label: "Date of birth", name: "dob", type: "date", testid: "reg-dob" }] },
-  { key: "licence", q: "Your driving licences", sub: "Optional now, but adding them means faster quotes and one less form later.", fields: [{ label: "DVLA licence number", name: "dvla_licence", placeholder: "SMITH901284JS9AB", testid: "reg-dvla" }, { label: "PCO / TfL badge number", name: "pco_licence", placeholder: "123456", testid: "reg-pco" }] },
+  { key: "name", q: "What's your name?", sub: "So we know who to keep in touch with.", fields: [{ label: "Full name", name: "name", placeholder: "Jordan Smith", testid: "reg-name" }], required: ["name"] },
+  { key: "email", q: "What's your email?", sub: "We'll email you the moment we go live in your area.", fields: [{ label: "Email", name: "email", type: "email", placeholder: "you@email.com", testid: "reg-email" }], required: ["email"] },
+  { key: "phone", q: "Your mobile number", sub: "So we can reach you quickly when cars are ready.", fields: [{ label: "Mobile number", name: "phone", placeholder: "07…", testid: "reg-phone" }], required: ["phone"] },
+  { key: "city", q: "Where do you drive?", sub: "Tell us your city so we match you to local cars first.", fields: [{ label: "City or area", name: "city", placeholder: "London, Croydon", testid: "reg-city" }], required: ["city"] },
+  { key: "cartype", q: "What kind of car do you want?", sub: "A rough idea helps us line up the right options.", select: { name: "car_type", testid: "reg-cartype", options: ["Hybrid", "Electric", "Executive", "MPV or 7 seat", "Wheelchair accessible", "Not sure yet"] } },
+  { key: "experience", q: "Your private hire experience", sub: "New drivers are welcome. This just helps us match you.", select: { name: "years_experience", testid: "reg-experience", options: ["New to private hire", "Under 1 year", "1 to 3 years", "3 years or more"] } },
+  { key: "licence", q: "Your driving licences", sub: "Optional now. Adding them means we can move faster at launch.", fields: [{ label: "DVLA licence number", name: "dvla_licence", placeholder: "SMITH901284JS9AB", testid: "reg-dvla" }, { label: "PCO / TfL badge number", name: "pco_licence", placeholder: "123456", testid: "reg-pco" }] },
+  { key: "when", q: "When do you want to start?", sub: "Last one. This tells us how soon to reach out.", select: { name: "availability", testid: "reg-availability", options: ["As soon as possible", "Within a month", "Just exploring for now"] } },
 ];
 
 export default function Register() {
-  const { register } = useAuth();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [f, setF] = useState({ name: "", email: "", phone: "", password: "", dob: "", dvla_licence: "", pco_licence: "" });
+  const [done, setDone] = useState(false);
+  const [f, setF] = useState({ name: "", email: "", phone: "", city: "", car_type: "Hybrid", years_experience: "New to private hire", dvla_licence: "", pco_licence: "", availability: "As soon as possible" });
   const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
 
   const [carKey, setCarKey] = useState("hybrid");
@@ -38,35 +41,44 @@ export default function Register() {
 
   const canNext = () => {
     if (cur.required) { for (const r of cur.required) if (!f[r]?.trim()) return false; }
-    if (cur.minPassword && f.password.length < 6) return false;
     return true;
   };
 
   const finish = async () => {
     setLoading(true);
-    const res = await register({ ...f, role: "driver" });
+    try { await api.post("/driver-interest", f); setDone(true); window.scrollTo(0, 0); }
+    catch { toast.error("Something went wrong. Please try again."); }
     setLoading(false);
-    if (res.ok) { toast.success("Account created. Welcome to Kharo."); navigate("/portal"); }
-    else toast.error(res.error);
   };
 
   const next = () => {
-    if (!canNext()) { toast.error(cur.minPassword ? "Your password needs at least 6 characters." : "Please fill this in to continue."); return; }
+    if (!canNext()) { toast.error("Please fill this in to continue."); return; }
     if (!isLast) setStep(step + 1); else finish();
   };
   const back = () => setStep((s) => Math.max(0, s - 1));
 
+  if (done) return (
+    <main className="max-w-xl mx-auto px-4 py-24 text-center">
+      <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto"><Check className="w-8 h-8 text-emerald-700" /></div>
+      <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25] mt-6" data-testid="reg-success">You're on the launch list.</h1>
+      <p className="text-[#4A564F] mt-3 text-[16px] leading-relaxed">Thanks {f.name.split(" ")[0]}. We've saved your details and we'll email you the moment cars are ready to rent in {f.city}. In the meantime, feel free to keep browsing the cars.</p>
+      <div className="flex gap-3 justify-center mt-8 flex-wrap">
+        <Button onClick={() => navigate("/search")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="reg-browse">Browse the cars <ArrowRight className="w-4 h-4 ml-2" /></Button>
+        <Button onClick={() => navigate("/driver-guide")} variant="outline" className="rounded-full border-slate-200">See how it works</Button>
+      </div>
+    </main>
+  );
+
   return (
     <main className="bg-[#F9F8F6] min-h-[calc(100vh-68px)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
-        {/* LEFT — value stage (light) */}
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center lg:text-left">
           <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">Drive with Kharo</p>
           <h1 className="mt-3 font-heading font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.03] text-[#1A2E25] text-balance">
-            The keys to a<br /><span className="text-[#0B6B4F]">better week.</span>
+            Be first in line<br /><span className="text-[#0B6B4F]">at launch.</span>
           </h1>
-          <p className="mt-5 text-[17px] text-[#4A564F] max-w-md mx-auto lg:mx-0 leading-relaxed">
-            Rent, insurance and breakdown cover in one honest weekly figure. Pick a car and see what a full-time week could put in your pocket.
+          <p className="mt-4 text-[16px] text-[#4A564F] max-w-md mx-auto lg:mx-0 leading-relaxed">
+            Register your interest and we'll tell you the day you can rent near you.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.5 }}
@@ -95,22 +107,21 @@ export default function Register() {
           </motion.div>
 
           <div className="mt-7 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2.5">
-            {[[ShieldCheck, "Cover built in"], [Clock, "Hear back within a day"], [Check, "Nothing to pay before you're approved"]].map(([Icon, t]) => (
+            {[[ShieldCheck, "Cover built in"], [Clock, "We'll email you at launch"], [Check, "Nothing to pay to register"]].map(([Icon, t]) => (
               <span key={t} className="flex items-center gap-2 text-[13px] text-[#4A564F]"><Icon className="w-4 h-4 text-[#0B6B4F]" strokeWidth={1.6} /> {t}</span>
             ))}
           </div>
         </motion.div>
 
-        {/* RIGHT — one-question-per-screen wizard */}
         <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }}
-          className="w-full max-w-md justify-self-center lg:justify-self-end bg-white rounded-[24px] ring-1 ring-slate-200/70 p-6 sm:p-8 shadow-sm">
+          className="w-full max-w-md justify-self-center lg:justify-self-end bg-white rounded-[28px] ring-1 ring-slate-200 p-6 sm:p-9 shadow-xl">
           <div className="mb-7">
-            <div className="flex items-center justify-between text-[12.5px] text-[#7A857F] mb-2">
+            <div className="flex items-center justify-between text-[12.5px] text-[#7A857F] mb-2.5">
               <span data-testid="reg-step-label">Step {step + 1} of {STEPS.length}</span>
               <span>{pct}%</span>
             </div>
-            <div className="h-1.5 rounded-full bg-[#EDEAE3] overflow-hidden">
-              <div className="h-full bg-[#0B6B4F] rounded-full transition-all duration-500" style={{ width: `${pct}%` }} data-testid="reg-progress" />
+            <div className="flex items-center gap-1.5" data-testid="reg-progress">
+              {STEPS.map((_, i) => (<div key={i} className={`h-1.5 rounded-full flex-1 transition-all duration-500 ${i <= step ? "bg-[#0B6B4F]" : "bg-[#E7E4DD]"}`} />))}
             </div>
           </div>
 
@@ -119,24 +130,30 @@ export default function Register() {
               <motion.div key={cur.key} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25 }}>
                 <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#1A2E25] leading-tight text-balance">{cur.q}</h2>
                 <p className="text-[15px] text-[#4A564F] mt-2 mb-7">{cur.sub}</p>
-                <div className="space-y-4">
-                  {cur.fields.map((fl, idx) => (
-                    <Field key={fl.name} label={fl.label}>
-                      <Input autoFocus={idx === 0} type={fl.type || "text"} value={f[fl.name]} onChange={set(fl.name)} data-testid={fl.testid} className={inputCls} placeholder={fl.placeholder} />
-                    </Field>
-                  ))}
-                </div>
+                {cur.select ? (
+                  <Select value={f[cur.select.name]} onValueChange={(val) => setF((p) => ({ ...p, [cur.select.name]: val }))}>
+                    <SelectTrigger data-testid={cur.select.testid} className="h-12 rounded-xl bg-white border-slate-200"><SelectValue /></SelectTrigger>
+                    <SelectContent>{cur.select.options.map((x) => <SelectItem key={x} value={x}>{x}</SelectItem>)}</SelectContent>
+                  </Select>
+                ) : (
+                  <div className="space-y-4">
+                    {cur.fields.map((fl, idx) => (
+                      <Field key={fl.name} label={fl.label}>
+                        <Input autoFocus={idx === 0} type={fl.type || "text"} value={f[fl.name]} onChange={set(fl.name)} data-testid={fl.testid} className={inputCls} placeholder={fl.placeholder} />
+                      </Field>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             </AnimatePresence>
 
             <div className="flex gap-3 mt-8">
               {step > 0 && <Button type="button" variant="outline" onClick={back} className="rounded-full border-slate-200 hover:-translate-y-[2px] transition-transform" data-testid="reg-back"><ArrowLeft className="w-4 h-4" /></Button>}
               <Button type="submit" disabled={loading} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white flex-1 h-11 hover:-translate-y-[2px] transition-transform" data-testid={isLast ? "reg-submit" : "reg-continue"}>
-                {isLast ? (loading ? "Creating your account" : "Create account and browse cars") : "Continue"} {!isLast && <ArrowRight className="w-4 h-4 ml-2" />}
+                {isLast ? (loading ? "Sending" : "Register my interest") : "Continue"} {!isLast && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </div>
           </form>
-          <p className="text-[14px] text-[#4A564F] mt-6 text-center">Already with us? <Link to="/login" className="text-[#0B6B4F] font-semibold">Sign in</Link></p>
         </motion.div>
       </div>
     </main>

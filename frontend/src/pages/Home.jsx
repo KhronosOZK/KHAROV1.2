@@ -58,21 +58,21 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#0A130F]/88" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A130F] via-[#0A130F]/70 to-[#0A130F]/40" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-14 sm:pt-24 sm:pb-20">
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-10 sm:pt-16 sm:pb-16">
+          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-[12px] sm:text-[13px] font-medium text-[#5FD3A6] tracking-[0.14em] uppercase">
             Private hire car rental, done properly
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-            className="mt-4 text-[38px] leading-[1.03] sm:text-6xl lg:text-[76px] font-heading font-extrabold text-white tracking-tight max-w-4xl text-balance drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
-            London private hire cars, no hidden costs and no nonsense.
+            className="mt-3 text-[30px] leading-[1.05] sm:text-5xl lg:text-[64px] font-heading font-extrabold text-white tracking-tight max-w-4xl text-balance drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
+            London private hire cars, no hidden costs.
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}
-            className="mt-5 text-[17px] sm:text-xl text-white/85 max-w-2xl leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-            You pay nothing until you're approved and behind the wheel. Every car comes from a rental company we've checked ourselves, with the real weekly cost — rent, insurance and cover — shown up front.
+            className="hidden sm:block mt-4 text-lg text-white/80 max-w-xl leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+            Nothing to pay until you're approved and driving. Every car is checked, with the full weekly cost shown up front.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}
-            className="mt-9 bg-white rounded-[26px] p-4 sm:p-6 shadow-2xl">
+            className="mt-5 sm:mt-8 bg-white rounded-[26px] p-4 sm:p-6 shadow-2xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Filter label="Where you drive">
                 <Select value={city} onValueChange={setCity}><SelectTrigger data-testid="filter-borough" className="h-11 bg-white"><SelectValue /></SelectTrigger>
@@ -102,7 +102,7 @@ export default function Home() {
             </Button>
           </motion.div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-6 mt-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-5 mt-7 sm:mt-9">
             {stats.map((s) => (
               <div key={s.l} className="border-l border-white/20 pl-4">
                 <div className="text-2xl sm:text-[28px] font-heading font-extrabold text-white leading-none">{s.n}</div>

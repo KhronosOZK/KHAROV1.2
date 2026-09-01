@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, ArrowLeft, TrendingUp, ShieldCheck, Wallet, MapPin, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
-import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,32 +13,30 @@ import { VEHICLE_CLASSES, fleetBucket, estimateFleetEarnings } from "@/lib/prici
 import { AnimatedNumber } from "@/components/AnimatedNumber";
 
 const fleetOpts = ["1-5", "6-15", "16-30", "30+"];
-const inputCls = "h-12 bg-white border-slate-200 rounded-xl focus-visible:ring-[#0B6B4F]/30 focus-visible:border-[#0B6B4F]";
+const inputCls = "h-12 bg-[#F6F5F2] border border-transparent rounded-xl px-4 text-[15px] focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-[#0B6B4F]/25 focus-visible:border-[#0B6B4F] transition-colors";
 
 const STEPS = [
   { key: "company", q: "What's your company called?", sub: "The trading name drivers will see once you're verified.", fields: [{ label: "Company name", name: "company_name", testid: "int-company" }], required: ["company_name"] },
-  { key: "reg", q: "Your registrations", sub: "Optional right now — it helps us fast-track verification later.", fields: [{ label: "Companies House number", name: "companies_house", testid: "int-ch" }, { label: "TfL operator licence", name: "tfl_operator_licence", testid: "int-tfl" }] },
+  { key: "reg", q: "Your registrations", sub: "Optional right now. It helps us fast-track verification later.", fields: [{ label: "Companies House number", name: "companies_house", testid: "int-ch" }, { label: "TfL operator licence", name: "tfl_operator_licence", testid: "int-tfl" }] },
   { key: "fleet", q: "How many vehicles do you run?", sub: "Helps us understand the supply you can bring.", select: { name: "fleet_size", testid: "int-fleet", options: fleetOpts, render: (x) => `${x} vehicles` } },
   { key: "areas", q: "Where do you operate?", sub: "The boroughs or areas your cars cover.", fields: [{ label: "Boroughs or areas", name: "areas", placeholder: "Croydon, Bromley", testid: "int-areas" }], required: ["areas"] },
   { key: "types", q: "What types of car do you rent out?", sub: "A quick idea of your fleet mix.", fields: [{ label: "Types of car", name: "vehicle_types", placeholder: "Hybrids, saloons, one WAV", testid: "int-types" }] },
   { key: "you", q: "A little about you", sub: "So we know who we're speaking to.", fields: [{ label: "Your name", name: "contact_name", testid: "int-name" }, { label: "Your role", name: "role", testid: "int-role" }], required: ["contact_name"] },
-  { key: "contact", q: "How can we reach you?", sub: "We'll send your earning potential and onboarding steps here.", fields: [{ label: "Email", name: "email", type: "email", testid: "int-email" }, { label: "Phone", name: "phone", testid: "int-phone" }], required: ["email", "phone"] },
-  { key: "password", q: "Create a password", sub: "To sign in and explore your fleet dashboard.", fields: [{ label: "Password", name: "password", type: "password", placeholder: "At least 6 characters", testid: "int-password" }], required: ["password"], minPassword: true },
-  { key: "heard", q: "How did you hear about us?", sub: "Last one — this really helps us.", select: { name: "heard_from", testid: "int-heard", options: ["Word of mouth", "Social media", "Search engine", "Industry event", "Other"], render: (x) => x } },
+  { key: "contact", q: "How can we reach you?", sub: "We'll email you your earning potential and the launch steps.", fields: [{ label: "Email", name: "email", type: "email", testid: "int-email" }, { label: "Phone", name: "phone", testid: "int-phone" }], required: ["email", "phone"] },
+  { key: "heard", q: "How did you hear about us?", sub: "Last one. This really helps us.", select: { name: "heard_from", testid: "int-heard", options: ["Word of mouth", "Social media", "Search engine", "Industry event", "Other"], render: (x) => x } },
 ];
 
 export default function OperatorInterest() {
   const navigate = useNavigate();
-  const { register } = useAuth();
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
-  const [count, setCount] = useState(37);
+  const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [cars, setCars] = useState(10);
   const [vClass, setVClass] = useState(VEHICLE_CLASSES[0]);
   const [f, setF] = useState({
     company_name: "", companies_house: "", tfl_operator_licence: "", fleet_size: "6-15",
-    vehicle_types: "", areas: "", contact_name: "", role: "", email: "", phone: "", password: "", heard_from: "Word of mouth",
+    vehicle_types: "", areas: "", contact_name: "", role: "", email: "", phone: "", heard_from: "Word of mouth",
   });
   const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
 
@@ -53,27 +50,24 @@ export default function OperatorInterest() {
 
   const canNext = () => {
     if (cur.required) { for (const r of cur.required) if (!f[r]?.trim()) return false; }
-    if (cur.minPassword && f.password.length < 6) return false;
     return true;
   };
 
   const submit = async () => {
     setLoading(true);
-    const res = await register({ name: f.contact_name, email: f.email, phone: f.phone, password: f.password, role: "operator" });
     try {
       await api.post("/interest", {
         company_name: f.company_name, companies_house: f.companies_house, tfl_operator_licence: f.tfl_operator_licence,
-        fleet_size: f.fleet_size, areas: f.vehicle_types ? `${f.areas} (types: ${f.vehicle_types})` : f.areas,
+        fleet_size: f.fleet_size, areas: f.areas, vehicle_types: f.vehicle_types,
         contact_name: f.contact_name, role: f.role, email: f.email, phone: f.phone, heard_from: f.heard_from,
       });
-    } catch (err) { console.error("Interest lead capture failed:", err); }
+      setDone(true); window.scrollTo(0, 0);
+    } catch { toast.error("Something went wrong. Please try again."); }
     setLoading(false);
-    if (res.ok) { setDone(true); window.scrollTo(0, 0); }
-    else { toast.error(res.error?.includes("exists") ? "That email is already registered. Try signing in." : (res.error || "Something went wrong.")); }
   };
 
   const next = () => {
-    if (!canNext()) { toast.error(cur.minPassword ? "Add a password of at least 6 characters." : "Please fill this in to continue."); return; }
+    if (!canNext()) { toast.error("Please fill this in to continue."); return; }
     if (!isLast) setStep(step + 1); else submit();
   };
   const back = () => setStep((s) => Math.max(0, s - 1));
@@ -82,11 +76,11 @@ export default function OperatorInterest() {
   if (done) return (
     <main className="max-w-xl mx-auto px-4 py-24 text-center">
       <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto"><Check className="w-8 h-8 text-emerald-700" /></div>
-      <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25] mt-6" data-testid="interest-success">You are in. Welcome to Kharo.</h1>
-      <p className="text-[#4A564F] mt-3 text-[16px] leading-relaxed">Your account is ready. We have sent an email with your earning potential, the onboarding steps and how verification works. In the meantime, take a look around your fleet dashboard.</p>
+      <h1 className="text-3xl font-heading font-extrabold text-[#1A2E25] mt-6" data-testid="interest-success">You're on the launch list.</h1>
+      <p className="text-[#4A564F] mt-3 text-[16px] leading-relaxed">Thanks for registering {f.company_name}. We've saved your details and we'll be in touch with your earning potential and the onboarding steps as we get ready to go live.</p>
       <div className="flex gap-3 justify-center mt-8 flex-wrap">
-        <Button onClick={() => navigate("/operator-dashboard")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="interest-goto-dashboard">Open my dashboard <ArrowRight className="w-4 h-4 ml-2" /></Button>
-        <Button onClick={() => navigate("/operator-guide")} variant="outline" className="rounded-full border-slate-200">See how it works</Button>
+        <Button onClick={() => navigate("/operator-guide")} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white" data-testid="interest-guide">See how it works <ArrowRight className="w-4 h-4 ml-2" /></Button>
+        <Button onClick={() => navigate("/")} variant="outline" className="rounded-full border-slate-200">Back to home</Button>
       </div>
     </main>
   );
@@ -94,14 +88,13 @@ export default function OperatorInterest() {
   return (
     <main className="bg-[#F9F8F6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-20 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        {/* LEFT — estimator stage (light) */}
         <div className="text-center lg:text-left">
           <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">For rental companies</p>
             <h1 className="mt-3 font-heading font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.03] text-[#1A2E25] text-balance">
               Put your fleet<br /><span className="text-[#0B6B4F]">to work.</span>
             </h1>
-            <p className="mt-5 text-[17px] text-[#4A564F] max-w-md mx-auto lg:mx-0 leading-relaxed">Drag to your fleet size and see what Kharo could bring in, matched with vetted drivers and paid every fortnight.</p>
+            <p className="mt-4 text-[16px] text-[#4A564F] max-w-md mx-auto lg:mx-0 leading-relaxed">See what your fleet could bring in, then register to get matched with vetted drivers at launch.</p>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.5 }}
@@ -138,31 +131,29 @@ export default function OperatorInterest() {
           </motion.div>
 
           <div className="mt-7 space-y-2.5 max-w-md mx-auto lg:mx-0 text-left">
-            {[[ShieldCheck, "Every driver background and licence checked"], [Wallet, "No listing fees, a flat 10% on the rental side only"], [MapPin, "Track every vehicle's live location from your dashboard"], [TrendingUp, "Rent covered up to two weeks if a driver defaults"]].map(([Icon, t]) => (
+            {[[ShieldCheck, "Every driver background and licence checked"], [Wallet, "No listing fees, a flat 10% on the rental side only"], [MapPin, "See your fleet's live location in the operator tools at launch"], [TrendingUp, "Rent covered up to two weeks if a driver defaults"]].map(([Icon, t]) => (
               <div key={t} className="flex items-start gap-3 text-[14px] text-[#4A564F]"><Icon className="w-5 h-5 text-[#0B6B4F] shrink-0 mt-0.5" strokeWidth={1.6} /> {t}</div>
             ))}
             <p className="text-[#9AA39D] text-[13px] pt-1">{count > 0 ? `${count} operator${count === 1 ? "" : "s"} have already registered their interest` : "Be one of the first operators to join Kharo"}</p>
           </div>
         </div>
 
-        {/* RIGHT — one-question-per-screen wizard */}
-        <motion.div id="operator-form" initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }}
-          className="w-full max-w-md justify-self-center lg:justify-self-end bg-white rounded-[24px] ring-1 ring-slate-200/70 p-6 sm:p-8 shadow-sm scroll-mt-24">
+        <div className="w-full max-w-md justify-self-center lg:justify-self-end bg-white rounded-[28px] ring-1 ring-slate-200 p-6 sm:p-9 shadow-xl scroll-mt-24" id="operator-form">
           <h2 className="text-[22px] font-heading font-bold text-[#1A2E25]">Claim your spot on the launch list</h2>
-          <p className="text-[14px] text-[#4A564F] mt-1.5">Two minutes, and you can explore your dashboard straight away.</p>
+          <p className="text-[14px] text-[#4A564F] mt-1.5">Two minutes and you're on the list.</p>
 
           <div className="mt-5 flex items-start gap-3 rounded-2xl bg-[#E6F5F0] border border-[#0B6B4F]/15 p-3.5">
             <Mail className="w-5 h-5 text-[#0B6B4F] shrink-0 mt-0.5" strokeWidth={1.6} />
-            <p className="text-[13px] text-[#1A2E25] leading-relaxed">The moment you register, we email you everything: your exact earning potential, the full onboarding process, verification steps and how live tracking works.</p>
+            <p className="text-[13px] text-[#1A2E25] leading-relaxed">Once you register, we'll email you the details: your earning potential, the onboarding process and how verification works.</p>
           </div>
 
           <div className="mt-6 mb-6">
-            <div className="flex items-center justify-between text-[12.5px] text-[#7A857F] mb-2">
+            <div className="flex items-center justify-between text-[12.5px] text-[#7A857F] mb-2.5">
               <span data-testid="int-step-label">Step {step + 1} of {STEPS.length}</span>
               <span>{pct}%</span>
             </div>
-            <div className="h-1.5 rounded-full bg-[#EDEAE3] overflow-hidden">
-              <div className="h-full bg-[#0B6B4F] rounded-full transition-all duration-500" style={{ width: `${pct}%` }} data-testid="int-progress" />
+            <div className="flex items-center gap-1.5" data-testid="int-progress">
+              {STEPS.map((_, i) => (<div key={i} className={`h-1.5 rounded-full flex-1 transition-all duration-500 ${i <= step ? "bg-[#0B6B4F]" : "bg-[#E7E4DD]"}`} />))}
             </div>
           </div>
 
@@ -199,12 +190,13 @@ export default function OperatorInterest() {
             <div className="flex gap-3 mt-7">
               {step > 0 && <Button type="button" variant="outline" onClick={back} className="rounded-full border-slate-200 hover:-translate-y-[2px] transition-transform" data-testid="int-back"><ArrowLeft className="w-4 h-4" /></Button>}
               <Button type="submit" disabled={loading} className="rounded-full bg-[#0B6B4F] hover:bg-[#095B43] text-white flex-1 h-11 hover:-translate-y-[2px] transition-transform" data-testid={isLast ? "int-submit" : "int-continue"}>
-                {isLast ? (loading ? "Creating your account" : "Create account and register") : "Continue"} {!isLast && <ArrowRight className="w-4 h-4 ml-2" />}
+                {isLast ? (loading ? "Sending" : "Register my interest") : "Continue"} {!isLast && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </div>
           </form>
-        </motion.div>
+        </div>
       </div>
     </main>
   );
 }
+

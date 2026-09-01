@@ -23,7 +23,7 @@ const steps = [
 const requirements = [
   "A valid TfL / PCO private hire driver licence (or one in progress)",
   "A full UK or exchangeable driving licence, held 12 months or more",
-  "You are 21 or over — most operators require this for insurance",
+  "You are 21 or over, which most operators require for insurance",
   "The right to work and drive for private hire in the UK",
 ];
 
@@ -35,17 +35,17 @@ export default function ForDrivers() {
       <section className="relative overflow-hidden">
         <img src={IMG.happyDriver} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0E1A14]/95 via-[#0E1A14]/82 to-[#0E1A14]/50" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
           <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">For drivers</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-white mt-3 max-w-3xl leading-[1.03] text-balance">
-            The right car for the week, with no hidden costs.
+            The right car for the week, no hidden costs.
           </h1>
-          <p className="text-white/75 mt-5 text-[17px] sm:text-[18px] max-w-2xl leading-relaxed">
-            Kharo is where London private hire drivers rent from vetted operators — rent, insurance and cover shown as one honest weekly figure, and nothing to pay until you're approved and behind the wheel.
+          <p className="text-white/75 mt-4 text-[17px] max-w-xl leading-relaxed">
+            Rent from vetted London operators. One honest weekly price, nothing to pay until you're approved.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button onClick={() => navigate("/")} data-testid="fd-browse" className="rounded-full bg-[#5FD3A6] hover:bg-white text-[#0E1A14] font-semibold h-11 px-6">Browse cars <ArrowRight className="w-4 h-4 ml-2" /></Button>
-            <Button onClick={() => navigate("/register")} data-testid="fd-register" variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white h-11 px-6">Create your free account</Button>
+            <Button onClick={() => navigate("/register")} data-testid="fd-register" variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white h-11 px-6">Register your interest</Button>
           </div>
         </div>
       </section>
@@ -85,7 +85,7 @@ export default function ForDrivers() {
             <p className="text-[13px] font-medium text-[#5FD3A6] tracking-[0.12em] uppercase">See what a week could pay</p>
             <h2 className="text-3xl sm:text-4xl font-heading font-extrabold mt-3 leading-tight text-balance">Pick a car and watch the numbers add up.</h2>
             <p className="text-white/70 mt-4 text-[15px] leading-relaxed max-w-md">
-              Our take-home estimator shows typical weekly fares against the all-in car cost and fuel, so you know what a full-time week could really put in your pocket — before you sign up.
+              Our take-home estimator shows typical weekly fares against the all-in car cost and fuel, so you know what a full-time week could really put in your pocket before you sign up.
             </p>
             <Button onClick={() => navigate("/register")} className="mt-7 rounded-full bg-[#5FD3A6] hover:bg-white text-[#0E1A14] font-semibold h-11 px-6">Estimate my take-home <ArrowRight className="w-4 h-4 ml-2" /></Button>
           </div>
@@ -121,7 +121,7 @@ export default function ForDrivers() {
           <div>
             <p className="text-[13px] font-medium text-[#0B6B4F] tracking-[0.12em] uppercase">What you'll need</p>
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#1A2E25] mt-2 text-balance">Ready to rent? Here's the checklist.</h2>
-            <p className="text-[15px] text-[#4A564F] mt-3 leading-relaxed">You can browse and create an account with none of this to hand — you'll only need these to complete a rental.</p>
+            <p className="text-[15px] text-[#4A564F] mt-3 leading-relaxed">You can browse and register with none of this to hand. You'll only need these to complete a rental.</p>
             <ul className="mt-6 space-y-4">
               {requirements.map((r) => (
                 <li key={r} className="flex gap-3"><div className="w-6 h-6 rounded-full bg-[#0B6B4F] text-white flex items-center justify-center shrink-0 mt-0.5"><Check className="w-3.5 h-3.5" /></div><span className="text-[15px] text-[#1A2E25] leading-relaxed">{r}</span></li>
