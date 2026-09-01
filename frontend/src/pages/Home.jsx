@@ -44,7 +44,7 @@ export default function Home() {
 
   const stats = [
     { n: all.length ? `${all.length}` : "60", l: "cars from operators we've checked" },
-    { n: "4 cities", l: "London, Birmingham, Manchester & Leeds" },
+    { n: "5 cities", l: "London, Birmingham, Manchester, Leeds & Sheffield" },
     { n: "Under 24h", l: "to hear back after you apply" },
     { n: "One price", l: "rent, insurance and cover, weekly" },
   ];

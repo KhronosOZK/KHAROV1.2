@@ -13,6 +13,12 @@ Private hire minicab (PHV) rental marketplace for London Uber drivers. Caro is t
 2. **Rental company / operator** — wants vetted drivers & operational tooling; registers interest pre-launch.
 3. **Caro Ops (admin)** — needs to see & export every captured lead for outreach.
 
+## Implemented (2026-06 / iteration 11 — inventory rebuild with matched photography)
+- Rebuilt the entire seed inventory (backend/seed_data.py) to **180 listings**: 100 London + 20 each in Birmingham, Manchester, Leeds and **Sheffield** (new live city). LIVE_CITIES/POPULAR_CITIES updated (Sheffield swapped in for Glasgow); "4 cities" copy → "5 cities" on Home + ForDrivers.
+- Every listing now uses **AI-generated photography that matches its exact make/model/colour** — a front shot, a rear shot and a segment-correct interior (3 photos each). Fixes the long-standing complaint that photos didn't match the car or its price. 30 model/colour exteriors + 30 rear angles + 5 interiors generated (Gemini Nano Banana), hosted on Emergent static CDN.
+- Realistic London PCO model mix, weighted so Prius/Corolla/hybrids/EVs dominate, interleaved so adjacent cards vary. Rent-only (pre-insurance) weekly pricing kept market-accurate (£130–£290) with per-year + jitter variance. UK-format plates, realistic mileage by year.
+- Verified via API (per-city counts, photo URL mapping per model/colour/type) and screenshots (London search grid, Prius detail gallery front/rear/interior).
+
 ## Implemented (2026-08 / iteration 10 — For Drivers page, nav, slider, consistency)
 - Fixed the homepage/search budget slider so BOTH range thumbs render (shadcn slider.jsx now maps a Thumb per value; previously only one showed).
 - Top nav: "For operators" now opens the Operator Guide (/operator-guide); added a new "For drivers" link. Nav testids made unique (nav-for-drivers, nav-for-operators).

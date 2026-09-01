@@ -10,7 +10,7 @@ const benefits = [
   { icon: BadgeCheck, t: "Operators we've checked", d: "Every rental company on Kharo is vetted before a single car goes live. No unknown yards, no fake landlords on WhatsApp." },
   { icon: Navigation, t: "Every rental is GPS-tracked", d: "The live location of each vehicle is tracked throughout the rental, so both you and the operator are protected if anything is ever disputed." },
   { icon: Wrench, t: "Cover built in", d: "Breakdown cover and servicing are handled on most cars, so a flat battery or a warning light doesn't cost you a day's work." },
-  { icon: MapPin, t: "Cars across four cities", d: "Browse vetted vehicles in London, Birmingham, Manchester and Leeds, with more cities opening as we grow." },
+  { icon: MapPin, t: "Cars across five cities", d: "Browse vetted vehicles in London, Birmingham, Manchester, Leeds and Sheffield, with more cities opening as we grow." },
 ];
 
 const steps = [
@@ -53,7 +53,7 @@ export default function ForDrivers() {
       {/* Trust strip */}
       <section className="border-b border-slate-200/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[["Free", "to browse and apply"], ["Under 24h", "to hear back after you apply"], ["One price", "rent, insurance and cover"], ["4 cities", "and growing"]].map(([n, l]) => (
+          {[["Free", "to browse and apply"], ["Under 24h", "to hear back after you apply"], ["One price", "rent, insurance and cover"], ["5 cities", "and growing"]].map(([n, l]) => (
             <div key={n} className="text-center md:text-left">
               <div className="text-2xl sm:text-3xl font-heading font-extrabold text-[#1A2E25]">{n}</div>
               <div className="text-[13px] text-[#4A564F] mt-1">{l}</div>
